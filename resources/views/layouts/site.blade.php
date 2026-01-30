@@ -458,10 +458,7 @@
         We preload the CSS and the main font file to ensure they load 
         fast and in parallel, avoiding "chaining" warnings without using JS hacks.
     -->
-    <link rel="preload" href="/fontawesome/css/all.min.css" as="style">
-    <link rel="preload" href="/fontawesome/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
-    
-    <link rel="stylesheet" href="/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     
     
