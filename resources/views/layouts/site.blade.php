@@ -469,7 +469,7 @@
     <!-- Main App JS (Deferred by Vite) -->
 
     
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/app.jsx'])
     
     @include('partials.app-scripts')
     @stack('footer-scripts')

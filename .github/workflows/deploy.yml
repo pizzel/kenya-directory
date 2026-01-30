@@ -14,7 +14,9 @@ jobs:
     steps:
       - name: 🎯 Checkout code
         uses: actions/checkout@v4
-        
+        with:
+          fetch-depth: 0
+
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -24,7 +26,6 @@ jobs:
       - name: 📥 Install dependencies
         run: npm install
 
-      
       - name: 🏗️ Build production assets
         run: |
           npm run build
@@ -37,16 +38,33 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /Discover_Kenya/
+          
+          # SAFETY SETTING: 
+          # Set to 'false' so it NEVER deletes files on your server (safe for now).
+          # Set to 'true' only if you want the server to be an exact mirror of GitHub.
+          delete: false
+          
+          # EXCLUSIONS:
+          # This list prevents the action from uploading heavy framework files 
+          # or overwriting server-specific configs.
           exclude: |
             **/.git*
             **/.git*/**
+            **/.github/**
             **/node_modules/**
-            **/storage/app/public/media/**
-            **/storage/app/public/businesses/**
-            **/vendor/**
+            
+            # ⛔ SERVER CONFIGS (Do not overwrite)
             **/.env
-            **/storage/logs/**
-      
+            
+            # ⛔ USER CONTENT & LOGS (Do not overwrite)
+            **/storage/**
+            **/public/storage/**
+            
+            # ⛔ HEAVY FRAMEWORK FILES (Skip checking these to speed up deploy)
+            # Only un-comment 'vendor' if you never run 'composer install' on the server
+            **/vendor/**
+            **/tests/**
+            
       - name: ✅ Deployment complete
         run: |
           echo "🎉 Deployed to discoverkenya.co.ke"
