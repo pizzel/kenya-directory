@@ -48,29 +48,29 @@ export default function Layout({ children }) {
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route('listings.index')} className={ziggy?.location?.includes('/listings') || ziggy?.location?.includes('/listing') ? 'active' : ''}>
+                                <a href={route('listings.index')} className={ziggy?.location?.includes('/listings') || ziggy?.location?.includes('/listing') ? 'active' : ''}>
                                     <i className="fas fa-compass" style={{ marginRight: '5px' }}></i> Explore
-                                </Link>
+                                </a>
                             </li>
                             <li>
-                                <Link href={route('collections.index')} className={ziggy?.location?.includes('/collections') ? 'active' : ''}>
+                                <a href={route('collections.index')} className={ziggy?.location?.includes('/collections') ? 'active' : ''}>
                                     <i className="fas fa-layer-group" style={{ marginRight: '5px' }}></i> Collections
-                                </Link>
+                                </a>
                             </li>
                             <li>
-                                <Link href={route('itineraries.index')} className={ziggy?.location?.includes('/itineraries') ? 'active' : ''}>
+                                <a href={route('itineraries.index')} className={ziggy?.location?.includes('/itineraries') ? 'active' : ''}>
                                     <i className="fas fa-route" style={{ marginRight: '5px' }}></i> Journeys
-                                </Link>
+                                </a>
                             </li>
                             <li>
-                                <Link href={route('posts.index')} className={ziggy?.location?.includes('/blog') ? 'active' : ''}>
+                                <a href={route('posts.index')} className={ziggy?.location?.includes('/blog') ? 'active' : ''}>
                                     <i className="fas fa-blog" style={{ marginRight: '5px' }}></i> Blog
-                                </Link>
+                                </a>
                             </li>
                             <li>
-                                <Link href={route('contact.show')} className={route().current('contact.show') ? 'active' : ''}>
+                                <a href={route('contact.show')} className={route().current('contact.show') ? 'active' : ''}>
                                     <i className="fas fa-envelope" style={{ marginRight: '5px' }}></i> Contact
-                                </Link>
+                                </a>
                             </li>
                         </ul>
                     </nav>
@@ -88,13 +88,13 @@ export default function Layout({ children }) {
                                 {isUserDropdownOpen && (
                                     <div className="user-dropdown-menu" style={{ display: 'block' }}>
                                         {auth.user.role === 'admin' ? (
-                                            <Link href={route('admin.dashboard')} className="dropdown-item">Admin Panel</Link>
+                                            <a href={route('admin.dashboard')} className="dropdown-item">Admin Panel</a>
                                         ) : auth.user.role === 'business_owner' ? (
-                                            <Link href={route('business-owner.dashboard')} className="dropdown-item">Business Dashboard</Link>
+                                            <a href={route('business-owner.dashboard')} className="dropdown-item">Business Dashboard</a>
                                         ) : (
-                                            <Link href={route('wishlist.index')} className="dropdown-item">My Bucketlist</Link>
+                                            <a href={route('wishlist.index')} className="dropdown-item">My Bucketlist</a>
                                         )}
-                                        <Link href={route('profile.edit')} className="dropdown-item">Profile Settings</Link>
+                                        <a href={route('profile.edit')} className="dropdown-item">Profile Settings</a>
                                         <div style={{ borderTop: '1px solid #f1f5f9', margin: '5px 0' }}></div>
                                         <Link href={route('logout')} method="post" as="button" className="dropdown-item" style={{ width: '100%', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer' }}>
                                             Logout
@@ -104,8 +104,8 @@ export default function Layout({ children }) {
                             </div>
                         ) : (
                             <>
-                                <Link href={route('login')} className="login-btn">Login</Link>
-                                <Link href={route('register')} className="signup-btn">Sign Up</Link>
+                                <a href={route('login')} className="login-btn">Login</a>
+                                <a href={route('register')} className="signup-btn">Sign Up</a>
                             </>
                         )}
                     </div>
@@ -130,10 +130,10 @@ export default function Layout({ children }) {
 
                 <div className="mobile-nav-content">
                     <Link href={route('home')} className="mobile-nav-item" onClick={toggleMobileMenu}>Home</Link>
-                    <Link href={route('listings.index')} className="mobile-nav-item" onClick={toggleMobileMenu}>Explore</Link>
-                    <Link href={route('collections.index')} className="mobile-nav-item" onClick={toggleMobileMenu}>Collections</Link>
-                    <Link href={route('posts.index')} className="mobile-nav-item" onClick={toggleMobileMenu}>Travel Blog</Link>
-                    <Link href={route('contact.show')} className="mobile-nav-item" onClick={toggleMobileMenu}>Contact Us</Link>
+                    <a href={route('listings.index')} className="mobile-nav-item" onClick={toggleMobileMenu}>Explore</a>
+                    <a href={route('collections.index')} className="mobile-nav-item" onClick={toggleMobileMenu}>Collections</a>
+                    <a href={route('posts.index')} className="mobile-nav-item" onClick={toggleMobileMenu}>Travel Blog</a>
+                    <a href={route('contact.show')} className="mobile-nav-item" onClick={toggleMobileMenu}>Contact Us</a>
                 </div>
 
                 <div className="mobile-nav-footer">
@@ -144,17 +144,17 @@ export default function Layout({ children }) {
                                 {auth.user.name}
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                                <Link href={route('wishlist.index')} className="mobile-btn secondary" style={{ fontSize: '0.8rem' }} onClick={toggleMobileMenu}>Bucketlist</Link>
+                                <a href={route('wishlist.index')} className="mobile-btn secondary" style={{ fontSize: '0.8rem' }} onClick={toggleMobileMenu}>Bucketlist</a>
                                 <Link href={route('logout')} method="post" as="button" className="mobile-btn secondary" style={{ borderColor: '#fecaca', color: '#ef4444', fontSize: '0.8rem' }} onClick={toggleMobileMenu}>Logout</Link>
                             </div>
                             {(auth.user.role === 'business_owner' || auth.user.role === 'admin') && (
-                                <Link href={route('business-owner.dashboard')} className="mobile-btn primary" style={{ marginTop: '10px' }} onClick={toggleMobileMenu}>Dashboard</Link>
+                                <a href={route('business-owner.dashboard')} className="mobile-btn primary" style={{ marginTop: '10px' }} onClick={toggleMobileMenu}>Dashboard</a>
                             )}
                         </>
                     ) : (
                         <>
-                            <Link href={route('login')} className="mobile-btn secondary" onClick={toggleMobileMenu}>Log In</Link>
-                            <Link href={route('register')} className="mobile-btn primary" onClick={toggleMobileMenu}>Create Account</Link>
+                            <a href={route('login')} className="mobile-btn secondary" onClick={toggleMobileMenu}>Log In</a>
+                            <a href={route('register')} className="mobile-btn primary" onClick={toggleMobileMenu}>Create Account</a>
                         </>
                     )}
                 </div>
@@ -186,18 +186,18 @@ export default function Layout({ children }) {
                         <div className="footer-links">
                             <p className="footer-heading">Discover</p>
                             <ul>
-                                <li><Link href={route('listings.index')}>Browse Listings</Link></li>
-                                <li><Link href={route('collections.index')}>Collections</Link></li>
-                                <li><Link href={route('posts.index')}>Travel Blog</Link></li>
+                                <li><a href={route('listings.index')}>Browse Listings</a></li>
+                                <li><a href={route('collections.index')}>Collections</a></li>
+                                <li><a href={route('posts.index')}>Travel Blog</a></li>
                             </ul>
                         </div>
 
                         <div className="footer-links">
                             <p className="footer-heading">Company</p>
                             <ul>
-                                <li><Link href={route('contact.show')}>About Us</Link></li>
-                                <li><Link href={route('contact.show')}>Contact Support</Link></li>
-                                <li><Link href={route('contact.show')}>Privacy Policy</Link></li>
+                                <li><a href={route('contact.show')}>About Us</a></li>
+                                <li><a href={route('contact.show')}>Contact Support</a></li>
+                                <li><a href={route('contact.show')}>Privacy Policy</a></li>
                             </ul>
                         </div>
 
