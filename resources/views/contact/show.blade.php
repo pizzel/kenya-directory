@@ -34,14 +34,14 @@
                 </a>
 
                 {{-- Card: Phone --}}
-                <a href="tel:+254738681660" class="contact-card">
+                <a href="#" class="contact-card contact-phone-link" data-country="254" data-number="738681660">
                     <div class="icon-box green">
                         <i class="fas fa-phone"></i>
                     </div>
                     <div>
                         <h3>Call us</h3>
                         <p>Mon-Fri from 8am to 5pm.</p>
-                        <span class="link-text">+254 738 681 660</span>
+                        <span class="link-text phone-display"></span>
                     </div>
                 </a>
 
@@ -328,6 +328,27 @@
         link.addEventListener('click', (e) => {
             e.preventDefault();
             window.location.href = 'mailto:' + email;
+        });
+    });
+
+    // --- PHONE OBFUSCATION ---
+    const phoneLinks = document.querySelectorAll('.contact-phone-link');
+    phoneLinks.forEach(link => {
+        const country = link.getAttribute('data-country');
+        const number = link.getAttribute('data-number');
+        
+        // Format for display: +254 738 681 660
+        const displayNum = `+${country} ${number.slice(0, 3)} ${number.slice(3, 6)} ${number.slice(6)}`;
+        const rawNum = `+${country}${number}`;
+
+        // Update the display text
+        const display = link.querySelector('.phone-display');
+        if (display) display.textContent = displayNum;
+        
+        // Update the href on interaction
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'tel:' + rawNum;
         });
     });
 </script>
