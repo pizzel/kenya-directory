@@ -23,6 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
         // This is the only global middleware change we need.
         // It runs our smart caching logic early for every web request.
         $middleware->prependToGroup('web', \App\Http\Middleware\HandlePublicCaching::class);
+        $middleware->web(append: [
+            \App\Http\Middleware\HandleInertiaRequests::class,
+        ]);
 
         // Your existing aliases are perfect.
         $middleware->alias([

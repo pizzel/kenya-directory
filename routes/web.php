@@ -28,6 +28,9 @@ use App\Http\Controllers\SocialiteController;
 
 // --- PUBLIC ROUTES ---
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/react-test', function () {
+    return inertia('Home');
+});
 Route::get('/benchmark', [App\Http\Controllers\BenchmarkController::class, 'index'])->name('benchmark.index');
 Route::get('/ajax/search-suggestions', [App\Http\Controllers\HomeController::class, 'suggestions'])->name('ajax.search-suggestions');
 Route::get('/ajax/businesses/search', [App\Http\Controllers\PublicBusinessController::class, 'search'])->name('ajax.businesses.search');

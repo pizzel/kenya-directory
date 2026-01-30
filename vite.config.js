@@ -1,18 +1,25 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-    // This forces Vite to use relative paths (./) for fonts/images inside CSS
-    // instead of absolute paths (/). This fixes the issue on localhost subdirectories.
-    base: './', 
-
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/css/admin.css', 'resources/js/app.js'],
+            input: ['resources/css/app.css', 'resources/css/admin.css', 'resources/js/app.jsx'],
             refresh: true,
         }),
+        react(),
     ],
     build: {
         outDir: 'public/build',
+    },
+    server: {
+        host: '127.0.0.1',
+        port: 5177,
+        strictPort: true,
+        cors: true,
+        hmr: {
+            host: '127.0.0.1',
+        },
     },
 });
