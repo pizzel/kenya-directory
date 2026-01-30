@@ -1,0 +1,52 @@
+name: Deploy to Production (FTP)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  deploy:
+    name: Deploy to discoverkenya.co.ke
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🎯 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: 📥 Install dependencies
+        run: npm ci
+      
+      - name: 🏗️ Build production assets
+        run: |
+          npm run build
+          npm run build:ssr
+      
+      - name: 📤 Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /Discover_Kenya/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/storage/app/public/media/**
+            **/storage/app/public/businesses/**
+            **/vendor/**
+            **/.env
+            **/storage/logs/**
+      
+      - name: ✅ Deployment complete
+        run: |
+          echo "🎉 Deployed to discoverkenya.co.ke"
+          echo "🔍 Visit https://discoverkenya.co.ke/ to verify"
