@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Business;
 use App\Models\DiscoveryCollection;
 use Illuminate\Support\Facades\Cache;
+use Inertia\Inertia;
+
 
 class HomeController extends Controller
 {
@@ -106,13 +108,34 @@ class HomeController extends Controller
         $lcpImageUrlMobile = $firstHeroBusiness?->hero_image_url_mobile;
 
         // --- 3. DISCOVERY COLLECTIONS (Above Fold) ---
-        $discoveryCards = Cache::remember('home_discovery_cards', $cacheDuration, function () {
+        // --- 3. DISCOVERY COLLECTIONS (Above Fold) ---
+        $discoveryCards = Cache::remember('home_discovery_cards_v5', $cacheDuration, function () {
             return \App\Models\DiscoveryCollection::where('is_active', true)
+                ->select('id', 'title', 'slug')
                 ->withCount('businesses')
+                ->with(['businesses' => function ($q) {
+                     $q->select('id', 'slug', 'name')
+                       ->with('media'); 
+                }])
                 ->latest()
                 ->take(10) 
-                ->get();
+                ->get()
+                ->map(function($collection) {
+                    $cover = $collection->businesses->first();
+                    $imageUrl = $cover ? $cover->getImageUrl('card') : asset('images/placeholder-card.jpg');
+                    return [
+                        'id' => $collection->id,
+                        'title' => $collection->title,
+                        'slug' => $collection->slug,
+                        'businesses_count' => $collection->businesses_count,
+                        'card_image_url' => $imageUrl, // Guaranteed to be present in JSON
+                    ];
+                });
         });
+
+
+
+
 
         // --- 4. POPULAR COUNTIES (Initial View) ---
         // We cache the FULL sorted list with images, then slice it for the view.
@@ -158,18 +181,14 @@ class HomeController extends Controller
                 ->implode(', ');
         });
 
-        return view('home', compact(
-            'counties', 
-            'searchableCategories', 
-            'heroSliderBusinesses', 
-            'discoveryCards', 
-            'popularCounties', 
-            'lcpImageUrl', 
-            'lcpImageUrlMobile', 
-            'firstHeroBusiness',
-            'seoKeywords'
-        ));
+        return Inertia::render('Home', [
+            'heroSliderBusinesses' => $heroSliderBusinesses,
+            'discoveryCards'       => $discoveryCards,
+            'popularCounties'      => $popularCounties,
+            'seoKeywords'          => $seoKeywords,
+        ]);
     }
+
 
     public function debugLcp()
     {
@@ -252,12 +271,26 @@ class HomeController extends Controller
             // Render just the cards (no wrapper div)
             $html = view('partials.home-counties-loop', ['counties' => $pagedData])->render();
             
+            // Serialize counties to plain arrays for React
+            $countiesData = $pagedData->map(function($county) {
+                return [
+                    'id' => $county->id,
+                    'name' => $county->name,
+                    'slug' => $county->slug,
+                    'businesses_count' => $county->businesses_count,
+                    'display_image_url' => $county->display_image_url,
+                ];
+            })->values()->toArray();
+            
             // Return JSON so JS can append it
             return response()->json([
                 'html' => $html,
+                'counties' => $countiesData,
                 'hasMore' => $allCounties->count() > ($page * $perPage)
             ]);
         }
+
+
 
         // --- B. TRENDING ---
         if ($section === 'trending') {
@@ -270,9 +303,15 @@ class HomeController extends Controller
                     ->take(16)->get();
             });
 
+            if (request()->wantsJson() || request()->has('inertia')) {
+                $businesses->each(function($b) { $b->card_image_url = $b->getImageUrl('card'); });
+                return response()->json($businesses);
+            }
+
             // Uses your existing: resources/views/partials/home-section-cards.blade.php
             return view('partials.home-section-cards', compact('businesses'));
         }
+
 
         // --- C. NEW ARRIVALS ---
         if ($section === 'new-arrivals') {
@@ -284,8 +323,14 @@ class HomeController extends Controller
                     ->take(16)->get();
             });
 
+            if (request()->wantsJson() || request()->has('inertia')) {
+                $businesses->each(function($b) { $b->card_image_url = $b->getImageUrl('card'); });
+                return response()->json($businesses);
+            }
+
             return view('partials.home-section-cards', compact('businesses'));
         }
+
 
         // --- D. HIDDEN GEMS ---
         if ($section === 'hidden-gems') {
@@ -298,8 +343,14 @@ class HomeController extends Controller
                     ->take(12)->get();
             });
 
+            if (request()->wantsJson() || request()->has('inertia')) {
+                $businesses->each(function($b) { $b->card_image_url = $b->getImageUrl('card'); });
+                return response()->json($businesses);
+            }
+
             return view('partials.home-section-cards', compact('businesses'));
         }
+
 
         return response()->noContent();
     }
