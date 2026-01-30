@@ -22,14 +22,14 @@
             <div class="info-column">
                 
                 {{-- Card: Email --}}
-                <a href="mailto:info@discoverkenya.co.ke" class="contact-card">
+                <a href="#" class="contact-card contact-email-link" data-user="info" data-domain="discoverkenya.co.ke">
                     <div class="icon-box blue">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div>
                         <h3>Chat with us</h3>
                         <p>Our friendly team is here to help.</p>
-                        <span class="link-text">info@discoverkenya.co.ke</span>
+                        <span class="link-text email-display"></span>
                     </div>
                 </a>
 
@@ -313,5 +313,22 @@
             charCount.textContent = `${msgInput.value.length} / 200`;
         });
     }
+    // --- EMAIL OBFUSCATION ---
+    const emailLinks = document.querySelectorAll('.contact-email-link');
+    emailLinks.forEach(link => {
+        const user = link.getAttribute('data-user');
+        const domain = link.getAttribute('data-domain');
+        const email = user + '@' + domain;
+        
+        // Update the display text
+        const display = link.querySelector('.email-display');
+        if (display) display.textContent = email;
+        
+        // Update the href on interaction (prevents bot scraping)
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'mailto:' + email;
+        });
+    });
 </script>
 @endpush
