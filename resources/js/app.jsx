@@ -13,14 +13,11 @@ window.route = (name, params, absolute, config = Ziggy) => route(name, params, a
 createInertiaApp({
     title: (title) => `${title} - Discover Kenya`,
     resolve: (name) => {
-        console.log('Resolving component:', name);
         return resolvePageComponent(`./Pages/${name}.jsx`, import.meta.glob('./Pages/**/*.jsx'));
     },
     setup({ el, App, props }) {
-        console.log('Setting up Inertia app');
         const root = createRoot(el);
         root.render(<App {...props} />);
-        console.log('Render call completed');
     },
     progress: {
         color: '#2563eb',
