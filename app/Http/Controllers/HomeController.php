@@ -46,16 +46,47 @@ class HomeController extends Controller
             // B. Merge with Filler if needed
             if ($neededToFill > 0) {
                 $excludeIds = $paidBusinesses->pluck('id')->all();
+                
+                // 1. First Filler: Try to find Verified businesses with Images
                 $fillerBusinesses = \App\Models\Business::where('status', 'active')
                     ->where('is_verified', true)
                     ->whereNotIn('id', $excludeIds)
-                    ->has('media')
+                    ->whereHas('media', function ($q) {
+                        $q->where('collection_name', 'images');
+                    })
                     ->with(['media', 'county'])
                     ->inRandomOrder()
                     ->take($neededToFill)
                     ->get();
                 
+                // 2. Emergency Backup: If we still don't have 10, pick ANY active business with images
+                if (($paidBusinesses->count() + $fillerBusinesses->count()) < 10) {
+                    $excludeIds = array_merge($excludeIds, $fillerBusinesses->pluck('id')->all());
+                    $backupCount = 10 - ($paidBusinesses->count() + $fillerBusinesses->count());
+                    
+                    $extraFillers = \App\Models\Business::where('status', 'active')
+                        ->whereNotIn('id', $excludeIds)
+                        ->whereHas('media', function ($q) {
+                            $q->where('collection_name', 'images');
+                        })
+                        ->with(['media', 'county'])
+                        ->inRandomOrder()
+                        ->take($backupCount)
+                        ->get();
+                    
+                    $fillerBusinesses = $fillerBusinesses->merge($extraFillers);
+                }
+                
                 $finalCollection = $paidBusinesses->merge($fillerBusinesses);
+            }
+
+            // D. FINAL SAFETY CHECK: If still empty (e.g. fresh DB), get any active businesses
+            if ($finalCollection->isEmpty()) {
+                 $finalCollection = \App\Models\Business::where('status', 'active')
+                    ->has('media')
+                    ->with(['media', 'county'])
+                    ->take(5)
+                    ->get();
             }
 
             // C. Calculate URLs NOW

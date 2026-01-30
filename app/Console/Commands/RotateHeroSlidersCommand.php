@@ -81,7 +81,7 @@ class RotateHeroSlidersCommand extends Command
                 HeroSliderHistory::create([
                     'business_id' => $business->id,
                     'activated_at' => now(),
-                    'set_to_expire_at' => now()->addHours(24), // Set to expire in 24 hours instead of 1 hour
+                    'set_to_expire_at' => now()->addDays(14), // Increased to 14 days so they don't disappear after a day
                     'amount_paid' => 0,
                     // Removed 'status' => 'active' - the eligibleForHeroSlider scope only checks dates
                 ]);
@@ -94,7 +94,7 @@ class RotateHeroSlidersCommand extends Command
         });
 
         // 4. CLEAR HOMEPAGE CACHE
-        Cache::forget('home_hero_slider');
+        Cache::forget('home_hero_slider_final_v3');
         
         $this->info("✔ History table updated and cache cleared.");
         Log::info("--- ROTATION COMPLETE ---");

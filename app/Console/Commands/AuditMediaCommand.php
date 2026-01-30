@@ -68,7 +68,7 @@ class AuditMediaCommand extends Command
                         \App\Models\HeroSliderHistory::create([
                             'business_id' => $business->id,
                             'activated_at' => now(),
-                            'set_to_expire_at' => now()->addHour(), 
+                            'set_to_expire_at' => now()->addDays(14), 
                             'amount_paid' => 0,
                             'status' => 'active'
                         ]);
@@ -84,7 +84,7 @@ class AuditMediaCommand extends Command
         });
 
         // 6. CLEAR CACHE
-        Cache::forget('home_hero_slider');
+        Cache::forget('home_hero_slider_final_v3');
         
         Log::info("--- ROTATION COMPLETE ---");
         $this->info("\nDone! Check storage/logs/laravel.log for IDs and Paths.");
