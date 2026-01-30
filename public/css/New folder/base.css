@@ -1,0 +1,123 @@
+/* ==========================================================================
+   1. BASE STYLES (public/css/base.css)
+   ========================================================================== */
+
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px; /* Base font size */
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333; /* Default text color */
+    background-color: #f8f9fa; /* Light page background */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* This padding-top accommodates fixed header + fixed search bar from layout.css */
+    /* Will be adjusted in responsive.css for smaller screens if header/search become static */
+    padding-top: 135px; /* Approx: header 65px + search bar ~55-60px + gap */
+}
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* Headings - Basic defaults, can be overridden */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #212529; /* Darker heading color */
+}
+h1 { font-size: 2.5rem; } /* Can be overridden by page-specific styles like .hero h1 */
+h2 { font-size: 2rem; }   /* Can be overridden by section > h2 */
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; } /* Can be overridden by .filter-widget h4 or .sidebar-widget h4 */
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+    margin-bottom: 1rem;
+}
+
+ul, ol {
+    margin-bottom: 1rem;
+    /* Default list indentation, can be overridden (e.g., nav ul, filter-list ul) */
+    padding-left: 1.5rem;
+}
+li {
+    margin-bottom: 0.25rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Removes bottom space under images */
+    border-style: none; /* Remove border from linked images */
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;  /* Original padding */
+    padding-right: 20px;
+    overflow: visible; /* Allow positioned children to overflow */
+}
+
+/* General Section Styling */
+section {
+    padding-top: 50px; /* Original general padding */
+    padding-bottom: 50px;
+    position: relative;
+    overflow: visible; /* Important to allow dropdowns from sticky search to show */
+}
+section > h2 { /* Main section titles if h2 is a direct child */
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    color: #333;
+    font-weight: 600;
+}
+.section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+    margin-top: -30px;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Main Content Area */
+main {
+    position: relative;
+    z-index: 0;
+    overflow: visible;
+}
+/* Alternating backgrounds for sections directly under main */
+main > section:nth-child(odd):not(.hero):not(.sticky-search-section):not(.similar-listings-section) { background-color: #fff; }
+main > section:nth-child(even):not(.hero):not(.sticky-search-section):not(.similar-listings-section) { background-color: #f8f9fa; }
+/* Specific z-index for hero if it's within main, ensuring it's above default main sections but below fixed elements */
+main > section.hero {
+    z-index: 1;
+    /* Hero specific background is set in page-specific.css or inline */
+}

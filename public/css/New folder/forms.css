@@ -1,0 +1,118 @@
+/* ==========================================================================
+   FORM ELEMENTS
+   ========================================================================== */
+
+/* General input, select, textarea styling */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="time"], /* For schedule inputs */
+select,
+textarea {
+    padding: 9px 12px; /* Consistent padding */
+    border: 1px solid #ced4da;
+    border-radius: 4px; /* Standard border radius */
+    font-size: 0.95em;
+    line-height: 1.5;
+    width: 100%; /* Default to full width within their container */
+    box-sizing: border-box; /* Include padding and border in element's total width/height */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background-color: #fff;
+    color: #495057;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="time"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+textarea {
+    min-height: 80px; /* Default min height for textareas */
+    resize: vertical; /* Allow vertical resize */
+}
+
+select {
+    appearance: none; /* Remove default system appearance for select */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    padding-right: 2.5rem; /* Make space for the custom arrow */
+}
+select[multiple] { /* Styles for multi-select */
+    background-image: none; /* No arrow for multi-select */
+    height: auto; /* Allow it to grow based on size attribute or content */
+    min-height: 100px; /* Example min height */
+}
+
+
+input[type="range"].price-slider { /* Specific for price range slider */
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    outline: none;
+    opacity: 0.9;
+    transition: opacity .15s ease-in-out;
+    border-radius: 4px;
+    padding: 0; /* Override default padding for range */
+}
+input[type="range"].price-slider:hover { opacity: 1; }
+input[type="range"].price-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 18px; height: 18px;
+    background: #007bff; cursor: pointer; border-radius: 50%;
+}
+input[type="range"].price-slider::-moz-range-thumb {
+    width: 18px; height: 18px; background: #007bff; cursor: pointer; border-radius: 50%; border: none;
+}
+
+
+input[type="checkbox"],
+input[type="radio"] {
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    color: #007bff; /* Accent color */
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+label {
+    display: block; /* Labels above inputs by default */
+    margin-bottom: 0.3rem;
+    font-size: 0.9em;
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Form groups in sticky search bar (homepage) */
+.sticky-search-section .search-form input[type="text"] {
+    padding: 9px 18px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+.sticky-search-section .search-form label {
+    margin-bottom: 4px;
+    font-size: 0.75em;
+    padding-left: 15px;
+}

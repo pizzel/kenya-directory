@@ -1,0 +1,74 @@
+/* ==========================================================================
+   RESPONSIVE ADJUSTMENTS (public/css/responsive.css)
+   ========================================================================== */
+
+/* Detail Page: Gallery and 3-Column Layout */
+@media (max-width: 1100px) {
+    .listing-gallery-final { flex-direction: column; height: auto; }
+    .gallery-main-image-wrapper-final { height: 350px; /* Or use aspect-ratio if supported well */ flex-basis: auto; }
+    .gallery-right-column-final { flex-direction: row; /* Thumbnails side-by-side below main */ height: 130px; /* Adjust height of this row */ flex-basis: auto; }
+    .right-top-image-wrapper-final { flex: 1.5; /* Adjust proportions */ }
+    .gallery-small-thumbnails-stack { flex: 1; flex-direction: row; /* Ensure small ones are row too */ }
+    .small-thumbnail-item-final{ height: 100%; } /* Fill height of their parent stack */
+
+    .listing-content-area-3col { flex-direction: column; }
+    .listing-info-col1, .listing-map-col2, .listing-schedule-col3 {
+        flex-basis: auto; width: 100%; /* Stack full width */
+    }
+    .listing-map-col2 { order: 1; } /* Example: map below main info */
+    .listing-schedule-col3 { order: 2; } /* Schedule below map */
+}
+
+/* General Tablet and Below */
+@media (max-width: 992px) {
+    /* Homepage Sticky Search */
+    .sticky-search-section .search-form { max-width: 95%; padding: 10px 15px; flex-wrap: wrap; align-items: flex-end; }
+    .sticky-search-section .search-form .form-group { min-width: calc(50% - 10px); flex-basis: calc(50% - 10px); margin-bottom: 10px; /* Add margin when items wrap */ }
+    .sticky-search-section .search-form .keyword-group { flex-basis: 100%; margin-bottom: 10px; }
+    .sticky-search-section .search-form .search-btn { flex-basis: 100%; }
+
+    /* Listings Page (county.blade.php) */
+    .listing-page-container { flex-direction: column; }
+    .filters-sidebar { flex: 0 0 auto; width: 100%; margin-bottom: 30px; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    body { padding-top: 0; /* Header becomes static, no top padding needed from it */ }
+    header { position: static; /* Header becomes static on small mobile */ height: auto; padding-bottom: 10px; }
+    header .container { flex-direction: column; gap: 10px; } /* Stack logo and nav */
+    header nav ul { flex-direction: column; align-items: center; gap: 5px; margin-top:10px;}
+    header nav ul li { margin-left: 0; }
+    header .auth-buttons { margin-top:10px; }
+
+
+    .sticky-search-section {
+        position: static; /* Search bar also becomes static */
+        margin-top: 20px; /* Space after static header */
+        margin-bottom: 20px;
+        box-shadow: none;
+        border-top: 1px solid #e0e0e0; /* Add top border if needed */
+        border-bottom: 1px solid #e0e0e0;
+        padding-top:15px; padding-bottom: 15px;
+    }
+    .sticky-search-section .search-form { flex-direction: column; align-items: stretch; border-radius: 25px; gap: 10px; }
+    .sticky-search-section .search-form .form-group,
+    .sticky-search-section .search-form .search-btn { width: 100%; flex-basis: auto; margin-bottom: 0; }
+
+    /* Detail Page Gallery on small mobile */
+    .gallery-right-column-final { flex-direction: column; height: auto; }
+    .right-top-image-wrapper-final { height: 180px; /* Adjust for mobile */ width: 100%; }
+    .gallery-small-thumbnails-stack { flex-direction: row; height: 100px; width: 100%; }
+
+    /* Detail Page Info */
+    .listing-info-details-col .listing-info-details h1 { font-size: 1.5rem; }
+    .overall-rating-summary { flex-direction: column; align-items: flex-start; }
+    .overall-rating-summary .rating-value { margin-bottom: 10px; font-size: 2.5rem; }
+    .total-reviews { text-align: left; margin-top: 10px; }
+    .rating-breakdown .bar { width: 100%; /* Make bars full width of their container */ }
+
+    /* Footer */
+    .footer-content { flex-direction: column; text-align: center; }
+    .footer-section h4::after { left: 50%; transform: translateX(-50%); }
+    .social-links { text-align: center; }
+}

@@ -1,0 +1,37 @@
+User-agent: *
+
+# 1. Block Private/System Areas
+Disallow: /admin/
+Disallow: /custom-admin/
+Disallow: /business-owner/
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /auth-status
+Disallow: /forgot-password
+
+# 2. Block Filter & Redirect Junk (The "Table.csv" Fix)
+# These rules target the specific patterns found in your crawl logs
+Disallow: /*?redirect=*
+Disallow: /*?sort=*
+Disallow: /*&sort=*
+Disallow: /*?rating=*
+Disallow: /*&rating=*
+Disallow: /*?county_filter_slug=*
+Disallow: /*&county_filter_slug=*
+
+# 3. Prevent "Page 1" Duplication
+# This prevents Google from indexing 'category/hotel?page=1' as a duplicate of 'category/hotel'
+Disallow: /*?page=1$
+Disallow: /*&page=1$
+
+# 4. PROTECT CRAWL PATHS (Allow Google to find all businesses)
+# We allow Google to crawl page 2, 3, 4 etc., so it can find businesses 
+# buried deep in your lists, but ONLY if they don't have the filters above.
+Allow: /listings*?page=*
+Allow: /listings/category/*?page=*
+Allow: /listings/tag/*?page=*
+Allow: /listings/facility/*?page=*
+
+# 5. Allow Everything Else
+Allow: /
+Sitemap: https://discoverkenya.co.ke/sitemap.xml

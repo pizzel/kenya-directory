@@ -1,0 +1,423 @@
+@extends('layouts.site') {{-- Extends your main public site layout --}}
+
+@section('title')
+    {{ $event->title }} - Event in {{ $event->county->name ?? 'Kenya' }} | {{ config('app.name') }}
+@endsection
+
+@section('meta_description', Str::limit(strip_tags($event->description), 155) ?: "Details for the event: {$event->title}, including date, location, and activities.")
+
+@php
+    $pageKeywords = collect([$event->title, 'event', 'Kenya', $event->county->name ?? null])
+        ->merge($event->business ? [$event->business->name] : [])
+        ->merge($event->categories->pluck('name')) // Event categories
+        ->filter()->unique()->implode(', ');
+@endphp
+@section('meta_keywords', $pageKeywords)
+
+@section('breadcrumbs')
+    <a href="{{ route('home') }}">Home</a> /
+    <a href="{{ route('events.index.public') }}">All Events</a>
+    @if($event->county)
+        / <a href="{{ route('events.by_county', ['countySlug' => $event->county->slug]) }}">{{ $event->county->name }} Events</a>
+    @endif
+    / <span>{{ Str::limit($event->title, 50) }}</span>
+@endsection
+
+@section('content')
+<div class="event-detail-page-container container py-8">
+
+   <header class="event-detail-header mb-6">
+		<h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">{{ $event->title }}</h1>
+      
+	  
+    </header>
+
+    <div class="event-detail-layout grid md:grid-cols-3 gap-8">
+        {{-- Column 1: Main Event Details, Gallery, Description, Reviews --}}
+        <div class="event-main-content md:col-span-2">
+         {{-- Event Image Gallery (1 Large + Up to 2 Small Thumbnails) --}}
+            @if(isset($galleryImages) && $galleryImages->isNotEmpty())
+                <div class="listing-gallery-final event-gallery mb-6">
+                    <div class="gallery-main-image-wrapper-final">
+                        {{-- Main Image: Always the first image from $galleryImages --}}
+                        <img src="{{ $galleryImages->first()?->url ?? asset('images/placeholder-event-large.jpg') }}"
+                             alt="{{ $event->title }} Main Image" id="galleryMainImageEvent">
+                    </div>
+
+                    {{-- Right column for thumbnails only if there's more than 1 image total --}}
+                    @if($galleryImages->count() > 1)
+                        <div class="gallery-right-column-final">
+                            {{-- First Small Thumbnail (Right Top): This is the 2nd image overall --}}
+                            @if($galleryImages->get(1))
+                                <div class="right-top-image-wrapper-final">
+                                    <img src="{{ $galleryImages->get(1)->url }}" alt="{{ $event->title }} Thumbnail 1" onclick="setMainEventGalleryImage('{{ $galleryImages->get(1)->url }}')">
+                                </div>
+                            @else
+                                {{-- Placeholder if somehow only 1 image exists but count > 1 was true (should not happen with correct controller logic) --}}
+                                <div class="right-top-image-wrapper-final"><img src="{{ asset('images/placeholder-medium.jpg') }}" alt="Placeholder"></div>
+                            @endif
+
+                            {{-- Second Small Thumbnail (Right Bottom): This is the 3rd image overall --}}
+                            {{-- This one will also act as "View All" if there are 3 or more images in total for the lightbox --}}
+                            @if($galleryImages->get(2))
+                                <div class="small-thumbnail-item-final {{ $event->images->count() >= 3 ? 'view-all-trigger' : '' }}" id="eventViewAllTrigger">
+                                    <img src="{{ $galleryImages->get(2)->url }}" alt="{{ $event->title }} Thumbnail 2 (View All)">
+                                    {{-- Show "View All" if total images for the event are 3 or more --}}
+                                    @if($event->images->count() >= 3)
+                                        <div class="view-all-overlay-text">View All ({{ $event->images->count() }})</div>
+                                    @endif
+                                </div>
+                            @else
+                                {{-- If only 2 images total, this spot can be a placeholder or empty --}}
+                                {{-- To keep the layout consistent if only 2 images, show a placeholder: --}}
+                                <div class="small-thumbnail-item-final"><img src="{{ asset('images/placeholder-small.jpg') }}" alt="Placeholder"></div>
+                            @endif
+                        </div>
+                    @else
+                        {{-- Optional: If only 1 image, right column could be hidden or styled differently --}}
+                        {{-- For simplicity, if gallery-right-column-final has flex properties, it might just be empty or you can remove it --}}
+                    @endif
+                </div>
+
+                {{-- Hidden links for SimpleLightbox (contains ALL images for the event) --}}
+                <div class="business-lightbox-gallery" id="eventLightboxGallery" style="display:none;">
+                    @foreach($event->images->sortBy('order') as $image) {{-- Loop through original $event->images for lightbox --}}
+                        <a href="{{ $image->url }}" title="{{ $image->caption ?? e($event->title) }}"></a>
+                    @endforeach
+                </div>
+            @else
+                {{-- Fallback if $event has no images at all --}}
+                <div class="mb-6 main-event-placeholder-image">
+                    <img src="{{ asset('images/placeholder-event-large.jpg') }}" alt="{{ $event->title }} Placeholder" class="w-full rounded-lg shadow-md">
+                </div>
+            @endif
+            {{-- End Event Image Gallery --}}
+			
+               
+
+            <div class="event-description-section content-card">
+                <h2 class="section-title">About this Event</h2>
+                <div class="event-meta-info-card mb-6">
+                    <p class="event-date-time">
+                        <i class="fas fa-calendar-alt fa-fw"></i>
+                        <strong>Date & Time:</strong>
+                        {{ $event->start_datetime->format('D, M j, Y H:i A') }}
+                        @if($event->end_datetime->isSameDay($event->start_datetime))
+                            - {{ $event->end_datetime->format('H:i A') }}
+                        @else
+                            to {{ $event->end_datetime->format('D, M j, Y H:i A') }}
+                        @endif
+                    </p>
+                    @php
+                        $metaDisplayStatus = $event->display_status; // Get the status from the accessor
+                        $statusText = '';
+                        $statusClass = '';
+
+                        if ($metaDisplayStatus === 'cancelled') {
+                            $statusText = 'Cancelled';
+                            $statusClass = 'status-cancelled-meta';
+                        } elseif ($metaDisplayStatus === 'past') {
+                            $statusText = 'This Event has passed';
+                            $statusClass = 'status-past-meta';
+                        } elseif ($metaDisplayStatus === 'active' && $event->start_datetime->isFuture()) {
+                            $statusText = 'Upcoming Event';
+                            $statusClass = 'status-upcoming-meta';
+                        } elseif ($metaDisplayStatus === 'active' && $event->start_datetime->lte(now()) && $event->end_datetime->gte(now())) {
+                            $statusText = 'Currently Active / Ongoing'; // Optional for active events
+                            $statusClass = 'status-active-meta';
+                        }
+                    @endphp
+
+                    @if($statusText)
+                        <p class="event-current-status {{ $statusClass }}">
+                            <i class="fas {{ $metaDisplayStatus === 'cancelled' ? 'fa-times-circle' : ($metaDisplayStatus === 'past' ? 'fa-history' : 'fa-info-circle') }} fa-fw"></i>
+                            <strong>Status:</strong> {{ $statusText }}
+                        </p>
+                    @endif
+					
+                    @if($event->county || $event->address)
+                    <p class="event-location">
+                        <i class="fas fa-map-marker-alt fa-fw"></i>
+                        <strong>Location:</strong>
+                        {{ $event->address ? $event->address . ($event->county ? ', ' : '') : '' }}{{ $event->county->name ?? 'Kenya' }}
+                    </p>
+                    @endif
+                    @if($event->business)
+                    <p class="event-organizer">
+                        <i class="fas fa-store fa-fw"></i>
+                        <strong>Organized by:</strong>
+                        <a href="{{ route('listings.show', $event->business->slug) }}" class="text-link">{{ $event->business->name }}</a>
+                    </p>
+                    @endif
+                </div>
+                <div class="prose max-w-none">
+                    {!! nl2br(e($event->description)) !!}
+                </div>
+				{{-- NEW "ADD TO CALENDAR" WIDGET --}}
+				<div class="sidebar-widget add-to-calendar-widget content-card">
+					<h3 class="widget-title">Add to Calendar</h3>
+					<div class="add-to-calendar-buttons">
+						@php
+							// Ensure Carbon instances for Spatie\CalendarLinks
+							$fromCarbon = ($event->start_datetime instanceof \Carbon\Carbon) ? $event->start_datetime : \Carbon\Carbon::parse($event->start_datetime);
+							$toCarbon = ($event->end_datetime instanceof \Carbon\Carbon) ? $event->end_datetime : \Carbon\Carbon::parse($event->end_datetime);
+
+							$link = Spatie\CalendarLinks\Link::create(
+								$event->title,
+								$fromCarbon,
+								$toCarbon
+							)->description(Str::limit(strip_tags($event->description), 150) . "\n\nMore info: " . route('events.show.public', $event->slug));
+
+							if ($event->address || $event->county) {
+								$locationString = $event->address ?? '';
+								if ($event->county && $event->address) $locationString .= ', ';
+								if ($event->county) $locationString .= $event->county->name;
+								$link->address($locationString);
+							}
+						@endphp
+						<a href="{{ $link->google() }}" target="_blank" rel="noopener noreferrer" class="btn btn-calendar google-cal">
+							<i class="fab fa-google fa-fw"></i>Add to My Google Calendar
+						</a>
+						<a href="{{ route('events.ics', $event->slug) }}" class="btn btn-calendar ics-cal">
+							<i class="fas fa-calendar-plus fa-fw"></i>Add to My Outlook/Apple (ICS)
+						</a>
+						{{-- You can add more links if needed, e.g., $link->yahoo(), $link->webOutlook() --}}
+					</div>
+				</div>
+				{{-- END NEW "ADD TO CALENDAR" WIDGET --}}
+            </div>
+
+            <div class="reviews-section event-reviews content-card mt-8">
+							@php 
+							$eventReviews = $event->reviews()->with('user')->latest()->get(); // Ensure you have reviews relationship in Event model
+							$avgEventRating = $eventReviews->avg('rating');
+							$eventReviewCount = $eventReviews->count();
+						@endphp
+
+				
+                <h2 class="section-title">Event Feedback & Reviews ({{ $eventReviewCount }})</h2>
+                @if($eventReviewCount > 0 && $avgEventRating)
+                <div class="overall-rating-summary">
+                    <div class="rating-value">{{ number_format($avgEventRating, 1) }}</div>
+                    <div class="rating-breakdown">
+                        @for ($r = 5; $r >= 1; $r--)
+								@php 
+									$countForRating = $eventReviews->where('rating', $r)->count();
+									$percentage = ($eventReviewCount > 0) ? ($countForRating / $eventReviewCount) * 100 : 0;
+								@endphp
+                            <span>{{$r}} Stars <div class="bar"><div style="width: {{ round($percentage) }}%;"></div></div> ({{ $countForRating }})</span>
+                        @endfor
+                    </div>
+                    <div class="total-reviews">Based on {{ $eventReviewCount }} {{ Str::plural('review', $eventReviewCount) }}</div>
+                </div>
+                @endif
+             <div class="comments-list mt-6">
+					@forelse($event->reviews->sortByDesc('created_at') as $review) {{-- Loop all reviews --}}
+					<div class="comment-item">
+						{{-- ... avatar, user name, rating stars, date, comment text ... --}}
+						<p>{!! nl2br(e($review->comment)) !!}</p>
+						@can('delete', $review) {{-- Uses EventReviewPolicy@delete --}}
+							<form action="{{ route('events.reviews.destroy', $review) }}" method="POST" class="inline-block mt-2" onsubmit="return confirm('Delete this review?');">
+								@csrf @method('DELETE')
+								<button type="submit" class="text-xs text-red-500 hover:text-red-700 reply-link">
+									@if(Auth::id() === $review->user_id)
+										Delete My Review
+									@else
+										Delete Review (Admin/Mod)
+									@endif
+								</button>
+							</form>
+						@endcan
+					</div>
+					@empty
+					<p class="text-gray-600">No feedback yet for this event. Be the first to share yours!</p>
+					@endforelse
+				</div>
+			
+			
+			
+			
+                <div class="leave-comment-section mt-6 pt-6 border-t">
+                    <h3 class="text-lg font-medium">Leave Your Feedback</h3>
+                    @auth
+                        <form action="{{ route('events.reviews.store', $event->slug) }}" method="POST" class="bo-form mt-4">
+                            @csrf
+                            <div class="form-group"><label for="event_rating_submit">Your Rating <span class="text-red-500">*</span></label><select name="rating" id="event_rating_submit" required class="form-input"><option value="">Select Rating</option>@for($i=5; $i>=1; $i--)<option value="{{$i}}" {{ old('rating') == $i ? 'selected' : '' }}>{{$i}} Star{{$i>1?'s':''}} @if($i==5) (Excellent) @elseif($i==1) (Poor) @endif</option>@endfor</select>@error('rating')<span class="input-error-message">{{$message}}</span>@enderror</div>
+                            <div class="form-group"><label for="event_comment_submit">Your Comment <span class="text-red-500">*</span></label><textarea name="comment" id="event_comment_submit" rows="4" required class="form-input" maxlength="1000">{{ old('comment') }}</textarea>@error('comment')<span class="input-error-message">{{$message}}</span>@enderror<div id="eventCommentCharCount" class="text-xs text-gray-500 text-right mt-1"></div></div>
+                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                        </form>
+                    @else
+                        <p>You must be <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="text-link">logged in</a> to post feedback.</p>
+                    @endauth
+                </div>
+            </div>
+        </div> {{-- End event-main-content --}}
+
+        <aside class="event-sidebar md:col-span-1 space-y-6">
+            {{-- TAKE ME HERE BUTTON --}}
+            @if($event->latitude && $event->longitude)
+                <div class="sidebar-widget take-me-here-widget content-card">
+                    <h3 class="widget-title">Get Directions</h3>
+                    <button class="take-me-here-btn btn btn-secondary w-full"
+                            onclick="navigateToLocation('{{ $event->latitude }}', '{{ $event->longitude }}', '{{ e(addslashes($event->title)) }}')">
+                        <i class="fas fa-directions mr-2"></i> Take Me Here
+                    </button>
+                    <span class="location-navigation text-xs text-gray-500 block text-center mt-2">Enable device location for best results.</span>
+                </div>
+            @endif
+
+            {{-- MAP WIDGET --}}
+            @if($event->latitude && $event->longitude)
+            <div class="sidebar-widget map-widget content-card">
+                <h3 class="widget-title">Event Location Map</h3>
+                <div class="map-placeholder">
+                    <iframe src="https://maps.google.com/maps?q={{ $event->latitude }},{{ $event->longitude }}&hl=en&z=15&output=embed" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            @endif
+
+            {{-- PRICING & TICKETS --}}
+            <div class="sidebar-widget event-pricing-tickets content-card">
+                <h3 class="widget-title">Tickets & Pricing</h3>
+                @if($event->is_free)
+                    <p class="price-tag free-event text-xl font-semibold text-green-600">FREE EVENT</p>
+                @elseif($event->price)
+                    <p class="price-tag text-xl font-semibold">Price: <strong>Ksh {{ number_format($event->price, 0) }}</strong></p>
+                @else
+                    <p class="price-tag text-gray-600">Price: To Be Confirmed / See Details</p>
+                @endif
+                @if($event->ticketing_url)
+                    <a href="{{ $event->ticketing_url }}" class="btn btn-primary w-full mt-4" target="_blank" rel="noopener noreferrer">
+                        Get Tickets / Register Online
+                    </a>
+                @endif
+            </div>
+			   {{-- NEW: SHARE VIA WHATSAPP WIDGET --}}
+            <div class="sidebar-widget share-event-widget content-card">
+                <h3 class="widget-title">Share this Event</h3>
+                <div class="share-buttons-container">
+                    <a href="#" id="eventWhatsappShareBtn"
+                       class="social-icon-public whatsapp-share-button" {{-- Reusing classes for styling --}}
+                       title="Share Event on WhatsApp"
+                       target="_blank" rel="noopener noreferrer"
+                       data-url="{{ route('events.show.public', $event->slug) }}" {{-- URL of this event page --}}
+                       data-title="{{ e($event->title) }}"> {{-- Title of the event --}}
+                        <i class="fab fa-whatsapp"></i> <span class="share-button-text">Share via WhatsApp</span>
+                    </a>
+                    {{-- Add other share buttons here later if needed --}}
+                </div>
+            </div>
+            {{-- END NEW WHATSAPP SHARE WIDGET --}}
+			
+			<div class="report-business-section mt-6 pt-6 border-t content-card"> {{-- Reusing class --}}
+				<h3 class="widget-title">Report Issue</h3>
+				<button type="button" id="reportEventBtn" class="btn btn-danger-outline w-full"
+						data-item-id="{{ $event->id }}"
+						data-item-name="{{ e($event->title) }}"
+						data-item-type="event">
+					<i class="fas fa-flag mr-2"></i>Report this Event
+				</button>
+			</div>
+
+            {{-- EVENT ACTIVITIES (CATEGORIES) --}}
+            @if($event->categories->isNotEmpty())
+            <div class="sidebar-widget business-categories-widget content-card">
+                <h3 class="widget-title">Event Activities</h3>
+                <ul class="widget-list">
+                    @foreach($event->categories as $category)
+                        <li>
+                            <a href="{{ route('listings.category', $category->slug) }}">
+                                @if($category->icon_class)<i class="{{ $category->icon_class }} fa-fw"></i>@else<i class="fas fa-tag fa-fw"></i>@endif
+                                {{ $category->name }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+            {{-- EVENT WISHLIST BUTTON --}}
+            @auth
+                @if (Auth::user()->role === 'user')
+                    @php
+                        $userEventWishlistItem = Auth::user()->wishlistedEvents()->where('event_id', $event->id)->first();
+                        $isEventInWishlist = (bool) $userEventWishlistItem;
+                        $isEventDone = $isEventInWishlist && $userEventWishlistItem->pivot->status === 'done';
+                    @endphp
+                    <div class="sidebar-widget add-to-wishlist-section-sidebar content-card">
+                        <h3 class="widget-title">My Event List</h3>
+                        @if($isEventInWishlist)
+                            <form action="{{ route('wishlist.event.toggle', $event->slug) }}" method="POST" class="mb-2"> @csrf <input type="hidden" name="action" value="remove"> <button type="submit" class="wishlist-btn added w-full"><i class="fas fa-heart mr-2"></i>{{ $isEventDone ? 'In My List (Attended)' : 'Remove from My Events' }}</button></form>
+                            @if(!$isEventDone)
+                                <form action="{{ route('wishlist.event.toggle', $event->slug) }}" method="POST"> @csrf <input type="hidden" name="action" value="toggle_done"> <button type="submit" class="wishlist-btn btn-mark-done w-full"><i class="fas fa-check mr-2"></i> Mark as Attended</button></form>
+                            @else
+                                <form action="{{ route('wishlist.event.toggle', $event->slug) }}" method="POST"> @csrf <input type="hidden" name="action" value="toggle_done"> <button type="submit" class="wishlist-btn btn-unmark-done w-full"><i class="fas fa-undo mr-2"></i> Unmark Attended</button></form>
+                            @endif
+                        @else
+                            <form action="{{ route('wishlist.event.toggle', $event->slug) }}" method="POST"> @csrf <button type="submit" class="wishlist-btn w-full"><i class="far fa-heart mr-2"></i> Add to My Events</button></form>
+                        @endif
+                    </div>
+                @endif
+            @else
+                <div class="sidebar-widget content-card"><p><a href="{{ route('login', ['redirect' => url()->current()]) }}" class="text-link">Log in</a> to save this event.</p></div>
+            @endauth
+
+            {{-- ORGANIZER SOCIAL LINKS --}}
+            @if($event->business && $event->business->social_links && collect($event->business->social_links)->filter()->isNotEmpty())
+                <div class="sidebar-widget organizer-social-links content-card">
+                    <h3 class="widget-title">Follow Organizer: {{ $event->business->name }}</h3>
+                    <div class="social-media-links-public">
+                        <div class="flex flex-wrap gap-3">
+                            @foreach($event->business->social_links as $platform => $link)
+                                @if(!empty($link))
+                                    @php
+                                        $iconClass = 'fas fa-link'; // Default
+                                        if (str_contains($platform, 'facebook')) $iconClass = 'fab fa-facebook-f';
+                                        elseif (str_contains($platform, 'twitter')) $iconClass = 'fab fa-twitter'; // or fa-x-twitter
+                                        elseif (str_contains($platform, 'instagram')) $iconClass = 'fab fa-instagram';
+                                        elseif (str_contains($platform, 'linkedin')) $iconClass = 'fab fa-linkedin-in';
+                                        elseif (str_contains($platform, 'youtube')) $iconClass = 'fab fa-youtube';
+                                        elseif (str_contains($platform, 'tiktok')) $iconClass = 'fab fa-tiktok';
+                                    @endphp
+                                    <a href="{{ $link }}" target="_blank" rel="noopener noreferrer" class="social-icon-public" title="{{ ucfirst($platform) }}">
+                                        <i class="{{ $iconClass }}"></i>
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </aside> {{-- End event-sidebar --}}
+    </div> <!-- End event-detail-layout -->
+
+    {{-- SIMILAR EVENTS SECTION --}}
+    @if(isset($similarEvents) && $similarEvents->isNotEmpty())
+    <section class="similar-listings-section mt-12">
+        <div class="container">
+            <h2 class="section-title text-2xl font-semibold mb-6 text-center">You Might Also Like</h2>
+            <div class="listings-grid">
+                @foreach($similarEvents as $similarEvent)
+                <div class="listing-card">
+                    <a href="{{ route('events.show.public', $similarEvent->slug) }}" class="listing-card-link-wrapper">
+                        <div class="card-image-container"><img src="{{ $similarEvent->images->firstWhere('is_main_event_image', true)?->url ?? asset('images/placeholder-event.jpg') }}" alt="{{ $similarEvent->title }}"></div>
+                        <div class="listing-card-content">
+                            <h3>{{ Str::limit($similarEvent->title, 30) }}</h3>
+                            <p class="listing-location text-sm text-gray-500"><i class="fas fa-calendar-alt fa-fw"></i> {{ $similarEvent->start_datetime->format('M d') }}{{ $similarEvent->county ? ' · '.$similarEvent->county->name : '' }}</p>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
+</div> {{-- End .event-detail-page-container --}}
+@endsection
+
+@push('footer-scripts')
+<script>
+    
+</script>
+@endpush

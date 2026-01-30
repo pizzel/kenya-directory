@@ -1,0 +1,399 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\BusinessResource\Pages;
+use App\Filament\Resources\BusinessResource\RelationManagers;
+use App\Models\Business;
+use App\Models\User;
+use App\Models\County;
+use App\Models\Category;
+use App\Models\Facility;
+use App\Models\Tag;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Filament\Resources\Components\Tab;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\HeroSliderHistory;
+use Illuminate\Database\Eloquent\SoftDeletingScope; // Uncomment if Business model uses SoftDeletes
+use Filament\Tables\Actions\DeleteAction; // This will now be soft delete
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction; // <<< ADD THIS
+use Filament\Tables\Actions\RestoreBulkAction;   // <<< ADD THIS
+use Filament\Tables\Actions\DeleteBulkAction;    // <<< ENSURE THIS IS ALSO PRESENT
+use Filament\Tables\Filters\TernaryFilter; // For is_verified boolean
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\Select; // Ensure Select is imported for Tags
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage; // For default image URL
+use Illuminate\Support\Facades\Auth; // For getting the authenticated user
+use Symfony\Component\HttpClient\HttpClient; // The new HTTP client
+use Symfony\Component\BrowserKit\HttpBrowser; // The new browser/crawler
+
+class BusinessResource extends Resource
+{
+    protected static ?string $model = Business::class;
+    protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
+    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $navigationGroup = 'Business Management';
+	protected static ?int $navigationSort = 1;
+	
+	
+	
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\SchedulesRelationManager::class,
+            RelationManagers\ImagesRelationManager::class,
+            RelationManagers\ReviewsRelationManager::class,
+			RelationManagers\HeroSliderHistoriesRelationManager::class,
+			RelationManagers\ReportsRelationManager::class,
+        ];
+    }
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Grid::make(3)->schema([
+                    Section::make('Core Business Information')
+                        ->description('Basic details about the business.')
+                        ->schema([
+                            Select::make('user_id') // Changed from Forms\Components\Select
+                                ->label('Business Owner')->relationship('owner', 'name')
+                                ->searchable(['name', 'email'])->preload()->required()
+                                ->createOptionForm([
+                                    Forms\Components\TextInput::make('name')->required(),
+                                    Forms\Components\TextInput::make('email')->email()->required()->unique(table: User::class, column: 'email', ignoreRecord: true),
+                                    Forms\Components\TextInput::make('password')->password()->required()->confirmed()->minLength(8),
+                                    Forms\Components\TextInput::make('password_confirmation')->password()->required(),
+                                    Select::make('role')->options(['business_owner' => 'Business Owner', 'user' => 'Regular User'])->default('business_owner')->required(),
+                                    Forms\Components\Toggle::make('email_verified_at')->label('Email Verified')->default(true)->formatStateUsing(fn ($state) => (bool)$state)->dehydrateStateUsing(fn ($state) => $state ? now() : null),
+                                ])->validationMessages(['required' => 'An owner must be selected or created.']),
+                            Forms\Components\TextInput::make('name')
+                                ->required()->maxLength(255)->live(onBlur: true)
+                                ->afterStateUpdated(fn (Forms\Set $set, ?string $state, ?Business $record) => $set('slug', $record && $record->name === $state ? $record->slug : Str::slug($state))),
+                            Forms\Components\TextInput::make('slug')
+                                ->required()->unique(table: Business::class, column: 'slug', ignoreRecord: true)->maxLength(255),
+                            Forms\Components\RichEditor::make('about_us')->label('About Us (Short Intro)')->required()->columnSpanFull()->toolbarButtons(['bold', 'italic', 'underline', 'link', 'bulletList', 'orderedList', 'undo', 'redo']),
+                            Forms\Components\RichEditor::make('description')->label('Full Description (Optional)')->columnSpanFull()->toolbarButtons(['bold', 'italic', 'underline', 'link', 'bulletList', 'orderedList', 'undo', 'redo']),
+                        ])->columnSpan(2),
+                    Section::make('Administrative Controls')
+                        ->schema([
+                            Forms\Components\Toggle::make('is_verified')
+                                ->label('Verified Listing')
+                                ->onColor('success')
+                                ->offColor('danger')
+                                ->disabled(fn (): bool => !Auth::user()->isAdminOrEditor()), // Example: Only Admin/Editor can verify
+
+                            Select::make('status') // Filament\Forms\Components\Select
+                                ->options(function (?Business $record, User $user): array {
+                                    $currentUser = Auth::user(); // Get the currently authenticated user
+                                    $allStatuses = [
+                                        'pending_approval' => 'Pending Approval',
+                                        'active' => 'Active',
+                                        'delisted' => 'Delisted',
+                                        'closed_permanently' => 'Closed Permanently',
+                                    ];
+
+                                    if ($currentUser->isAdmin()) {
+                                        // Super Admin can set any status
+                                        return $allStatuses;
+                                    }
+
+                                    if ($currentUser->isEditor()) {
+                                        $allowedStatusesForEditor = [
+                                            'pending_approval' => 'Pending Approval',
+                                            'active' => 'Active',
+                                            'delisted' => 'Delisted',
+                                            'closed_permanently' => 'Closed Permanently',
+                                        ];
+
+                                        // If the business is currently 'delisted' or 'closed_permanently',
+                                        // an editor cannot change it back to 'active'.
+                                        if ($record && in_array($record->status, ['delisted', 'closed_permanently'])) {
+                                            // Only allow keeping it as is, or potentially moving between delisted/closed
+                                            // Or just show the current status and make it readonly for this role in this state.
+                                            // For now, let's restrict options:
+                                            unset($allowedStatusesForEditor['active']);
+                                            unset($allowedStatusesForEditor['pending_approval']); // Can't move back to pending either
+
+                                            // Ensure current status is an option if it's delisted or closed
+                                            if (!isset($allowedStatusesForEditor[$record->status])) {
+                                                $allowedStatusesForEditor[$record->status] = ucfirst(str_replace('_', ' ', $record->status));
+                                            }
+
+                                            return $allowedStatusesForEditor;
+                                        }
+                                        return $allowedStatusesForEditor;
+                                    }
+                                    // For other roles (e.g., if a business owner could somehow see this form, though unlikely in admin)
+                                    // they shouldn't be able to change status.
+                                    // Return only the current status if a record exists.
+                                    if ($record && $record->status) {
+                                        return [$record->status => ucfirst(str_replace('_', ' ', $record->status))];
+                                    }
+                                    return ['pending_approval' => 'Pending Approval']; // Default for create for non-admins/editors
+                                })
+                                ->required()
+                                ->default('pending_approval')
+                                // Optionally make it disabled for editors if the record is delisted/closed
+                                ->disabled(function (?Business $record, User $user): bool {
+                                    $currentUser = Auth::user();
+                                    if ($currentUser->isEditor() && $record && in_array($record->status, ['delisted', 'closed_permanently'])) {
+                                        return true; // Disable the dropdown for editors if business is closed/delisted
+                                    }
+                                    return false;
+                                })
+                                ->reactive() // Make it reactive if other fields depend on it
+                                ->helperText(function (?Business $record, User $user): ?string {
+                                     $currentUser = Auth::user();
+                                     if ($currentUser->isEditor() && $record && in_array($record->status, ['delisted', 'closed_permanently'])) {
+                                         return 'Only Super Admins can re-activate a closed or delisted business.';
+                                     }
+                                     return null;
+                                }),
+
+                            Forms\Components\TextInput::make('views_count')->label('View Count')->numeric()->default(0)->disabled(),
+							
+						
+							
+                        ])->columnSpan(1),
+                ]),
+				Section::make('Promotional Status')
+					->schema([
+						Forms\Components\Toggle::make('is_featured')
+							->label('Featured Listing')
+							->helperText('Featured listings appear at the top of relevant search and category pages.'),
+
+						Forms\Components\DateTimePicker::make('featured_expires_at')
+							->label('Feature Expires At')
+							->helperText('Optional. After this date, the listing will no longer be featured.'),
+					])->collapsible(),
+
+                Section::make('Location & Contact Details')
+                    ->description('Provide the physical location and contact methods.')
+                    ->schema([
+                        Grid::make(2)->schema([
+                            Forms\Components\Textarea::make('address')->required()->maxLength(65535)->columnSpanFull()->rows(3),
+                            Select::make('county_id')->label('County')->relationship('county', 'name')->searchable()->preload()->required(),
+                            Forms\Components\TextInput::make('min_price')->label('Min Price (Ksh)')->numeric()->nullable()->prefix('Ksh')->minValue(0),
+                            Forms\Components\TextInput::make('max_price')->label('Max Price (Ksh)')->numeric()->nullable()->prefix('Ksh')->minValue(0)->gte('min_price'),
+                            Forms\Components\TextInput::make('price_range')->label('Price Range Description (e.g., $$, Budget)')->maxLength(50),
+                            Grid::make(2)->schema([
+                                Forms\Components\TextInput::make('latitude')->numeric()->nullable()->placeholder('e.g., -1.286389'),
+                                Forms\Components\TextInput::make('longitude')->numeric()->nullable()->placeholder('e.g., 36.817223'),
+                            ])->columnSpanFull(),
+                            Forms\Components\TextInput::make('phone_number')->tel()->maxLength(20),
+                            Forms\Components\TextInput::make('email')->email()->maxLength(255)->unique(table: Business::class, column: 'email', ignoreRecord: true),
+                            Forms\Components\TextInput::make('website')->url()->maxLength(255)->placeholder('https://example.com'),
+                            Forms\Components\KeyValue::make('social_links')
+                                ->label('Social Media Links')->keyLabel('Platform (e.g., facebook)')->valueLabel('Full URL')
+                                ->addActionLabel('Add Social Link')->reorderable()->columnSpanFull(),
+                        ]),
+                    ])->collapsible()->collapsed(false),
+
+                Section::make('Activities, Facilities & Tags')
+                    ->description('Select activities, facilities, and add/select descriptive tags.')
+                     ->schema([
+                        Grid::make(2)->schema([
+                            Select::make('categories') // Represents "Activities"
+                                ->multiple()->relationship('categories', 'name')->preload()->searchable()->required()
+                                ->label('Activities'),
+                            CheckboxList::make('facilities')
+                                ->relationship('facilities', 'name')
+                                ->columns(2)->gridDirection('row')
+                                ->label('Facilities'),
+                        ]),
+                        // CORRECTED SELECT FOR TAGS WITH ON-THE-FLY CREATION
+                        Select::make('tags') // Manages the 'tags' many-to-many relationship
+                            ->multiple()
+                            ->relationship(name: 'tags', titleAttribute: 'name')
+                            ->preload()
+                            ->searchable()
+                            ->helperText('Select existing tags or type a new tag to create it.')
+                            ->createOptionForm([ // Define the form to create a new Tag
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                Forms\Components\TextInput::make('slug')
+                                    ->required()
+                                    ->unique(Tag::class, 'slug', ignoreRecord: true), // Ensure slug is unique in tags table
+                            ])
+                            ->createOptionUsing(function (array $data): int { // Logic to create the new Tag
+                                $newTag = Tag::create([
+                                    'name' => $data['name'],
+                                    'slug' => $data['slug'] ?? Str::slug($data['name']), // Ensure slug is set
+                                ]);
+                                return $newTag->id;
+                            })
+                            ->columnSpanFull(),
+                    ])->collapsible()->collapsed(false),
+            ]);
+    }
+
+	
+// In app/Filament/Resources/BusinessResource.php
+
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            // All your existing columns are perfect and remain unchanged...
+            Tables\Columns\ImageColumn::make('main_image_url')->label('Img')->circular()->size(40)->getStateUsing(fn (Business $record) => $record->images()->where('is_main_gallery_image', true)->first()?->url)->defaultImageUrl(asset('images/placeholder-card.jpg')),
+            Tables\Columns\TextColumn::make('name')->searchable()->sortable()->limit(30),
+            Tables\Columns\TextColumn::make('owner.name')->label('Owner')->searchable()->sortable()->toggleable(),
+            Tables\Columns\TextColumn::make('categories.name')->label('Activities')->badge()->separator(',')->limitList(2)->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('facilities.name')->label('Facilities')->badge()->color('info')->separator(',')->limitList(2)->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('tags.name')->label('Tags')->badge()->color('warning')->separator(',')->limitList(2)->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('county.name')->searchable()->sortable()->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\IconColumn::make('is_verified')->boolean()->label('Verified'),
+            Tables\Columns\TextColumn::make('status')->badge()->color(fn (string $state): string => match ($state) { 'pending_approval' => 'warning', 'active' => 'success', 'delisted' => 'gray', 'closed_permanently' => 'danger', 'closed_by_reports' => 'danger', default => 'secondary', })->searchable()->sortable(),
+			Tables\Columns\IconColumn::make('is_featured')
+				->label('Featured')
+				->boolean()
+				->trueIcon('heroicon-o-star')
+				->falseIcon('heroicon-o-minus')
+				->trueColor('warning')
+				->falseColor('gray'),
+
+			Tables\Columns\TextColumn::make('featured_expires_at')
+				->label('Feature Expires')
+				->dateTime('M j, Y')
+				->sortable()
+				->color(fn ($record) => $record->featured_expires_at && $record->featured_expires_at->isPast() ? 'danger' : null),
+            Tables\Columns\TextColumn::make('pending_reports_count')->label('Pending Reports')->badge()->color('danger')->getStateUsing(function (Business $record) { return $record->reports()->where('status', 'pending')->count(); })->sortable(query: function (Builder $query, string $direction): Builder { return $query->withCount(['reports as pending_reports_true_count' => function (Builder $subQuery) { $subQuery->where('status', 'pending'); }])->orderBy('pending_reports_true_count', $direction); })->toggleable(),
+            Tables\Columns\TextColumn::make('hero_slider_paid_at')->label('Hero Paid')->dateTime('M j, Y')->sortable()->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('hero_slider_expires_at')->label('Hero Expires')->dateTime('M j, Y')->color(fn ($record) => $record->currentHeroPlacement && $record->currentHeroPlacement->expires_at->isPast() ? 'danger' : null)->description(fn ($record) => $record->currentHeroPlacement && $record->currentHeroPlacement->expires_at->isPast() ? 'Expired' : '')->sortable()->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('views_count')->label('Views')->sortable()->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('deleted_at')->label('Archived At')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
+        ])
+        ->filters([
+            // All your existing filters are perfect and remain unchanged...
+            SelectFilter::make('status')->options(['pending_approval' => 'Pending Approval', 'active' => 'Active', 'delisted' => 'Delisted', 'closed_permanently' => 'Closed Permanently', 'closed_by_reports' => 'Closed by Reports']),
+            TernaryFilter::make('is_verified')->label('Verified Status'),
+			 Tables\Filters\TernaryFilter::make('is_featured')
+				->label('Featured Status')
+				->placeholder('All Businesses')
+				->trueLabel('Only Featured')
+				->falseLabel('Only Not Featured'),
+            SelectFilter::make('county')->relationship('county', 'name')->searchable()->preload(),
+            SelectFilter::make('categories')->relationship('categories', 'name')->multiple()->preload()->searchable()->label('Activities'),
+            SelectFilter::make('facilities')->relationship('facilities', 'name')->multiple()->preload()->searchable(),
+            SelectFilter::make('tags')->relationship('tags', 'name')->multiple()->preload()->searchable(),
+            Tables\Filters\Filter::make('has_pending_reports')->label('Has Pending Reports')->query(fn (Builder $query): Builder => $query->whereHas('reports', fn (Builder $reportQuery) => $reportQuery->where('status', 'pending'))),
+			
+        ])
+        ->actions([
+            // All your existing row actions are perfect and remain unchanged...
+            Tables\Actions\EditAction::make(),
+            Action::make('preview')->icon('heroicon-o-eye')->color('gray')->url(fn (Business $record): string => route('listings.show', $record->slug))->openUrlInNewTab(),
+            Action::make('approve_listing')->label('Approve')->icon('heroicon-o-check-circle')->color('success')->requiresConfirmation()->action(fn (Business $record) => $record->update(['status' => 'active']))->visible(fn (Business $record): bool => $record->status === 'pending_approval'),
+            Action::make('verify_listing')->label(fn (Business $record): string => $record->is_verified ? 'Unverify' : 'Verify')->icon(fn (Business $record): string => $record->is_verified ? 'heroicon-o-shield-exclamation' : 'heroicon-o-shield-check')->color(fn (Business $record): string => $record->is_verified ? 'warning' : 'primary')->requiresConfirmation()->action(fn (Business $record) => $record->update(['is_verified' => !$record->is_verified]))->visible(fn (Business $record): bool => $record->status === 'active' && (auth()->user()->isAdminOrEditor() || auth()->user()->can('verify', $record))),
+            Action::make('set_active')->label('Re-Activate')->icon('heroicon-o-arrow-path-rounded-square')->color('success')->requiresConfirmation()->action(function (Business $record) { $record->status = 'active'; $record->is_verified = false; $record->save(); })->visible(fn (Business $record): bool => in_array($record->status, ['delisted', 'closed_permanently', 'closed_by_reports']) && auth()->user()->isAdmin()),
+            Tables\Actions\DeleteAction::make()->label('Archive'),
+            ForceDeleteAction::make(),
+            RestoreAction::make(),
+        ])
+        ->bulkActions([
+            BulkActionGroup::make([
+
+                // <<< START OF THE NEW ACTION >>>
+
+                BulkAction::make('attach_activity')
+                    ->label('Add Activity to Selected')
+                    ->icon('heroicon-o-tag')
+                    // This action should not be visible on the archived tab
+                    ->visible(fn ($livewire) => $livewire->activeTab !== 'archived')
+                    // This creates the modal form
+                    ->form([
+                        Forms\Components\Select::make('activity_id')
+                            ->label('Activity to Add')
+                            ->options(Category::pluck('name', 'id')) // Use your Category model
+                            ->searchable()
+                            ->required(),
+                    ])
+                    // This is the code that runs when the form is submitted
+                    ->action(function (array $data, \Illuminate\Database\Eloquent\Collection $records) {
+                        $activityId = $data['activity_id'];
+                        foreach ($records as $record) {
+                            // Use syncWithoutDetaching to ADD the new activity
+                            // without removing any existing ones.
+                            $record->categories()->syncWithoutDetaching([$activityId]);
+                        }
+                    })
+                    // Show a success notification
+                    ->successNotificationTitle('Activity added to selected businesses.'),
+
+                // <<< END OF THE NEW ACTION >>>
+
+                // ... your existing bulk actions from before ...
+                Tables\Actions\DeleteBulkAction::make()->label('Archive Selected')
+                    ->visible(fn ($livewire) => $livewire->activeTab !== 'archived'),
+
+                BulkAction::make('approve_selected')->label('Approve Selected')->icon('heroicon-o-check-circle')->color('success')->requiresConfirmation()
+                    ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['status' => 'active']))
+                    ->visible(fn ($livewire) => $livewire->activeTab !== 'archived'),
+                
+                // ... and so on for all your other existing bulk actions ...
+                BulkAction::make('set_pending_approval')->label('Set to Pending Approval')->icon('heroicon-o-clock')->color('warning')->requiresConfirmation()
+                    ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['status' => 'pending_approval']))
+                    ->visible(fn ($livewire) => $livewire->activeTab !== 'archived'),
+
+                BulkAction::make('delist_selected')->label('Delist Selected')->icon('heroicon-o-eye-slash')->color('gray')->requiresConfirmation()
+                    ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['status' => 'delisted']))
+                    ->visible(fn ($livewire) => $livewire->activeTab !== 'archived'),
+                
+                BulkAction::make('close_permanently_selected')->label('Set Closed Permanently')->icon('heroicon-o-x-circle')->color('danger')->requiresConfirmation()
+                    ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['status' => 'closed_permanently']))
+                    ->visible(fn ($livewire) => $livewire->activeTab !== 'archived'),
+
+                BulkAction::make('verify_selected')->label('Verify Selected')->icon('heroicon-o-shield-check')->color('primary')->requiresConfirmation()
+                    ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['is_verified' => true]))
+                    ->visible(fn ($livewire) => $livewire->activeTab !== 'archived'),
+
+                BulkAction::make('unverify_selected')->label('Unverify Selected')->icon('heroicon-o-shield-exclamation')->color('warning')->requiresConfirmation()
+                    ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['is_verified' => false]))
+                    ->visible(fn ($livewire) => $livewire->activeTab !== 'archived'),
+                
+                RestoreBulkAction::make()
+                    ->visible(fn ($livewire) => $livewire->activeTab === 'archived'),
+
+                ForceDeleteBulkAction::make()->label('Delete Permanently')
+                    ->visible(fn ($livewire) => $livewire->activeTab === 'archived'),
+
+            ])->label('Bulk Actions'),
+        ])
+        ->defaultSort('created_at', 'desc');
+}
+
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListBusinesses::route('/'),
+            'create' => Pages\CreateBusiness::route('/create'),
+            'edit' => Pages\EditBusiness::route('/{record}/edit'),
+        ];
+    }
+
+      public static function getEloquentQuery(): Builder
+    {
+        // This is the key. Tell the entire resource to ALWAYS start with a pool
+        // of both active and trashed records. The tabs and policies will handle
+        // filtering and security from this point on.
+        return parent::getEloquentQuery()->withTrashed();
+    }
+}

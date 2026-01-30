@@ -1,0 +1,54 @@
+/* ==========================================================================
+   LAYOUT STYLES (public/css/layout.css)
+   Header, Footer, Navigation, Breadcrumbs, Core Page Structure
+   ========================================================================== */
+
+/* --- Header --- */
+header {
+    background: #fff; padding: 1rem 0; border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: fixed; top: 0; left: 0;
+    width: 100%; z-index: 1002; height: 65px; overflow: visible;
+}
+header .container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+header .logo img { height: 40px; margin-right: 10px; vertical-align: middle; }
+header .logo span { font-size: 1.6rem; font-weight: bold; color: #2c3e50; vertical-align: middle; }
+
+/* --- Navigation (within Header) --- */
+header nav ul { list-style: none; padding: 0; margin: 0; display: flex; align-items: center; }
+header nav ul li { margin-left: 25px; }
+header nav ul li:first-child { margin-left: 0; }
+header nav ul li a { color: #555; font-weight: 500; padding: 5px 0; position: relative; text-decoration: none; transition: color 0.3s ease; }
+header nav ul li a.active, header nav ul li a:hover { color: #007bff; text-decoration: none; }
+header nav ul li a.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #007bff; }
+
+/* --- Footer --- */
+footer { background: #2c3e50; color: #ecf0f1; padding-top: 50px; position: relative; z-index: 5; }
+.footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
+.footer-section { flex: 1; min-width: 220px; margin-bottom: 30px; }
+.footer-section h4 { color: #fff; font-size: 1.2rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #34495e; position: relative; font-weight: 500; }
+.footer-section h4::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 50px; height: 2px; background-color: #007bff; }
+.footer-section p, .footer-section ul li a { color: #bdc3c7; font-size: 0.95rem; line-height: 1.8; }
+.footer-section ul { list-style: none; padding: 0; } .footer-section ul li { margin-bottom: 10px; }
+.footer-section ul li a:hover { color: #fff; }
+.social-links a { margin-right: 12px; display: inline-block; }
+.social-links img { width: 28px; height: 28px; opacity: 0.8; transition: opacity 0.3s ease; }
+.social-links a:hover img { opacity: 1; }
+.footer-bottom { text-align: center; padding: 25px 0; margin-top: 20px; border-top: 1px solid #34495e; font-size: 0.9rem; color: #95a5a6; }
+
+/* --- Breadcrumb Bar --- */
+.breadcrumb-bar { background-color: #f0f2f5; padding: 12px 0; border-bottom: 1px solid #e0e0e0; font-size: 0.9em; color: #6c757d; margin-bottom: 30px; }
+.breadcrumb-bar .container { padding-top: 0; padding-bottom: 0; } /* Override .container vertical padding if needed */
+.breadcrumb-bar a { color: #007bff; } .breadcrumb-bar span { color: #343a40; }
+
+/* --- General Page Layouts --- */
+/* Listings Page: Sidebar + Main Content */
+.listing-page-container { display: flex; gap: 30px; padding-top: 0; /* Breadcrumb provides top space */ padding-bottom: 30px; }
+.filters-sidebar { flex: 0 0 280px; align-self: flex-start; } /* Actual styling for content of filters-sidebar in components.css or page-specific.css */
+.listings-main-content { flex: 1; min-width: 0; } /* Prevents flex item from overflowing its container */
+
+/* Listing Detail Page: Gallery (top), then 3-column layout below gallery */
+.listing-detail-page { padding-top: 0; /* Breadcrumb provides top space */ }
+.listing-content-area-3col { display: flex; gap: 25px; margin-top: 0; /* Gallery has margin-bottom */ align-items: flex-start; }
+.listing-info-col1 { flex: 2.2; min-width: 0; }
+.listing-map-col2 { flex: 1.5; min-width: 0; }
+.listing-schedule-col3 { flex: 1.3; min-width: 0; }

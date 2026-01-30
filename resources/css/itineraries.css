@@ -1,0 +1,2059 @@
+/* Itineraries & Journeys Styling */
+
+.itinerary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.itinerary-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+}
+
+.itinerary-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.card-banner {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.card-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: #0f172a;
+}
+
+.card-desc {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    overflow: hidden;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+    margin-top: auto;
+}
+
+.footer-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.create-cta {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    border-radius: 30px;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* Individual Show Page Styles - HERO SECTION */
+/* --- SILICON VALLEY PREMIUM HERO SECTION --- */
+.itinerary-hero {
+    position: relative;
+    padding: 70px 0 60px;
+    background: #ffffff;
+    background-image: radial-gradient(#f1f5f9 1px, transparent 1px);
+    background-size: 24px 24px;
+    /* SUBTLE DOT PATTERN */
+    color: #0f172a;
+    border-bottom: 2px solid #f8fafc;
+}
+
+.hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-main-content {
+    flex: 1;
+    text-align: left;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #dbeafe;
+}
+
+.itinerary-title {
+    font-size: 2.4rem;
+    font-weight: 850;
+    color: #0f172a;
+    letter-spacing: -1.2px;
+    line-height: 1.15;
+    margin: 0 0 16px 0;
+}
+
+.itinerary-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.meta-item {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.meta-item i {
+    color: #3b82f6;
+    font-size: 0.9rem;
+}
+
+.meta-divider {
+    width: 4px;
+    height: 4px;
+    background: #cbd5e1;
+    border-radius: 50%;
+}
+
+.hero-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #475569;
+    max-width: 600px;
+    margin: 0;
+}
+
+/* ACTIONS SIDEBAR */
+.hero-actions-content {
+    display: flex;
+    flex-direction: row;
+    /* SIDE BY SIDE */
+    align-items: center;
+    gap: 16px;
+}
+
+.action-btn {
+    white-space: nowrap;
+    /* Prevent text wrap */
+    width: auto;
+    /* Fit content */
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: none;
+}
+
+.btn-join {
+    background: #0f172a;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1);
+}
+
+.btn-join:hover {
+    background: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.15);
+}
+
+.btn-join.joined {
+    background: #059669;
+}
+
+.btn-share {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-share:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+}
+
+.btn-edit {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.btn-edit:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.btn-delete:hover {
+    background: #fecaca;
+    color: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* OVERRIDE HELPERS */
+.max-w-2xl {
+    max-width: 42rem;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.opacity-80 {
+    opacity: 0.8;
+}
+
+
+/* HERO SECTION - CONSTANT STYLING */
+/* HERO SECTION OVERRIDE REMOVAL */
+
+
+
+/* View Toggle Styling - Compact & Elegant */
+.view-toggle-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    background: #f8fafc;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.view-toggle {
+    display: flex;
+    background: #ffffff;
+    padding: 4px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    gap: 2px;
+}
+
+.toggle-btn {
+    padding: 8px 20px;
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toggle-btn:hover:not(.active) {
+    background: #f1f5f9;
+}
+
+.toggle-btn.active {
+    background: #0f172a;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(15, 23, 42, 0.1);
+}
+
+.toggle-btn i {
+    font-size: 0.9rem;
+}
+
+
+
+/* 3D Explorer Scene */
+.explorer-container {
+    width: 100%;
+    height: 700px;
+    /* SHORTER TO REMOVE WASTED SPACE */
+    background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+    overflow: hidden;
+    position: relative;
+    perspective: 3000px;
+}
+
+.explorer-scene {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* CONSTRAIN TO VIEW */
+    height: 100%;
+    padding: 0;
+    /* REMOVE PADDING TO REACH EDGES */
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.explorer-path-svg {
+    position: absolute;
+    top: 90%;
+    /* MOVED DOWN FURTHER TO MINIMIZE WASTED SPACE */
+    left: 0;
+    width: 100%;
+    height: 100px;
+    transform: translateY(-50%) translateZ(-50px);
+
+}
+
+#journey-path {
+    stroke: #3b82f6;
+    stroke-width: 4;
+    stroke-dasharray: 15, 15;
+    filter: drop-shadow(0 0 12px #3b82f6);
+}
+
+.explorer-stops {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 100px;
+    /* INCREASED PADDING FOR BETTER BREATHING ROOM */
+    transform-style: preserve-3d;
+    position: absolute;
+    top: 90%;
+    /* ALIGNED WITH NEW ROAD Baseline */
+}
+
+
+/* 3. THE BEAM (Light Pillar) - ENDS AT ANCHOR */
+.stop-pole-3d {
+    position: absolute;
+    top: 100%;
+    /* Bottom of card marker */
+    left: 50%;
+    width: 2px;
+    /* Thinner for beam effect */
+    height: 290px;
+    /* PRECISE - ends exactly at anchor */
+    /* Gradient: Solid blue at bottom, transparent at top */
+    background: linear-gradient(to top, #3b82f6 0%, rgba(59, 130, 246, 0.5) 40%, transparent 100%);
+    transform: translateX(-50%);
+    box-shadow: 0 0 8px #3b82f6;
+    opacity: 0.8;
+    border-radius: 4px;
+    pointer-events: none;
+    /* Don't block clicks */
+}
+
+/* 4. THE ANCHOR (Glowing Ground Connection) - ADJUSTED TO STAY VISIBLE */
+.stop-pole-anchor {
+    position: absolute;
+    top: 390px;
+    /* ADJUSTED - closes gap while staying visible */
+    left: 50%;
+    width: 20px;
+    /* Slightly larger for visibility */
+    height: 20px;
+    background: #0f172a;
+    /* Dark center */
+    border: 3px solid #3b82f6;
+    /* Blue ring */
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotateX(45deg);
+    /* Tilted for perspective */
+    box-shadow:
+        0 0 20px #3b82f6,
+        0 0 10px rgba(59, 130, 246, 0.5),
+        inset 0 0 5px #3b82f6;
+    /* Inner glow */
+    z-index: 10;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    /* Don't block clicks */
+}
+
+.start-badge {
+    background: #10b981;
+}
+
+.finish-badge {
+    background: #f59e0b;
+}
+
+/* =========================================
+   3D EXPLORER - FLOATING ISOMETRIC CARDS
+   Angled Left (Counter-Clockwise)
+   ========================================= */
+
+/* 1. Update the Container to allow for the tilted height */
+.explorer-stop {
+    width: 280px;
+    margin-left: -40px;
+    position: relative;
+    transform-style: preserve-3d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-365px);
+    /* HEIGHT ABOVE ROAD */
+}
+
+/* 2. The Main Card Transform */
+
+.stop-marker-3d {
+    width: 200px;
+    background: #fff;
+    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: #ffffff;
+    border-radius: 24px;
+    position: relative;
+    /* Display as block for both <div> and <a> elements */
+    display: block;
+    text-decoration: none;
+    color: inherit;
+
+    /* --- THE MAGIC TRANSFORMATION (ANGLED LEFT) --- */
+    /* Perspective: Depth intensity */
+    /* RotateX(55deg): Tilts it backwards (laying down) */
+    /* RotateZ(-25deg): Angles it to the LEFT */
+    transform: perspective(1000px) rotateX(-5deg) rotateZ(0deg) translateZ(0px) rotateY(45deg);
+    transform-style: preserve-3d;
+    transform-origin: center center;
+
+    /* --- 3D THICKNESS EFFECT --- */
+    /* Multiple shadows create the "slab" look on the right/bottom edges */
+    box-shadow: 1px 1px 0 1px #cbd5e1,
+        2px 2px 0 1px #cbd5e1,
+        3px 3px 0 1px #cbd5e1,
+        4px 4px 0 1px #cbd5e1,
+        /* The "edge" of the card */
+        25px 35px 50px rgba(0, 0, 0, 0.15);
+    /* The real drop shadow on the floor */
+
+    /* Bouncy transition for hover effect */
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Improve text rendering on tilted planes */
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+}
+
+/* 3. Hover Effect - STABILIZED (hover on parent, not child) */
+.explorer-stop:hover .stop-marker-3d {
+    /* Lift it up on the Z-axis (translateZ) 
+    transform: perspective(1000px) rotateX(55deg) rotateZ(-25deg) translateZ(50px);*/
+    transform: perspective(1000px) rotateX(-0deg) rotateZ(0deg) translateZ(0px) rotateY(0deg);
+    /* Make shadow softer and further away */
+    box-shadow: 1px 1px 0 1px #cbd5e1,
+        2px 2px 0 1px #cbd5e1,
+        3px 3px 0 1px #cbd5e1,
+        4px 4px 0 1px #cbd5e1,
+        50px 60px 80px rgba(0, 0, 0, 0.2);
+
+    z-index: 50;
+    /* Ensure it floats above neighbors */
+    cursor: pointer;
+}
+
+/* 5. INTERACTIVE INFRASTRUCTURE - Light Up On Hover - ENHANCED */
+.explorer-stop:hover .stop-pole-anchor {
+    background: #3b82f6;
+    /* Bright blue center */
+    border-width: 4px;
+    /* Thicker border */
+    box-shadow:
+        0 0 30px #3b82f6,
+        0 0 50px rgba(59, 130, 246, 0.8),
+        /* Super bright glow */
+        inset 0 0 10px rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%) rotateX(45deg) scale(1.3);
+    /* Pulse effect */
+}
+
+.explorer-stop:hover .stop-pole-3d {
+    background: linear-gradient(to top, #3b82f6 0%, rgba(59, 130, 246, 0.8) 50%, rgba(59, 130, 246, 0.3) 100%);
+    /* Brighter beam on hover */
+    width: 3px;
+    /* Slightly thicker beam */
+    box-shadow: 0 0 20px #3b82f6, 0 0 10px rgba(59, 130, 246, 0.5);
+    opacity: 1;
+}
+
+/* 4. Fix the Badge Position - NO POINTER EVENTS */
+/* Since the card is tilted, we need to push the badge HIGH up in Z-space */
+.stop-badge-icon {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(60px);
+    padding: 8px 25px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 0.85rem;
+    color: white;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    z-index: 101;
+    /* Counter-rotate slightly if you want it to face user more (optional) */
+    /* transform: translateX(-50%) translateZ(80px) rotateX(-20deg); */
+    white-space: nowrap;
+    pointer-events: none;
+    /* Don't block clicks */
+}
+
+
+/* 5. Image & Content Styling inside the Tilted Card */
+.stop-marker-3d img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    background: #f1f5f9;
+}
+
+.stop-info-3d {
+    padding: 15px 5px 5px;
+    text-align: center;
+    /* Ensure text pops out slightly */
+    transform: translateZ(2px);
+}
+
+.stop-title-3d {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* DATE AS VERTICAL TIMELINE LABEL - ADJUSTED TO MATCH ANCHOR */
+.stop-date-3d {
+    position: absolute;
+    top: 390px;
+    /* ADJUSTED - aligned with anchor, stays visible */
+    left: calc(50% + 25px);
+    /* Clear of the much larger circular anchor */
+    font-size: 1.2rem;
+    /* LARGE AND CLEAR */
+    font-weight: 800;
+    /* HIGH CONTRAST */
+    color: #cbd5e1;
+    /* Slate-200 for better dark bg visibility */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transform: translateY(-50%) rotate(-90deg);
+    /* CENTER ALIGN ROTATION */
+    transform-origin: left center;
+    white-space: nowrap;
+    z-index: 5;
+    pointer-events: none;
+    /* Don't block clicks */
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* ============================================
+   PREMIUM SILICON VALLEY 3D INFRASTRUCTURE
+   ============================================ */
+
+/* 1. THE FLOOR GRID (Infinite Space Context) */
+.explorer-scene::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 100px 100px;
+    /* Large grid squares */
+    transform: rotateX(90deg) translateZ(-100px);
+    /* Lay flat on the floor */
+    pointer-events: none;
+    mask-image: linear-gradient(to bottom, transparent, black 40%);
+    /* Fade in from horizon */
+    z-index: 0;
+}
+
+/* 2. THE LASER RAIL (Glowing Infrastructure Track) */
+.explorer-container::after {
+    content: '';
+    position: absolute;
+    bottom: 40px;
+    /* Align with anchor baseline */
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(59, 130, 246, 0.2);
+    /* Dark track */
+    box-shadow:
+        0 0 10px rgba(59, 130, 246, 0.3),
+        0 0 20px rgba(59, 130, 246, 0.1);
+    /* Glow */
+    z-index: 1;
+}
+
+/* 3. HIDE OLD SVG PATH - Show only the laser rail */
+.explorer-path-svg {
+    display: none;
+    /* Completely hidden */
+}
+
+
+
+
+
+
+/* Roadmap Timeline Styles - ZIPPER LAYOUT (Minimized Space) */
+.timeline-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    /* Reduced space */
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 50px;
+    bottom: 50px;
+    left: 50%;
+    width: 3px;
+    background: linear-gradient(to bottom, #3b82f6 0%, #e2e8f0 5%, #e2e8f0 95%, #3b14f6 100%);
+    transform: translateX(-50%);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.stop-item {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin-bottom: 30px;
+    /* Base spacing */
+}
+
+/* THE ZIPPER EFFECT: Only pull up items that follow another stop-item */
+.stop-item+.stop-item {
+    margin-top: -140px;
+}
+
+.stop-card {
+    width: 45%;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    /* More compact */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+    position: relative;
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+.stop-item:nth-child(even) .stop-card {
+    margin-left: auto;
+    /* Right Side */
+}
+
+.stop-item:nth-child(odd) .stop-card {
+    margin-right: auto;
+    /* Left Side */
+}
+
+.stop-bullet {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border: 4px solid #3b82f6;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+/* ACTIVITY TAGS & INTERACTIVE IMAGES */
+.stop-image-link {
+    display: block;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.stop-image-link:hover .stop-image {
+    transform: scale(1.05);
+}
+
+.image-overlay-hint {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.stop-image-link:hover .image-overlay-hint {
+    opacity: 1;
+}
+
+/* STOP ACTIVITIES LOGIC - Positioned in Whitespace */
+.stop-activities {
+    position: absolute;
+    top: 50%;
+    width: 35%;
+    /* Reduced to prevent overlap */
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    z-index: 4;
+    pointer-events: none;
+    /* Allow clicking through to backgrounds if needed */
+}
+
+.stop-activities * {
+    pointer-events: auto;
+    /* Enable interaction for tags */
+}
+
+/* Connect to the bullet */
+.activities-line {
+    position: absolute;
+    top: 50%;
+    width: 45px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #cbd5e1, #cbd5e1 4px, transparent 4px, transparent 8px);
+    z-index: 1;
+}
+
+.stop-item:nth-child(odd) .stop-activities {
+    left: 55%;
+    /* Restore to original side */
+    align-items: flex-start;
+}
+
+.stop-item:nth-child(odd) .activities-line {
+    right: 100%;
+}
+
+.stop-item:nth-child(even) .stop-activities {
+    right: 55%;
+    /* Restore to original side */
+    align-items: flex-end;
+}
+
+.stop-item:nth-child(even) .activities-line {
+    left: 100%;
+}
+
+.activities-wrapper {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid #e2e8f0;
+    padding: 15px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.activities-wrapper:hover {
+    transform: translateY(-5px);
+    border-color: #3b82f6;
+}
+
+.activities-label {
+    font-size: 0.75rem;
+    /* Increased from 0.6rem */
+    font-weight: 800;
+    color: #64748b;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.activities-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.activity-tag {
+    font-size: 0.95rem;
+    /* Increased from 0.7rem */
+    font-weight: 700;
+    color: #2563eb;
+    background: #f0f7ff;
+    padding: 6px 14px;
+    /* Slightly larger padding */
+    border-radius: 50px;
+    white-space: nowrap;
+    border: 1px solid #dfefff;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.activity-tag:hover {
+    background: #3b82f6;
+    color: white;
+    transform: scale(1.1);
+}
+
+.stop-date i {
+    margin-right: 6px;
+    color: #3b82f6;
+}
+
+/* ROADMAP MANAGEMENT */
+.roadmap-management-bar {
+    max-width: 1000px;
+    margin: 60px auto 0;
+    text-align: center;
+    position: relative;
+    z-index: 20;
+}
+
+.roadmap-add-btn-container {
+    display: inline-block;
+    background: transparent;
+}
+
+/* Modals */
+.itinerary-stop-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+/* STOP ACTIONS */
+.stop-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stop-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.stop-actions-overlay {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 5;
+}
+
+.stop-card:hover .stop-actions-overlay {
+    opacity: 1;
+}
+
+.stop-action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.stop-edit-btn {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.stop-edit-btn:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.stop-delete-btn {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.stop-delete-btn:hover {
+    background: #fecaca;
+    color: #dc2626;
+}
+
+.modal-card {
+    background: #fff;
+    width: 95%;
+    max-width: 600px;
+    max-height: 90vh;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: modalSlideUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.modal-body {
+    padding: 30px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 25px 30px;
+    background: #f8fafc;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: #f1f5f9;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    color: #64748b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.modal-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+    transform: rotate(90deg);
+}
+
+
+.modal-input-group {
+    margin-bottom: 20px;
+}
+
+.modal-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+    padding-left: 4px;
+}
+
+.modal-input,
+.modal-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border: 2px solid #f1f5f9;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1e293b;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.modal-input:focus,
+.modal-textarea:focus {
+    background: #fff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.modal-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.date-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.modal-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.modal-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+}
+
+/* Business Tag Styling */
+.selected-businesses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.business-tag {
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #dbeafe;
+}
+
+.business-tag-remove {
+    background: none;
+    border: none;
+    color: #3b82f6;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    display: flex;
+}
+
+.biz-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #f1f5f9;
+    display: none;
+}
+
+.biz-result-item {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 0.9rem;
+    color: #1e293b;
+}
+
+.biz-result-item:hover {
+    background: #f8fafc;
+}
+
+/* DELETE MODAL SPECIFIC */
+.mini-modal {
+    max-width: 450px !important;
+}
+
+.danger-header {
+    background: #fff5f5 !important;
+    border-bottom-color: #fee2e2 !important;
+}
+
+.danger-header .modal-title {
+    color: #ef4444 !important;
+}
+
+.danger-icon-box {
+    width: 60px;
+    height: 60px;
+    background: #fee2e2;
+    color: #ef4444;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.5rem;
+}
+
+.delete-warning-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.delete-sub-text {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.modal-actions-dual {
+    display: flex;
+    gap: 12px;
+}
+
+.modal-cancel-btn {
+    flex: 1;
+    padding: 12px;
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.modal-cancel-btn:hover {
+    background: #e2e8f0;
+}
+
+.modal-delete-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.modal-delete-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .itinerary-title {
+        font-size: 2rem;
+    }
+
+    .timeline-line {
+        left: 30px;
+    }
+
+    .stop-bullet {
+        left: 30px;
+    }
+
+    .stop-card {
+        width: calc(100% - 70px) !important;
+        margin-left: 70px !important;
+        margin-right: 0 !important;
+    }
+
+    .stop-item:nth-child(n+2) {
+        margin-top: 0;
+    }
+
+    .timeline-line {
+        left: 20px;
+    }
+
+    .stop-bullet {
+        left: 20px;
+    }
+}
+
+/* --- SHARE ACTIONS & TOAST --- */
+.share-suite {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.share-icon-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    transition: transform 0.2s, background 0.2s;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.share-icon-btn:hover {
+    transform: translateY(-2px);
+}
+
+.share-icon-btn i {
+    font-size: 1.1rem;
+}
+
+.btn-whatsapp {
+    background: #25D366;
+}
+
+.btn-facebook {
+    background: #1877F2;
+}
+
+.btn-x {
+    background: #000000;
+}
+
+.btn-native {
+    background: #E1306C;
+}
+
+.btn-copy {
+    background: #475569;
+}
+
+#copyToast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #1e293b;
+    color: #f8fafc;
+    text-align: center;
+    border-radius: 50px;
+    padding: 12px 24px;
+    position: fixed;
+    z-index: 10000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, bottom 0.3s ease-in-out;
+}
+
+#copyToast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+}
+
+/* =========================================
+   MOBILE RESPONSIVE OVERRIDES
+   Add this to the bottom of itineraries.css
+   ========================================= */
+
+@media screen and (max-width: 991px) {
+
+    /* --- INDEX PAGE GRID FIX --- */
+    .itinerary-grid {
+        grid-template-columns: 1fr;
+        /* Force single column on mobile */
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+    .create-cta {
+        padding: 30px 20px;
+        margin-bottom: 30px;
+        border-radius: 20px;
+    }
+
+    .create-cta h2 {
+        font-size: 1.75rem;
+    }
+
+    /* --- HERO SECTION RESTRUCTURE --- */
+    .itinerary-hero {
+        padding: 40px 0;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .hero-main-content {
+        width: 100%;
+    }
+
+    .itinerary-title {
+        font-size: 2rem;
+        /* Smaller font for mobile to prevent overflow */
+        line-height: 1.2;
+        word-wrap: break-word;
+    }
+
+    .itinerary-meta {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    /* --- HERO ACTIONS & SHARE BUTTONS --- */
+    .hero-actions-content {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        /* Full width buttons */
+        gap: 15px;
+    }
+
+    /* Primary Join Button - High Contrast & Touch Friendly */
+    #join-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 16px;
+        font-size: 1rem;
+    }
+
+    /* Share Suite Container */
+    .share-suite {
+        width: 100%;
+        justify-content: space-between;
+        /* Distribute icons evenly */
+        padding-top: 10px;
+        border-top: 1px solid #f1f5f9;
+    }
+
+    .share-icon-btn {
+        width: 44px;
+        /* Larger touch target */
+        height: 44px;
+    }
+
+    /* Edit/Delete Buttons (Admin) */
+    .btn-edit,
+    .btn-delete {
+        width: 100%;
+        justify-content: center;
+        padding: 14px;
+    }
+
+    /* --- HIDE 3D FEATURES --- */
+    /* Hide the view toggle container completely on mobile */
+    .view-toggle-container {
+        display: none !important;
+    }
+
+    /* Ensure 3D view is never shown even if triggered */
+    #explorer-view {
+        display: none !important;
+    }
+
+    /* Ensure Roadmap is always visible */
+    #roadmap-view {
+        display: block !important;
+    }
+
+    /* --- WATERFALL TIMELINE TRANSFORMATION --- */
+    .timeline-container {
+        padding: 10px 0;
+        margin-top: 20px;
+        overflow: hidden;
+        /* Prevent horizontal scroll */
+    }
+
+    /* 1. Straighten the Line */
+    .timeline-line {
+        left: 24px;
+        /* Fixed position on left */
+        transform: translateX(0);
+        top: 20px;
+        bottom: 0;
+    }
+
+    /* 2. Reset the Zipper/Zig-Zag Effect */
+    .stop-item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .stop-item+.stop-item {
+        margin-top: 0;
+        /* Remove the negative margin pull */
+    }
+
+    /* 3. Align Bullets to the Line */
+    .stop-bullet {
+        left: 24px;
+        transform: translate(-50%, -50%);
+        /* Keep centered on point */
+        top: 40px;
+        /* Align with card top */
+    }
+
+    /* 4. Card Positioning (Right of line) */
+    .stop-card {
+        width: calc(100% - 40px) !important;
+        /* Full width minus line space */
+        margin-left: 40px !important;
+        /* Push right of line */
+        margin-right: 0 !important;
+        margin-top: 0;
+        border-radius: 16px;
+        padding: 20px 15px;
+    }
+
+    /* 5. Handle "Activities/Categories" (Floating tags outside card) */
+    .stop-activities {
+        position: relative;
+        /* No longer absolute */
+        top: auto;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        width: calc(100% - 40px) !important;
+        margin-left: 40px;
+        /* Align with card */
+        margin-top: 15px;
+        z-index: 2;
+    }
+
+    /* Reset even/odd specific logic from desktop */
+    .stop-item:nth-child(even) .stop-card,
+    .stop-item:nth-child(odd) .stop-card {
+        margin-left: 40px !important;
+        margin-right: 0 !important;
+    }
+
+
+
+    /* Remove the connector line for activities on mobile */
+    .activities-line {
+        display: none;
+    }
+
+    .activities-wrapper {
+        background: #f8fafc;
+        border: 1px dashed #cbd5e1;
+        box-shadow: none;
+        padding: 12px;
+        margin-right: 30px;
+    }
+
+    .activities-wrapper:hover {
+        transform: none;
+    }
+
+    /* --- ACCESSIBILITY & UTILITIES --- */
+
+    /* Improve Image Visibility */
+
+    .stop-image {
+        width: 100%;
+        height: auto;
+        max-height: 180px;
+    }
+
+
+    /* Modal Adjustments */
+    .modal-card {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        max-width: none;
+    }
+
+    .mini-modal {
+        height: auto;
+        border-radius: 20px;
+        bottom: 0;
+        position: absolute;
+        margin-bottom: 0;
+    }
+
+    .date-row {
+        grid-template-columns: 1fr;
+        /* Stack date inputs */
+        gap: 0;
+    }
+
+    /* Toast Notification Positioning */
+    #copyToast {
+        width: 90%;
+        bottom: 20px;
+    }
+
+    /* Roadmap Management Bar (Add Stop Button) */
+    .roadmap-management-bar {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .roadmap-add-btn-container button {
+        width: 100%;
+        padding: 15px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Extra Small Devices (Phones < 400px) */
+@media screen and (max-width: 400px) {
+    .itinerary-title {
+        font-size: 1.6rem;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .timeline-line {
+        left: 20px;
+    }
+
+    .stop-bullet {
+        left: 20px;
+    }
+
+    .stop-card {
+        width: calc(100% - 50px) !important;
+        margin-left: 50px !important;
+    }
+
+    .stop-activities {
+        width: calc(100% - 50px);
+        margin-left: 50px;
+    }
+
+    /* 1. COMPACT CONTAINER SPACING */
+    /* Override the large 'py-12' utility class */
+    .container.py-12 {
+        padding-top: 1.5rem !important;
+        padding-bottom: 2rem !important;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    /* 2. CREATE CTA CARD - TEXT & ALIGNMENT */
+    .create-cta {
+        text-align: center;
+        /* Center align text for better mobile balance */
+        padding: 30px 20px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Resize the 'text-3xl' H2 */
+    .create-cta h2 {
+        font-size: 1.6rem !important;
+        line-height: 1.3;
+        margin-bottom: 12px !important;
+    }
+
+    /* Resize the description paragraph */
+    .create-cta p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 24px !important;
+        /* Adjust spacing before button */
+        opacity: 0.95;
+    }
+
+    /* 3. START BUTTON FIXES */
+    /* Target the link inside create-cta directly */
+    .create-cta a {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        /* Make button full width for easier tapping */
+        max-width: 300px;
+        /* But don't let it get absurdly wide on tablets */
+        padding: 14px 20px !important;
+        /* Override 'px-8 py-3' */
+        font-size: 1rem !important;
+        height: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Add subtle depth */
+    }
+
+    /* Fix the Icon spacing and size */
+    .create-cta a i {
+        font-size: 0.9rem;
+        margin-right: 10px !important;
+        /* Ensure 'mr-2' has enough breathing room */
+        transform: translateY(-1px);
+        /* Optical alignment */
+    }
+
+    /* 4. SECTION HEADER (Active Circuits) FIXES */
+    /* Target the flex container with utility classes */
+    .container>.flex.justify-between.items-end {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 10px;
+        margin-bottom: 20px !important;
+    }
+
+    /* Resize the 'text-4xl' H1 */
+    .container h1.text-4xl {
+        font-size: 2rem !important;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 6px !important;
+    }
+
+    /* Resize the subtitle */
+    .container p.text-gray-500 {
+        font-size: 0.95rem;
+        color: #64748b;
+        /* Ensure contrast */
+    }
+
+    /* 5. EMPTY STATE FIX */
+    .text-center.py-20 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .text-center.py-20 i {
+        font-size: 2.5rem !important;
+        /* Smaller icon */
+    }
+
+    /* =========================================
+   INDEX PAGE MOBILE REFINEMENTS
+   Specific fixes for index.blade.php elements
+   ========================================= */
+
+    @media screen and (max-width: 768px) {
+
+        /* 1. COMPACT CONTAINER SPACING */
+        /* Override the large 'py-12' utility class */
+        .container.py-12 {
+            padding-top: 1.5rem !important;
+            padding-bottom: 2rem !important;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+
+        /* 2. CREATE CTA CARD - TEXT & ALIGNMENT */
+        .create-cta {
+            text-align: center;
+            /* Center align text for better mobile balance */
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Resize the 'text-3xl' H2 */
+        .create-cta h2 {
+            font-size: 1.6rem !important;
+            line-height: 1.3;
+            margin-bottom: 12px !important;
+        }
+
+        /* Resize the description paragraph */
+        .create-cta p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 24px !important;
+            /* Adjust spacing before button */
+            opacity: 0.95;
+        }
+
+        /* 3. START BUTTON FIXES */
+        /* Target the link inside create-cta directly */
+        .create-cta a {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            /* Make button full width for easier tapping */
+            max-width: 300px;
+            /* But don't let it get absurdly wide on tablets */
+            padding: 14px 20px !important;
+            /* Override 'px-8 py-3' */
+            font-size: 1rem !important;
+            height: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Add subtle depth */
+        }
+
+        /* Fix the Icon spacing and size */
+        .create-cta a i {
+            font-size: 0.9rem;
+            margin-right: 10px !important;
+            /* Ensure 'mr-2' has enough breathing room */
+            transform: translateY(-1px);
+            /* Optical alignment */
+        }
+
+        /* 4. SECTION HEADER (Active Circuits) FIXES */
+        /* Target the flex container with utility classes */
+        .container>.flex.justify-between.items-end {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 10px;
+            margin-bottom: 20px !important;
+        }
+
+        /* Resize the 'text-4xl' H1 */
+        .container h1.text-4xl {
+            font-size: 2rem !important;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 6px !important;
+        }
+
+        /* Resize the subtitle */
+        .container p.text-gray-500 {
+            font-size: 0.95rem;
+            color: #64748b;
+            /* Ensure contrast */
+        }
+
+        /* 5. EMPTY STATE FIX */
+        .text-center.py-20 {
+            padding-top: 3rem !important;
+            padding-bottom: 3rem !important;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .text-center.py-20 i {
+            font-size: 2.5rem !important;
+            /* Smaller icon */
+        }
+    }
+}
+
+/* =========================================
+   INDEX PAGE MOBILE REFINEMENTS
+   Specific fixes for index.blade.php elements
+   ========================================= */
+
+@media screen and (max-width: 768px) {
+
+    /* 1. COMPACT CONTAINER SPACING */
+    /* Override the large 'py-12' utility class */
+    .container.py-12 {
+        padding-top: 1.5rem !important;
+        padding-bottom: 2rem !important;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    /* 2. CREATE CTA CARD - TEXT & ALIGNMENT */
+    .create-cta {
+        text-align: center;
+        /* Center align text for better mobile balance */
+        padding: 30px 20px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Resize the 'text-3xl' H2 */
+    .create-cta h2 {
+        font-size: 1.6rem !important;
+        line-height: 1.3;
+        margin-bottom: 12px !important;
+    }
+
+    /* Resize the description paragraph */
+    .create-cta p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 24px !important;
+        /* Adjust spacing before button */
+        opacity: 0.95;
+    }
+
+    /* 3. START BUTTON FIXES */
+    /* Target the link inside create-cta directly */
+    .create-cta a {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        /* Make button full width for easier tapping */
+        max-width: 300px;
+        /* But don't let it get absurdly wide on tablets */
+        padding: 14px 20px !important;
+        /* Override 'px-8 py-3' */
+        font-size: 1rem !important;
+        height: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Add subtle depth */
+    }
+
+    /* Fix the Icon spacing and size */
+    .create-cta a i {
+        font-size: 0.9rem;
+        margin-right: 10px !important;
+        /* Ensure 'mr-2' has enough breathing room */
+        transform: translateY(-1px);
+        /* Optical alignment */
+    }
+
+    /* 4. SECTION HEADER (Active Circuits) FIXES */
+    /* Target the flex container with utility classes */
+    .container>.flex.justify-between.items-end {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 10px;
+        margin-bottom: 20px !important;
+    }
+
+    /* Resize the 'text-4xl' H1 */
+    .container h1.text-4xl {
+        font-size: 2rem !important;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 6px !important;
+    }
+
+    /* Resize the subtitle */
+    .container p.text-gray-500 {
+        font-size: 0.95rem;
+        color: #64748b;
+        /* Ensure contrast */
+    }
+
+    /* 5. EMPTY STATE FIX */
+    .text-center.py-20 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .text-center.py-20 i {
+        font-size: 2.5rem !important;
+        /* Smaller icon */
+    }
+
+    /* 1. Viewport & Container Adjustments */
+    .itinerary-create-view {
+        padding: 10px;
+        /* Remove thick gray borders */
+        background-color: #fff;
+        /* White background feels more native on mobile */
+    }
+
+    .itinerary-main-container {
+        padding: 25px 20px;
+        /* Reduce 50px padding to 20px */
+        border-radius: 0;
+        /* Remove radius for full-screen feel */
+        box-shadow: none;
+        /* Flat design for mobile form */
+        border: none;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* 2. Header Elements */
+    .itinerary-form-header {
+        margin-bottom: 30px;
+        /* Tighter spacing */
+        text-align: center;
+    }
+
+    .itinerary-icon-box {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        border-radius: 14px;
+    }
+
+    .itinerary-main-title {
+        font-size: 2rem;
+        /* Reduce from 2.8rem */
+        letter-spacing: -1px;
+    }
+
+    .itinerary-subtitle {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        padding: 0 10px;
+        /* Prevent text hitting edges */
+    }
+
+    /* 3. Form Inputs & Accessibility */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+    }
+
+    .form-input {
+        padding: 14px 16px;
+        /* Slightly more compact */
+        font-size: 16px;
+        /* Prevents iOS zooming on focus */
+        border-radius: 14px;
+    }
+
+    textarea.form-input {
+        min-height: 100px;
+    }
+
+    /* 4. Color Picker Safety */
+    /* Ensure colors wrap if screen is very narrow */
+    .color-picker-grid {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .color-option {
+        width: 42px;
+        /* Slightly larger target area */
+        height: 42px;
+    }
+
+    /* 5. Submit Button */
+    .btn-submit {
+        position: sticky;
+        bottom: 20px;
+        /* Sticky button for easy access */
+        margin-top: 20px;
+        padding: 16px;
+        font-size: 1rem;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+        /* Lift it up visually */
+        z-index: 100;
+        /* Ensure it stays above other elements */
+    }
+}

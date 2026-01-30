@@ -1,0 +1,88 @@
+/* ==========================================================================
+   7. FOOTER STYLES (Applies to all pages)
+   ========================================================================== */
+footer {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding-top: 50px;
+    position: relative; /* For stacking context if needed */
+    z-index: 5; /* Above default main content in case of weird overlaps */
+}
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+.footer-section {
+    flex: 1;
+    min-width: 220px;
+    margin-bottom: 30px;
+}
+.footer-section h4 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #34495e;
+    position: relative;
+    font-weight: 500;
+}
+.footer-section h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 50px;
+    height: 2px;
+    background-color: #007bff;
+}
+.footer-section p, .footer-section ul li a {
+    color: #bdc3c7;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+.footer-section ul { list-style: none; padding: 0; }
+.footer-section ul li { margin-bottom: 10px; }
+.footer-section ul li a:hover { color: #fff; }
+
+.social-links a { margin-right: 12px; display: inline-block; }
+.social-links img { width: 28px; height: 28px; opacity: 0.8; transition: opacity 0.3s ease; }
+.social-links a:hover img { opacity: 1; }
+
+.footer-section.contact-form input[type="email"],
+.footer-section.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #3e5265; /* Slightly lighter border for inputs */
+    background-color: #34495e;
+    color: #ecf0f1;
+    border-radius: 5px;
+    font-family: inherit; /* Ensure consistent font */
+}
+.footer-section.contact-form input[type="email"]::placeholder,
+.footer-section.contact-form textarea::placeholder {
+    color: #95a5a6;
+}
+.footer-section.contact-form textarea { height: 100px; resize: vertical; }
+.footer-section.contact-form button { /* This is a button, reuse .buttons.css if possible */
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+.footer-section.contact-form button:hover { background-color: #0056b3; }
+
+.footer-bottom {
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 20px;
+    border-top: 1px solid #34495e;
+    font-size: 0.9rem;
+    color: #95a5a6;
+}

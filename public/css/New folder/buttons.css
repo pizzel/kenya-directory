@@ -1,0 +1,93 @@
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+/* General Button Styling */
+.btn, button, input[type="submit"], input[type="button"] {
+    display: inline-block;
+    font-weight: 500;
+    color: #fff; /* Default text color for primary buttons */
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: #007bff; /* Primary blue */
+    border: 1px solid #007bff;
+    padding: 0.5rem 1rem; /* Default padding */
+    font-size: 0.95rem; /* Default font size */
+    line-height: 1.5;
+    border-radius: 0.25rem; /* Default border radius */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    text-decoration: none; /* Remove underline from button-styled links */
+}
+
+.btn:hover, button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn:focus, button:focus, input[type="submit"]:focus, input[type="button"]:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+/* Specific Button Styles from the project */
+
+/* Header Auth Buttons */
+header .auth-buttons button { /* Overrides general button for header specifics */
+    padding: 9px 18px;
+    margin-left: 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+header .auth-buttons .login-btn { background: #fff; color: #007bff; }
+header .auth-buttons .login-btn:hover { background: #f0f0f0; }
+header .auth-buttons .signup-btn { background: #007bff; color: #fff; }
+header .auth-buttons .signup-btn:hover { background: #0056b3; }
+
+/* Sticky Search Button (Homepage) */
+.sticky-search-section .search-form .search-btn {
+    padding: 9px 25px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    line-height: 1.5; /* Match input */
+    flex-grow: 0; flex-shrink: 0; white-space: nowrap;
+}
+
+/* Apply Filter Button (Listings Page Sidebar) */
+.apply-filter-btn {
+    width: 100%;
+    padding: 10px;
+    font-weight: 500;
+}
+
+/* Take Me Here Button (Listing Detail Page) */
+.take-me-here-btn {
+    display: block; width: 100%; padding: 12px;
+    margin-top: 15px; /* Or handled by parent widget */
+    background-color: #28a745; color: white;
+    border: none; border-radius: 5px;
+    font-size: 0.95rem; font-weight: 500;
+    text-align: center;
+}
+.take-me-here-btn i { margin-right: 8px; }
+.take-me-here-btn:hover { background-color: #218838; }
+
+/* Wishlist Button (Listing Detail Page Sidebar) */
+.wishlist-btn {
+    display: block; width: 100%; padding: 12px 25px;
+    font-size: 0.95rem; font-weight: 500; border-radius: 5px;
+    background-color: #f8f0fc; color: #e83e8c; border: 1px solid #e83e8c;
+    text-align: center;
+}
+.wishlist-btn i { margin-right: 8px; }
+.wishlist-btn:hover { background-color: #e83e8c; color: white; border-color: #e83e8c; }
+.wishlist-btn.added { background-color: #e83e8c; color: white; border-color: #e83e8c; }
+
+/* Footer Contact Form Button */
+.footer-section.contact-form button {
+    padding: 12px 20px; font-weight: 500;
+}

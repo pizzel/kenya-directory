@@ -1,0 +1,233 @@
+/* ==========================================================================
+   HOMEPAGE SPECIFIC STYLES (public/css/homepage.css)
+   ========================================================================== */
+
+/* --- Sticky Search Section (Already styled in its own section in the full CSS,
+       but if you only want it on homepage, its styles would go here.
+       For now, assuming it's global or styled via base/header CSS files.
+       If it's TRULY homepage-only, move its CSS here from the full sheet.
+--- */
+/*
+.sticky-search-section { ... }
+.sticky-search-section .search-form { ... }
+.sticky-search-section .search-form .form-group { ... }
+.sticky-search-section .search-form label { ... }
+.sticky-search-section .search-form input[type="text"] { ... }
+.sticky-search-section .search-form .search-btn { ... }
+.searchable-dropdown-group input[type="text"] { ... }
+.dropdown-list { ... }
+.dropdown-list div { ... }
+.dropdown-list div:hover { ... }
+.dropdown-list div.filtered-out { ... }
+*/
+/* For this exercise, I'll assume sticky-search styles are more global or in dedicated form/button files.
+   If they are ONLY for the homepage, copy those specific rules here.
+   The styles for .sticky-search-section, .search-form, form-group, and dropdown-list
+   were previously provided and should be placed here if they are homepage-exclusive.
+   For brevity, I'm not repeating them if they are in other files like forms.css.
+*/
+
+
+/* --- Hero Section (Homepage) --- */
+.hero { /* Ensure this is specific enough if other pages might have a .hero section */
+    background-color: #e9ecef; /* Fallback */
+    /* Path is relative to the public root when using asset() in Blade */
+    /* If this CSS is in public/css/homepage.css, an image in public/images/ would be ../images/ */
+    /* However, it's better to set this via inline style in Blade using asset() for reliability */
+    /* background-image: url('../images/E31E1931-5E06-4A68-B1CC-39273C516E22.jpeg'); */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    color: #fff;
+    padding: 80px 0;
+    text-align: center;
+    position: relative; /* For overlay */
+}
+.hero::before { /* Dark overlay for text readability */
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 1; /* Behind text, above background image if image is on .hero */
+}
+.hero .container { /* Ensure content is above the overlay */
+    position: relative;
+    z-index: 2;
+}
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: #fff; /* Ensure text is visible on overlay */
+}
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #fff; /* Ensure text is visible on overlay */
+}
+
+/* --- Visual Categories (Circular Icons - Homepage) --- */
+.visual-categories { /* Section wrapper */
+    /* General section padding from base.css */
+}
+.visual-categories .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 30px; /* Increased gap */
+    justify-content: center; /* Center items if fewer than fit */
+}
+.visual-categories .category-item {
+    background: #fff;
+    padding: 15px; /* Padding inside the circle */
+    border-radius: 50%; /* Make it circular */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Softer shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 150px;  /* Increased size */
+    height: 150px; /* Increased size */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto; /* Centering within grid cell if cell is wider */
+    text-decoration: none; /* If <a> tag is the .category-item */
+}
+.visual-categories .category-item:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+.visual-categories .category-item img { /* Image inside the circle */
+    width: 60px;  /* Adjust icon/image size within circle */
+    height: 60px;
+    border-radius: 50%; /* If image itself should be circular */
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+.visual-categories .category-item i.fa-3x { /* For Font Awesome icons */
+    font-size: 3em; /* Ensure it's large enough */
+    margin-bottom: 10px;
+    color: #007bff; /* Example icon color */
+}
+.visual-categories .category-item span { /* Text below image/icon */
+    display: block;
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9em;
+    text-align: center;
+    line-height: 1.2; /* For potentially two words */
+}
+
+
+/* --- Top Categories List with Scroller (Homepage) --- */
+.top-categories-scroller-wrapper {
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    padding: 10px 0; /* Vertical padding for the scroller area */
+    /* Fade out edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+.detailed-category-grid { /* The scrolling container */
+    display: flex;
+    flex-wrap: nowrap; /* Ensure it stays in one line */
+    gap: 30px;
+    width: fit-content; /* Let it be as wide as its children */
+    animation: scrollCategories 45s linear infinite; /* Adjust duration for speed */
+}
+.top-categories-scroller-wrapper:hover .detailed-category-grid,
+.detailed-category-grid:hover { /* Also pause if hovering directly on the grid */
+    animation-play-state: paused;
+}
+.detailed-category-column { /* Each individual column in the scroller */
+    flex: 0 0 270px; /* Fixed width for each column, adjust as needed */
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #e9ecef;
+    height: auto; /* Let height be determined by content */
+}
+.detailed-category-column h4 {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+.detailed-category-column h4 a {
+    color: inherit; /* Inherit color from h4 */
+    text-decoration: none;
+}
+.detailed-category-column h4 a:hover { color: #007bff; }
+.detailed-category-item { padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+.detailed-category-item:last-child { border-bottom: none; }
+.detailed-category-item a {
+    display: flex; /* For aligning text and potential count */
+    justify-content: space-between;
+    align-items: center;
+    color: #555;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.detailed-category-item a:hover { color: #007bff; }
+.detailed-category-item a span { /* For item count if you add it */
+    background-color: #e9ecef;
+    color: #495057;
+    font-size: 0.8em;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+
+@keyframes scrollCategories {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); } /* Assumes content inside .detailed-category-grid is duplicated once */
+}
+
+/* --- Grid Layout for Top Destinations, Recently Added, Hidden Gems (Homepage) --- */
+/* These sections will contain cards styled by components.css */
+.top-destinations .destination-grid,
+.recently-added .recent-grid,
+.hidden-gems .gems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Adjust minmax for desired card size */
+    gap: 25px;
+}
+
+/* Specific styles for elements within .gem-card if they differ from .listing-card */
+/* (Assuming .recent-card and .destination-card mostly use styles from components.css) */
+.gem-card .gem-info {
+    padding: 15px; /* Override if components.css has different padding for .listing-card-content */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.gem-card .gem-location {
+    font-style: italic;
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 10px;
+}
+.gem-card .gem-description {
+    font-size: 0.9rem; /* Slightly smaller than generic card paragraph */
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+.gem-card .gem-link {
+    display: inline-block;
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: auto; /* Pushes to bottom */
+    align-self: flex-start;
+}
+.gem-card .gem-link:hover {
+    text-decoration: underline;
+}

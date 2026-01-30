@@ -1,0 +1,158 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\Business;
+use App\Models\User;
+// use Illuminate\Auth\Access\HandlesAuthorization; // Trait can be useful
+
+class BusinessPolicy
+{
+    // use HandlesAuthorization; // Uncomment if you want to use $this->allow() / $this->deny()
+
+    /**
+     * Perform pre-authorization checks.
+     * Super Admins can do anything with businesses.
+     */
+    public function before(User $user, string $ability): bool|null
+    {
+        if ($user->isAdmin()) { // Super admin
+            return true;
+        }
+        return null; // Let other policy methods decide for non-super-admins (editors, business owners, etc.)
+    }
+
+    /**
+     * Determine whether the user can view any models (e.g., the business list in Filament).
+     */
+    public function viewAny(User $user): bool
+    {
+        // Editors can view the list of all businesses in the admin panel.
+        // Business owners usually see their own list via a different controller/route.
+        return $user->isEditor(); // Super Admin already covered by before()
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     * (e.g., view details of a specific business in Filament or public page)
+     */
+    public function view(User $user, Business $business): bool
+    {
+        // Editors can view any specific business details (in admin).
+        // Business owners can view their own.
+        // Public users can view active ones (this policy is more for admin/owner actions).
+        // Public access is usually controlled by the controller query itself.
+        return $user->isEditor() || $user->id === $business->user_id;
+    }
+
+    /**
+     * Determine whether the user can create models.
+     * Editors are NOT allowed to create businesses. Only Business Owners submit, Admins can create.
+     */
+    public function create(User $user): bool
+    {
+        // Admins are covered by before().
+        // Business owners create via their specific frontend form/controller, not usually this policy for Filament create.
+        // If you want Editors to create businesses in Filament, add: || $user->isEditor()
+        return $user->isBusinessOwner(); // This is more for general "can a user of this type create?"
+                                        // For Filament's "Create" button, it checks if current auth user can create.
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     * Editors can update any business. Business owners can update their own.
+     */
+    public function update(User $user, Business $business): bool
+    {
+        return $user->isEditor() || $user->id === $business->user_id;
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     * Let's say only Super Admins can delete for now. Editors cannot.
+     */
+    public function delete(User $user, Business $business): bool
+    {
+        // Allow if the user is the owner of the business
+        if ($user->id === $business->user_id) {
+            return true;
+        }
+
+        // For any other role (like 'editor'), they cannot delete unless covered by 'before'.
+        // If you wanted editors to delete, you'd add: || $user->isEditor()
+        return false;
+    }
+
+    /**
+     * Determine whether the user can restore the model. (If using Soft Deletes)
+     * Only Super Admins can restore.
+     */
+    // public function restore(User $user, Business $business): bool
+    // {
+    //     return false; // Editors cannot restore
+    // }
+
+    /**
+     * Determine whether the user can permanently delete the model. (If using Soft Deletes)
+     * Only Super Admins can force delete.
+     */
+    // public function forceDelete(User $user, Business $business): bool
+    // {
+    //     return false; // Editors cannot force delete
+    // }
+
+    /**
+     * Determine whether the user can verify or unverify the business.
+     * Editors CAN verify/unverify.
+     */
+    public function verify(User $user, Business $business): bool
+    {
+        return $user->isEditor(); // Super Admin already covered by before()
+    }
+
+    /**
+     * Determine whether the user can change the status of the business
+     * (e.g., approve, delist, set closed - but NOT reactivate from closed/delisted).
+     * This method will be used by Filament Actions like 'approve_listing', 'delist', 'close_permanently'.
+     */
+    public function changeStatus(User $user, Business $business): bool
+    {
+        // Editors can change status (approve, delist, close).
+        return $user->isEditor(); // Super Admin already covered by before()
+    }
+
+    /**
+     * Determine whether the user can set a business back to 'active'
+     * from 'delisted' or 'closed_permanently'.
+     * ONLY Super Admins can do this. Editors CANNOT.
+     */
+    public function setActive(User $user, Business $business): bool
+    {
+        // This specific action is reserved for Super Admins.
+        // The 'before' method already handles Super Admin access, so if a user is an editor,
+        // the 'before' method returns null, and this method will be checked.
+        return false; // Explicitly deny editors this action.
+    }
+
+    public function restore(User $user, Business $business): bool
+        {
+            // Only Admins or Editors who can change status should be able to restore
+            return $user->isEditor(); // Super Admin covered by 'before'
+        }
+
+        /**
+        * Determine whether the user can permanently delete the model.
+        */
+        public function forceDelete(User $user, Business $business): bool
+        {
+            // Typically, only Super Admins should force delete. Editors might not have this.
+            // If before() handles admin, this could be false, or:
+            return $user->isAdmin(); // Allow ONLY super admin explicitly for force delete
+                                    // If 'before' returns true for admin, this method isn't even called for them.
+                                    // So, this would be for a case where 'before' doesn't give blanket permission.
+                                    // Given your 'before' method, only super admins get here if they are not caught by 'before'.
+                                    // Let's re-evaluate: 'before' gives super admin full. So 'editor' would be checked here.
+            // return $user->isEditor(); // IF editors can also force delete (less common)
+            return false; // Safest: only super admins via before() can force delete. Editors cannot.
+        }
+}

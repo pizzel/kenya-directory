@@ -1,0 +1,838 @@
+*,header nav ul{padding:0;margin:0}*,body{margin:0}.dropdown-list,.sticky-search-section,main>section:not(.hero):nth-child(odd){background-color:#fff}.destination-card,.gem-card,.recent-card,.visual-categories .category-item{transition:transform .3s,box-shadow .3s}.category-tag,.listing-status-badge{text-transform:uppercase;letter-spacing:.5px}*{box-sizing:border-box}body{font-family:'Helvetica Neue',Arial,sans-serif;line-height:1.2;color:#333;background-color:#f8f9fa;padding-top:135px}.container{width:90%;max-width:1200px;margin:0 auto;padding:0 20px;overflow:visible}a,header nav ul li a.active,header nav ul li a:hover{color:#007bff;text-decoration:none}a:hover{text-decoration:none;color:#0056b3}img{max-width:100%;height:auto;display:block}section{padding:50px 0;position:relative;overflow:visible}.sticky-search-section,header{position:fixed;overflow:visible;width:100%;left:0}section h2{text-align:center;font-size:2.2rem;margin-bottom:40px;color:#333;font-weight:600}.section-subtitle{text-align:center;font-size:1.1rem;color:#555;max-width:700px;margin:-30px auto 40px}header{background:#fff;padding:1rem 0;border-bottom:1px solid #e0e0e0;box-shadow:0 2px 4px rgba(0,0,0,.05);top:0;z-index:1002;height:65px}header .container{display:flex;justify-content:space-between;align-items:center;height:100%}header .logo img{height:60px;margin-right:10px;vertical-align:middle}header .logo span{font-size:1.6rem;font-weight:700;color:#2c3e50;vertical-align:middle}header nav ul{list-style:none;display:flex}header nav ul li{margin-left:25px}header nav ul li:first-child{margin-left:0}header nav ul li a{color:#555;font-weight:500;padding:5px 0;position:relative}header nav ul li a.active::after{content:'';position:absolute;bottom:-1px;left:0;width:100%;height:2px;background-color:#007bff}header .auth-buttons a.login-btn,header .auth-buttons a.signup-btn,header .auth-buttons button{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;padding:9px 18px;margin-left:10px;border:1px solid #007bff;border-radius:5px;cursor:pointer;font-weight:500;font-size:.9em;transition:background-color .3s,color .3s}header .auth-buttons .login-btn{background:#fff;color:#007bff}header .auth-buttons .login-btn:hover{background:#f0f0f0}header .auth-buttons .signup-btn{background:#007bff;color:#fff}header .auth-buttons .signup-btn:hover{background:#0056b3}.sticky-search-section{padding:10px 0;top:65px;z-index:1001;box-shadow:0 3px 6px rgba(0,0,0,.08);border-bottom:1px solid #e9ecef}.sticky-search-section .search-form{display:flex;flex-wrap:nowrap;justify-content:center;align-items:flex-end;gap:12px;background-color:#fff;padding:12px 20px;border-radius:50px;max-width:950px;margin:0 auto;box-shadow:0 4px 15px rgba(0,0,0,.45)}.sticky-search-section .search-form .form-group{display:flex;flex-direction:column;flex-grow:1;position:relative}.sticky-search-section .search-form .keyword-group{flex-grow:1.8}.sticky-search-section .search-form label{margin-bottom:4px;font-size:.75em;color:#555;font-weight:500;padding-left:15px}.sticky-search-section .search-form input[type=text]{padding:9px 18px;border:1px solid #ced4da;border-radius:20px;font-size:.9em;line-height:1.5;width:100%;box-sizing:border-box;min-width:150px}.sticky-search-section .search-form .search-btn{padding:9px 25px;background-color:#007bff;color:#fff;border:none;border-radius:20px;cursor:pointer;font-size:.9em;line-height:1.5;font-weight:500;transition:background-color .3s;flex-grow:0;flex-shrink:0;white-space:nowrap}.apply-filter-btn:hover,.footer-section.contact-form button:hover,.sticky-search-section .search-form .search-btn:hover{background-color:#0056b3}.searchable-dropdown-group input[type=text]{cursor:pointer}.dropdown-list{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;border:1px solid #ddd;border-radius:8px;max-height:250px;overflow-y:auto;z-index:10;box-shadow:0 5px 10px rgba(0,0,0,.1)}.searchable-dropdown-group .dropdown-list:hover,.searchable-dropdown-group input[type=text]:focus+.dropdown-list{display:block}.dropdown-list div{padding:8px 15px;cursor:pointer;font-size:.9em}.dropdown-list div:hover,.user-dropdown-trigger:hover{background-color:#f0f0f0}.dropdown-list div.filtered-out{display:none}main>section{position:relative;z-index:0;overflow:visible}main>section.hero{z-index:1}main>section:not(.hero):nth-child(2n){background-color:#f8f9fa}.hero{background-color:#e9ecef;background-image:url('../images/E31E1931-5E06-4A68-B1CC-39273C516E22.jpeg');background-repeat:no-repeat;background-position:center center;background-size:cover;color:#fff;padding:80px 0;text-align:center}.hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.45);z-index:1}.hero .container{position:relative;z-index:2}.hero h1{font-size:2.8rem;margin-bottom:15px;font-weight:700}.hero p{font-size:1.25rem;margin-bottom:30px;font-weight:300;max-width:700px;margin-left:auto;margin-right:auto}.visual-categories .category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:25px;text-align:center}.visual-categories .category-item{background:#fff;padding:10px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.08);width:140px;height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:10px auto}.visual-categories .category-item:hover{transform:translateY(-5px) scale(1.05);box-shadow:0 4px 12px rgba(0,0,0,.12)}.visual-categories .category-item i,.visual-categories .category-item img{width:70px;height:70px;border-radius:50%;object-fit:cover;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:36px}.visual-categories .category-item span{display:block;font-weight:500;color:#444;font-size:.9em;text-align:center}.top-categories-list .top-categories-scroller-wrapper{width:100%;overflow-x:hidden;position:relative;padding:10px 0;-webkit-mask-image:linear-gradient(to right,transparent 0%,black 5%,black 95%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,black 5%,black 95%,transparent 100%)}.top-categories-list .detailed-category-grid{display:flex;flex-wrap:nowrap;gap:30px;width:fit-content;animation:45s linear infinite scrollCategories}.detailed-category-grid:hover,.top-categories-scroller-wrapper:hover .detailed-category-grid{animation-play-state:paused}.detailed-category-column{flex:0 0 260px;background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid #e9ecef}.detailed-category-column h4{margin-bottom:15px;font-size:1.1rem;font-weight:600}.detailed-category-column h4 a,.listing-card-content h3 a{color:#333}.detailed-category-item{padding:8px 0;border-bottom:1px solid #f0f0f0}.comments-list .comment-item:last-child,.detailed-category-item:last-child,.schedule-widget table tr:last-child td,li.daily-forecast-item:last-child{border-bottom:none}.detailed-category-item a{display:flex;justify-content:space-between;align-items:center;text-decoration:none;color:#555;font-size:.9em;transition:color .2s}.breadcrumb-bar a,.detailed-category-item a:hover,.leave-comment-section p a,.social-icon-public:hover,.social-media-links a:hover,ul.filter-list li a:hover,ul.filter-list li label:hover span.text-sm{color:#007bff}.detailed-category-item a span,ul.filter-list li a span:not(.reviews):not(.text-sm),ul.filter-list li label span.count-badge{background-color:#e9ecef;color:#495057;font-size:.8em;padding:2px 6px;border-radius:10px}@keyframes scrollCategories{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}.popular-counties .destination-grid,.top-destinations .destination-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}.destination-card{border-radius:8px;overflow:hidden;position:relative;box-shadow:0 4px 10px rgba(0,0,0,.07);border:1px solid #e9ecef}.destination-card:hover{transform:translateY(-5px);box-shadow:0 6px 15px rgba(0,0,0,.12)}.destination-card img{width:100%;height:280px;object-fit:cover;display:block}.destination-card .destination-info{position:absolute;bottom:0;left:0;width:100%;background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,0));color:#fff;padding:20px 15px 15px;font-size:1.2rem;font-weight:600}.destination-card .destination-info span{display:block;font-size:.85rem;font-weight:400;opacity:.9;margin-top:3px}.destination-grid>.text-center.col-span-full,.gems-grid>.text-center.col-span-full,.listings-grid>.text-center.col-span-full,.recent-grid>.text-center.col-span-full{grid-column:1/-1;padding:20px;color:#6c757d}.gems-grid,.popular-places-grid,.recent-grid{display:grid;gap:25px;grid-template-columns:1fr}@media (min-width:640px){.gems-grid,.popular-places-grid,.recent-grid{grid-template-columns:repeat(2,1fr)}}@media (min-width:1024px){.gems-grid,.popular-places-grid,.recent-grid{grid-template-columns:repeat(3,1fr)}}.gem-card,.recent-card{background:#fff;border:1px solid #e9ecef;border-radius:8px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.07);display:flex;flex-direction:column}.filters-sidebar,.listings-header{box-shadow:0 1px 3px rgba(0,0,0,.05)}.gem-card:hover,.listing-card:hover,.recent-card:hover{transform:translateY(-5px);box-shadow:0 4px 12px rgba(0,0,0,.1)}.gem-card img,.recent-card img{width:100%;height:200px;object-fit:cover}.recent-card h3{font-size:1.15rem;margin:15px 15px 10px;color:#333;font-weight:600}.recent-card p{font-size:.9rem;margin:0 15px 15px;color:#666;flex-grow:1}.gem-card .gem-info{padding:20px;display:flex;flex-direction:column;flex-grow:1}.gem-card .gem-info h3{font-size:1.2rem;margin-bottom:8px;color:#333;font-weight:600}.gem-card .gem-location{font-style:italic;font-size:.85rem;color:#777;margin-bottom:10px}.gem-card .gem-description{font-size:.9rem;color:#555;line-height:1.5;margin-bottom:15px;flex-grow:1}.gem-card .gem-link{display:inline-block;color:#007bff;text-decoration:none;font-weight:500;margin-top:auto;align-self:flex-start;font-size:.9em}.text-center.col-span-full{grid-column:1/-1;text-align:center;padding:20px}.breadcrumb-bar{background-color:#f0f2f5;padding:12px 0;border-bottom:1px solid #e0e0e0;font-size:.9em;color:#6c757d;margin-bottom:30px}.breadcrumb-bar span{color:#343a40}.listing-page-container{display:flex;gap:30px;padding-top:0;padding-bottom:30px}.filters-sidebar{flex:0 0 280px;background-color:#fff;padding:20px;border-radius:8px;align-self:flex-start;border:1px solid #e9ecef}.filter-widget{margin-bottom:25px;padding-bottom:20px;border-bottom:1px solid #f0f0f0}.filter-widget:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}.filter-widget h4{font-size:1.05rem;margin-bottom:15px;color:#333;font-weight:600}.filter-widget input[type=range],.filter-widget input[type=text]{width:100%;padding:8px 12px;border:1px solid #ced4da;border-radius:4px;font-size:.9em;margin-bottom:10px}.price-range-values{display:flex;justify-content:space-between;font-size:.85em;color:#555;margin-bottom:15px}.apply-filter-btn{width:100%;padding:10px;background-color:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:500;transition:background-color .3s;font-size:.95em}.footer-section ul,.related-listings-widget .related-list,ul.filter-list{list-style:none;padding:0}.sidebar-widget:last-child,ul.filter-list li{margin-bottom:0}ul.filter-list li label{width:100%}ul.filter-list li a,ul.filter-list li label{text-decoration:none;color:#555;font-size:.9em;display:flex;justify-content:space-between;align-items:center;transition:color .2s;padding:4px 0}ul.rating-filter li a i,ul.rating-filter li label i{color:#ffc107;margin-right:2px;font-size:.9em}ul.rating-filter li a span,ul.rating-filter li label span.ml-2{background-color:transparent!important;color:#555;margin-left:8px;font-size:.9em}.listings-main-content{flex:1;min-width:0}.listings-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;padding:15px;background-color:#fff;border-radius:8px;border:1px solid #e9ecef}.listings-header h2{font-size:1.2rem;margin:0;color:#333;font-weight:600}.sort-options label{margin-right:8px;font-size:.9em;color:#555}.sort-options select{padding:8px 12px;border:1px solid #ced4da;border-radius:4px;font-size:.9em;background-color:#fff}.listings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}.listing-card{background:#fff;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.07);overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;border:1px solid #e9ecef}.listing-card-image{position:relative;width:100%;height:200px}.listing-card-image img{width:100%;height:100%;object-fit:cover}.listing-status-badge{position:absolute;top:10px;left:10px;background-color:#007bff;color:#fff;padding:4px 8px;border-radius:4px;font-size:.7em;font-weight:700}.listing-status-badge.open{background-color:#28a745}.listing-status-badge.closed{background-color:#dc3545}.listing-status-badge.featured{background-color:#ffc107;color:#212529}.listing-status-badge.popular{background-color:#17a2b8}.listing-card-content, .card-content-area{padding:15px;flex-grow:1;display:flex;flex-direction:column}.listing-card-content h3{font-size:1.15rem;margin:0 0 8px;font-weight:600}.listing-rating-price .rating i,.pagination a{font-size:.9em}.listing-location{font-size:.85em;color:#6c757d;margin-bottom:10px;display:flex;align-items:center}.listing-facilities span i,.listing-location i{margin-right:6px;color:#007bff;font-size:.9em}.listing-rating-price{display:flex;justify-content:space-between;align-items:center;font-size:.75em;margin-top:auto;padding-top:10px;border-top:1px solid #f0f0f0}.listing-rating-price .rating{color:#ffc107;display:flex;align-items:center}.listing-rating-price .rating .reviews{color:#6c757d;font-size:.85em;margin-left:5px}.listing-rating-price .price-indicator{font-weight:700;color:#28a745}.pagination{display:flex;justify-content:center;align-items:center;margin-top:40px;padding:20px 0}.pagination a{color:#007bff;padding:8px 14px;text-decoration:none;border:1px solid #dee2e6;margin:0 3px;border-radius:4px;transition:background-color .3s,color .3s}.right-top-image-wrapper-final img,.small-thumbnail-item-final img{display:block;transition:transform .3s;width:100%;object-fit:cover}.listing-tags a:hover,.pagination a.active,.pagination a:hover{background-color:#007bff;color:#fff;border-color:#007bff}.listing-detail-page{padding-top:0}.listing-gallery-final{display:flex;gap:15px;height:420px;margin-bottom:30px;border-radius:12px;overflow:hidden}.gallery-main-image-wrapper-final{flex:1.8;height:100%;border-radius:12px;overflow:hidden}.gallery-right-column-final,.right-bottom-thumbnails-final{flex:1;display:flex;gap:15px}#galleryMainImageFinal{width:100%;height:100%;object-fit:cover;display:block;border-radius:12px}.gallery-right-column-final{flex-direction:column;height:100%}.right-top-image-wrapper-final{flex:1.2;border-radius:10px;overflow:hidden;background-color:#eee;cursor:pointer}.right-top-image-wrapper-final img{height:100%;border-radius:10px}.right-top-image-wrapper-final:hover img,.small-thumbnail-item-final:hover img{transform:scale(1.05)}.small-thumbnail-item-final{flex:1;border-radius:8px;overflow:hidden;position:relative;background-color:#e0e0e0;cursor:pointer}.small-thumbnail-item-final img{height:100%;border-radius:8px}.small-thumbnail-item-final.view-all-thumb .view-all-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.65);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:500;text-decoration:none;opacity:0;transition:opacity .3s;border-radius:8px;text-align:center;padding:5px}.small-thumbnail-item-final.view-all-thumb:hover .view-all-overlay,.social-links a:hover img{opacity:1}.listing-content-area-3col{display:flex;gap:25px;margin-top:0;align-items:flex-start}.listing-info-col1{flex:2.2;min-width:0}.listing-map-col2{flex:1.5;min-width:0}.listing-schedule-col3{flex:1.3;min-width:0}.listing-info-col1 .listing-info-details{background-color:#fff;padding:25px;border-radius:8px;margin-bottom:30px;box-shadow:0 1px 3px rgba(0,0,0,.05);border:1px solid #e9ecef}.listing-info-details h1{font-size:1.8rem;margin-bottom:5px;color:#212529;font-weight:600;display:flex;align-items:center;flex-wrap:wrap}.verification-badge{display:inline-flex;align-items:center;margin-left:10px;font-size:.95rem;color:#28a745;background-color:#eaf6ec;padding:3px 8px;border-radius:15px;font-weight:500;border:1px solid #a3d8b3;white-space:nowrap}.verification-badge i{margin-right:4px;font-size:.8em}.listing-meta{display:flex;align-items:center;gap:15px;margin-bottom:20px;font-size:.9em;color:#555;flex-wrap:wrap}.sidebar-widget,.social-media-links{margin-bottom:25px}.category-tag{background-color:#007bff;color:#fff;padding:4px 10px;border-radius:4px;font-size:.8em}.take-me-here-btn,.wishlist-btn{display:block;font-size:.95rem;text-align:center;width:100%;font-weight:500;cursor:pointer}.rating-stars i{color:#ffc107}.rating-stars span{margin-left:5px;color:#6c757d}.contact-info-block{margin-top:20px}.listing-about-us,.listing-facilities,.listing-tags,.social-media-links{margin-top:25px;border-top:1px solid #f0f0f0;padding-top:20px}.contact-info-block p{margin-bottom:10px;font-size:.95em;color:#495057;display:flex;align-items:center}.contact-info-block p i{margin-right:12px;color:#007bff;width:18px;text-align:center;font-size:1.1em}.listing-facilities h4,.listing-tags h4,.social-media-links h4,.social-media-links-public h4{font-size:1rem;margin-bottom:10px;font-weight:500}.social-media-links a{color:#495057;font-size:1.2rem;margin-right:15px;transition:color .3s}.listing-about-us h4{font-size:1.1rem;margin-bottom:10px;color:#333;font-weight:600}.listing-about-us p{line-height:1.7;color:#343a40;font-size:.95em}.listing-facilities span,.listing-tags a{margin-bottom:8px;color:#495057;margin-right:8px}.listing-tags a{display:inline-block;background-color:#e9ecef;border:1px solid #dee2e6;padding:5px 10px;border-radius:15px;text-decoration:none;font-size:.8em;transition:.3s}.listing-facilities span{display:inline-flex;align-items:center;background-color:#f8f9fa;border:1px solid #e9ecef;padding:6px 12px;border-radius:20px;font-size:.85em}.business-categories-widget ul.widget-list{display:flex;flex-wrap:wrap;gap:8px}.business-categories-widget ul.widget-list li a{display:inline-flex;align-items:center;background-color:#e9ecef;border:1px solid #dee2e6;padding:6px 12px;border-radius:20px}.business-categories-widget ul.widget-list li a:hover{background-color:#007bff;border-color:#007bff;color:#007bff}.business-categories-widget ul.widget-list li a:hover i.fa-fw,.footer-section ul li a:hover{color:#fff}.business-categories-widget ul li a:hover{color:#fff!important}.sidebar-widget{background-color:#fff;padding:20px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.05);border:1px solid #e9ecef}.sidebar-widget h4{font-size:1.05rem;margin-bottom:15px;padding-bottom:10px;border-bottom:1px solid #f0f0f0;font-weight:600}.map-widget .map-placeholder{height:250px;margin-bottom:15px;border-radius:6px;overflow:hidden}.map-widget .map-placeholder iframe{height:100%;width:100%;border:none}.take-me-here-btn{padding:12px;background-color:#28a745;color:#fff;border:none;border-radius:5px;transition:background-color .3s}.take-me-here-btn i,.wishlist-btn i{margin-right:8px}.take-me-here-btn:hover{background-color:#218838}.wishlist-btn{padding:12px 25px;border-radius:5px;transition:.3s;background-color:#f8f0fc;color:#e83e8c;border:1px solid #e83e8c}.wishlist-btn.added,.wishlist-btn:hover{background-color:#e83e8c;color:#fff;border-color:#e83e8c}.schedule-widget table{width:100%;font-size:.9em;border-collapse:collapse}.schedule-widget table td{padding:8px 5px;border-bottom:1px dashed #eee;color:#555}.schedule-widget table td:last-child{text-align:right;font-weight:500;color:#333}.schedule-widget .highlight-time{color:#dc3545;font-weight:700;font-size:.9em;display:block;}.related-listings-widget .related-list li{display:flex;align-items:center;gap:12px;margin-bottom:15px;padding-bottom:15px;border-bottom:1px dashed #eee}.business-categories-widget ul.widget-list li:last-child,.related-listings-widget .related-list li:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}.related-listings-widget .related-list img{width:60px;height:50px;object-fit:cover;border-radius:6px}.related-listings-widget .related-list a{color:#0056b3;font-weight:500;font-size:.9rem;display:block;margin-bottom:2px}.related-listings-widget .related-list span{font-size:.8em;color:#6c757d}.listing-info-col1 .reviews-section{margin-top:30px}.reviews-section h2{font-size:1.4rem;margin-bottom:20px;text-align:left;font-weight:600}.overall-rating-summary{display:flex;align-items:center;gap:20px;margin-bottom:30px;padding-bottom:20px;border-bottom:1px solid #f0f0f0;flex-wrap:wrap}.overall-rating-summary .rating-value{font-size:2.8rem;font-weight:700;color:#212529;margin-right:10px}.rating-breakdown{flex-grow:1;min-width:180px}.rating-breakdown span{display:flex;align-items:center;font-size:.85em;color:#555;margin-bottom:4px}.rating-breakdown .bar{height:8px;background-color:#e9ecef;border-radius:4px;width:100%;max-width:120px;margin:0 8px;overflow:hidden}.rating-breakdown .bar div{height:100%;background-color:#ffc107;border-radius:4px}.total-reviews{font-size:.85em;color:#6c757d;text-align:right;flex-shrink:0;margin-left:10px}.comments-list .comment-item{display:flex;gap:15px;padding:15px 0;border-bottom:1px solid #f0f0f0}.comment-avatar{width:45px;height:45px;border-radius:50%;object-fit:cover;flex-shrink:0}.comment-content h4{font-size:.95rem;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center;font-weight:600}.comment-rating i{color:#ffc107;font-size:.8em}.comment-date{font-size:.75em;color:#888;margin-bottom:8px;display:block}.comment-content p{font-size:.9em;line-height:1.6;margin-bottom:8px}.reply-link{font-size:.8em;color:#007bff;text-decoration:none;font-weight:500}.leave-comment-section{margin-top:30px;padding-top:20px;border-top:1px solid #f0f0f0}.leave-comment-section h3{font-size:1.1rem;margin-bottom:10px;font-weight:600}.leave-comment-section textarea{width:100%;min-height:100px;padding:10px;border:1px solid #ced4da;border-radius:4px;margin-bottom:10px;font-family:inherit;font-size:.9em}.leave-comment-section button[type=submit]{padding:10px 20px;background-color:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:500}.similar-listings-section{background-color:#f0f2f5;padding:50px 0;margin-top:40px}.similar-listings-section h2{text-align:center;margin-bottom:30px;font-size:1.8rem;font-weight:600}footer{background:#2c3e50;color:#ecf0f1;padding-top:50px;position:relative;z-index:5}.footer-content{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px}.footer-section{flex:1;min-width:220px;margin-bottom:30px}.footer-section h4{color:#fff;font-size:1.2rem;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid #34495e;position:relative;font-weight:500}.footer-section h4::after{content:'';position:absolute;left:0;bottom:-1px;width:50px;height:2px;background-color:#007bff}.footer-section p,.footer-section ul li a{color:#bdc3c7;text-decoration:none;line-height:1.8;font-size:.95rem}.footer-section ul li{margin-bottom:10px}.social-links a{margin-right:12px;display:inline-block}.social-links img{width:28px;height:28px;opacity:.8;transition:opacity .3s}.footer-section.contact-form input[type=email],.footer-section.contact-form textarea{width:100%;padding:12px;margin-bottom:12px;border:1px solid #3e5265;background-color:#34495e;color:#ecf0f1;border-radius:5px;font-family:inherit}.footer-section.contact-form input[type=email]::placeholder,.footer-section.contact-form textarea::placeholder{color:#95a5a6}.footer-section.contact-form textarea{height:100px;resize:vertical}.footer-section.contact-form button{background-color:#007bff;color:#fff;padding:12px 20px;border:none;border-radius:5px;cursor:pointer;font-weight:500;transition:background-color .3s}.footer-bottom{text-align:center;padding:25px 0;margin-top:20px;border-top:1px solid #34495e;font-size:.9rem;color:#95a5a6}@media (max-width:1100px){.listing-gallery-final{flex-direction:column;height:auto}.gallery-main-image-wrapper-final{height:350px;flex-basis:auto}.gallery-right-column-final{flex-direction:row;height:130px;flex-basis:auto}.right-top-image-wrapper-final{flex:1.5}.gallery-small-thumbnails-stack{flex:1;flex-direction:row}.small-thumbnail-item-final{height:100%}.listing-content-area-3col{flex-direction:column}.listing-info-col1,.listing-map-col2,.listing-schedule-col3{flex-basis:auto;width:100%}.listing-map-col2{order:1}.listing-schedule-col3{order:2}}@media (max-width:992px){.sticky-search-section .search-form{max-width:95%;padding:10px 15px;flex-wrap:wrap;align-items:flex-end}.sticky-search-section .search-form .form-group{min-width:calc(50% - 10px);flex-basis:calc(50% - 10px);margin-bottom:10px}.sticky-search-section .search-form .keyword-group{flex-basis:100%;margin-bottom:10px}.sticky-search-section .search-form .search-btn{flex-basis:100%}.listing-page-container{flex-direction:column}.filters-sidebar{flex:0 0 auto;width:100%;margin-bottom:30px}}@media (max-width:768px){body{padding-top:65px}header{height:auto;padding-bottom:10px;position:static}.sticky-search-section{top:0;position:static;margin-bottom:20px;box-shadow:none;border-bottom:1px solid #e0e0e0;padding-top:15px;padding-bottom:15px}.sticky-search-section .search-form{flex-direction:column;align-items:stretch;border-radius:25px;gap:10px}.sticky-search-section .search-form .form-group,.sticky-search-section .search-form .search-btn{width:100%;flex-basis:auto;margin-bottom:0}.gallery-right-column-final{flex-direction:column;height:auto}.gallery-small-thumbnails-stack,.right-top-image-wrapper-final{height:150px;width:100%}.gallery-small-thumbnails-stack{flex-direction:row;height:100px}.listing-info-details-col .listing-info-details h1{font-size:1.6rem}.overall-rating-summary{flex-direction:column;align-items:flex-start}.overall-rating-summary .rating-value{margin-bottom:10px;font-size:2.5rem}.total-reviews{text-align:left;margin-top:10px}.footer-content,.social-links{text-align:center}.rating-breakdown .bar{width:100%}.footer-content{flex-direction:column}.footer-section h4::after{left:50%;transform:translateX(-50%)}}.social-media-links-public .flex{display:flex;flex-wrap:wrap;gap:.75rem}.social-icon-public{color:#4a5568;font-size:1.5rem;transition:color .3s}.geolocation-help-notice{margin-top:10px;padding:12px;background-color:#fff3cd;border:1px solid #ffeeba;color:#856404;border-radius:6px;font-size:.85rem}.geolocation-help-notice p{margin-bottom:5px}.geolocation-help-notice ul{list-style-type:disc;margin-left:20px;margin-bottom:5px}.geolocation-help-notice li{margin-bottom:3px}.geolocation-help-notice .text-link{color:#0056b3;text-decoration:underline}.geolocation-help-notice .text-link:hover{color:#003875}.weather-widget h4{text-align:left;margin-bottom:15px}.weather-location-city{font-weight:500;margin-bottom:10px;font-size:.95rem;color:#2c3e50}.business-categories-widget ul.widget-list,ul.daily-forecast-list{list-style:none;padding:0;margin:0}li.daily-forecast-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0}.forecast-day{flex-basis:35%;font-weight:500;font-size:.85rem;color:#333}.forecast-icon{width:35px;height:35px;flex-shrink:0}.forecast-temp{flex-basis:30%;text-align:right;font-weight:500;font-size:.9rem;white-space:nowrap}.weather-widget .weather-error{text-align:center}.loading-modal{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:center;z-index:2000;opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s linear .3s}.loading-modal.is-visible{opacity:1;visibility:visible;transition:opacity .3s,visibility linear}.loading-modal .modal-content{background-color:#fff;padding:30px 40px;border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,.3);text-align:center;display:flex;flex-direction:column;align-items:center}.loading-modal .modal-content p{margin-top:15px;font-size:1.1rem;color:#333}.loading-modal .spinner{border:5px solid #f3f3f3;border-top:5px solid #007bff;border-radius:50%;width:40px;height:40px;animation:1s linear infinite spin}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.bo-form select[multiple].bo-form-multiselect{min-height:120px;background-image:none;padding:.5rem}.bo-form .form-helper-text{font-size:.8rem;color:#6b7280;margin-top:.25rem;display:block}.business-categories-widget ul.widget-list li{margin-bottom:0;margin-bottom:1x;padding-bottom:0;border-bottom:1px dashed #eee}.business-categories-widget ul.widget-list li a{text-decoration:none;color:#333;font-size:.95em;display:flex;align-items:center;transition:color .2s}.business-categories-widget ul.widget-list li a i.fa-fw{margin-right:8px;color:#007bff;font-size:1em}.auth-buttons{position:relative}.user-dropdown-wrapper{position:relative;display:inline-block}.user-dropdown-trigger{background-color:#fff;color:#007bff;border:1px solid #007bff;padding:8px 15px;border-radius:5px;cursor:pointer;display:inline-flex;align-items:center;font-weight:500;font-size:.9em}.dropdown-arrow-icon{margin-left:.5rem;width:1rem;height:1rem}.user-dropdown-menu{position:absolute;right:0;top:100%;margin-top:.5rem;width:12rem;background-color:#fff;border-radius:.375rem;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);border:1px solid #e5e7eb;z-index:50;padding-top:.25rem;padding-bottom:.25rem}.dropdown-item{display:block;width:100%;padding:.5rem 1rem;text-align:left;font-size:.875rem;color:#374151;text-decoration:none;white-space:nowrap}.dropdown-item:hover{background-color:#f3f4f6;color:#1f2937}.weather-widget .weather-content-area{text-align:center;font-size:.9rem;color:#4a5568}.weather-widget .weather-content-area p:first-child{text-align:center;padding:20px 0;font-style:italic}.weather-widget .weather-main{display:flex;flex-direction:column;align-items:center;margin-bottom:15px}.weather-widget .weather-icon{width:60px;height:60px;margin-bottom:0}.weather-widget .weather-temp{font-size:2.5em;font-weight:600;color:#2c3e50;line-height:1}.weather-widget .weather-desc{font-size:1em;color:#555;margin-top:5px;text-transform:capitalize}.weather-widget .weather-details{font-size:.85em;text-align:left;border-top:1px solid #f0f0f0;padding-top:10px;margin-top:10px}.weather-widget .weather-details p{margin-bottom:5px;color:#4a5568}.weather-widget .weather-details p small{color:#718096}.weather-widget .weather-error{color:#c53030;font-style:italic;padding:15px 0}
+.listing-facilities a.facility-tag-link span,.listing-tags a.facility-tag-link{display:inline-flex;align-items:center;background-color:#e9ecef;border:1px solid #dee2e6;padding:5px 10px;border-radius:15px;text-decoration:none;font-size:.8em;color:#495057;margin-right:8px;margin-bottom:8px;transition:.3s}.listing-facilities a.facility-tag-link:hover span,.listing-tags a.facility-tag-link:hover{background-color:#007bff;color:#fff;border-color:#007bff}.listing-facilities a.facility-tag-link span i{margin-right:6px;color:#007bff}.listing-facilities a.facility-tag-link:hover span i{color:#fff}
+span.location-navigation{color:#6c757d; font-size: .75em;margin-left: 5px; text-align:center; display:block; margin-top:12px;}
+
+/* In your CSS file */
+.visual-activities-section .container {
+    position: relative; /* For positioning arrows */
+}
+
+.activities-scroller-wrapper {
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* This will hide the scrollbar if using native scroll */
+    position: relative; /* Or the container above it */
+    width: 100%;
+}
+
+.activities-scroller {
+    overflow-x: auto; /* Allows scrolling, but we'll hide scrollbar and use buttons */
+    scroll-behavior: smooth;
+    /* Hide scrollbar for a cleaner look */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.activities-scroller::-webkit-scrollbar { /* Chrome, Safari, Opera */
+    display: none;
+}
+
+.activity-grid-items { /* This is the old .category-grid */
+    display: flex; /* Makes items line up horizontally */
+    flex-wrap: nowrap; /* Prevents wrapping */
+    gap: 20px; /* Space between activity items */
+    padding: 10px 0; /* Vertical padding for the scrolling track */
+    /* No animation here, JS will handle scroll */
+}
+
+.visual-activities-section .category-item {
+    flex: 0 0 auto; /* Prevent items from shrinking/growing, use their defined width */
+    width: 150px; /* Or whatever your .category-item width is */
+}
+
+.scroll-arrow {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; /* Position relative to .visual-activities-section .container */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.scroll-arrow:hover {
+    background-color: #fff;
+    color: #007bff;
+}
+.scroll-arrow.prev { left: -15px; /* Adjust positioning */ }
+.scroll-arrow.next { right: -15px; /* Adjust positioning */ }
+
+/* Hide arrows if no overflow (JavaScript will handle this ideally) */
+.activities-scroller-wrapper.no-scroll .scroll-arrow {
+    display: none;
+}
+/* Style for detailed-category-column h4 if it contains an icon */
+.detailed-category-column h4 a {
+    display: flex; /* Align icon and text */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+.detailed-category-column h4 a i.fa-fw {
+    color: #007bff; /* Example icon color */
+    font-size: 1em; /* Adjust as needed */
+}
+.parent-activity-count {
+    font-size: 0.8em;
+    color: #6c757d;
+    font-weight: normal;
+    margin-left: 5px;
+}
+/* Add to your style.css or page-specific.css (if that includes homepage.css) */
+
+/* --- HERO SLIDER SECTION --- */
+.hero-slider-section {
+    width: 100%;
+    height: 60vh; /* Adjust height as needed, e.g., 400px, 500px, or vh unit */
+    min-height: 350px;
+    max-height: 550px;
+    position: relative;
+    overflow: hidden; /* Important for Swiper */
+}
+
+.swiper.heroSwiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* For overlay and content positioning */
+    color: #fff; /* Default text color for slides */
+}
+
+.swiper-slide .slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45); /* Dark overlay for text readability */
+    z-index: 1;
+}
+
+.swiper-slide .slide-content {
+    position: relative;
+    z-index: 2; /* Content above overlay */
+    text-align: center;
+    padding: 20px;
+    max-width: 800px; /* Limit width of text content */
+}
+
+.swiper-slide .slide-content h1 {
+    font-size: 2.5rem; /* Adjust as needed */
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #fff; /* Ensure text is white */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.swiper-slide .slide-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    color: #f0f0f0; /* Slightly off-white for better readability */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+.swiper-slide .slide-content p.slide-location {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: inline-flex; /* To align icon */
+    align-items: center;
+    background-color: rgba(0,0,0,0.3);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+.swiper-slide .slide-content p.slide-location i {
+    margin-right: 8px;
+}
+
+
+.swiper-slide .slide-content .btn.slide-cta-button {
+    background-color: #007bff; /* Your primary button color */
+    border-color: #007bff;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.swiper-slide .slide-content .btn.slide-cta-button:hover {
+    background-color: #0056b3; /* Darker shade */
+    transform: translateY(-2px);
+}
+
+/* Swiper Navigation Arrows and Pagination */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff; /* White arrows */
+    background-color: rgba(0,0,0,0.3);
+    width: 44px; /* Default is 44px */
+    height: 44px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: rgba(0,0,0,0.5);
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 20px; /* Smaller arrow icon */
+    font-weight: bold;
+}
+
+.swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.7);
+    opacity: 0.8;
+    width: 10px;
+    height: 10px;
+}
+.swiper-pagination-bullet-active {
+    background: #fff; /* Active bullet color */
+    opacity: 1;
+}
+
+/* In style.css or page-specific.css */
+
+/* --- Visual Activities Section (Homepage - JS Scroller) --- */
+.visual-activities-section { /* Section wrapper */
+    /* padding is from general section style */
+}
+.visual-activities-section .activities-scroller-wrapper {
+    display: flex; /* Aligns arrows and scroller div */
+    align-items: center;
+    position: relative; /* For absolute positioning of arrows */
+    width: 100%;
+    margin: 0 auto; /* Center the scroller unit if it's narrower than container */
+    padding: 0 30px; /* Space for arrows IF they are outside the scroller div */
+    box-sizing: border-box;
+}
+.activities-scroller { /* The div that actually scrolls */
+    flex-grow: 1; /* Takes up space between arrows */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    padding: 10px 0; /* Add some padding so items don't touch edges */
+}
+.activities-scroller::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
+
+.activity-grid-items { /* This is your old .category-grid, now the content of .activities-scroller */
+    display: flex;
+    flex-wrap: nowrap; /* Crucial for horizontal scrolling */
+    gap: 20px; /* Space between category items */
+    width: max-content; /* Allow it to be as wide as its content */
+}
+/* .category-item styling (circular items) should remain as it was */
+.visual-activities-section .category-item {
+    flex: 0 0 auto; /* Prevent shrinking/growing, use defined width */
+    width: 150px;   /* Your defined width */
+    height: 150px;  /* Your defined height */
+    display: block;
+    text-align: center;
+}
+
+/* Scroll Arrows for Visual Activities */
+.activities-scroller-wrapper .scroll-arrow {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    display: flex; /* Keep this if JS controls visibility */
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: background-color 0.2s, color 0.2s;
+    /* Absolute positioning relative to .activities-scroller-wrapper */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.activities-scroller-wrapper .scroll-arrow:hover { background-color: #007bff; color: #fff; }
+.activities-scroller-wrapper .scroll-arrow.prev { left: -10px; /* Adjust for desired position */ }
+.activities-scroller-wrapper .scroll-arrow.next { right: -10px; /* Adjust for desired position */ }
+.activities-scroller-wrapper .scroll-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background-color: #eee;
+}
+/* Hide arrows if JS adds this class (when not scrollable) */
+.activities-scroller-wrapper.no-scroll .scroll-arrow {
+    display: none;
+}
+
+
+/* --- Top Activities List Section (Homepage - CSS Auto-Scroller) --- */
+.top-categories-list .top-categories-scroller-wrapper {
+    /* ... (styles for overflow, mask-image from before are good) ... */
+}
+.top-categories-list .detailed-category-grid {
+    /* ... (styles for display:flex, animation from before are good) ... */
+}
+.top-categories-list .detailed-category-column-link { /* New <a> wrapper for columns */
+    text-decoration: none;
+    color: inherit; /* Inherit text color for children */
+    display: block; /* Make the link take up the column space */
+    flex: 0 0 270px; /* Ensure it has the same flex properties as the column did */
+    /* Add any hover effects for the whole column here if desired */
+    transition: transform 0.2s ease-out;
+}
+.top-categories-list .detailed-category-column-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Add shadow on hover for linked column */
+}
+.detailed-category-column { /* Styles for the inner div */
+    /* flex properties are now on the <a> tag wrapper */
+    background: #fff; padding: 20px; border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05); border: 1px solid #e9ecef;
+    height: 100%; /* Make inner div take full height of <a> tag */
+}
+.detailed-category-column h4 {
+    margin-bottom: 15px; font-size: 1.1rem; font-weight: 600;
+    color: #333; display: flex; align-items: center; gap: 8px; /* For icon and text */
+}
+.detailed-category-column h4 i.fa-fw { /* Icon in Top Activities column header */
+    color: #007bff; font-size: 1em;
+}
+.parent-activity-count { font-size: 0.8em; color: #6c757d; font-weight: normal; margin-left: 5px; }
+/* .detailed-category-item styles remain the same */
+
+.icon-info-bottom{
+	display:block;
+	margin-top:2px;
+	text-align:Center;
+}
+
+
+/* Add to your main style.css or responsive.css */
+
+/* --- Filter Toggle Button (Mobile/Tablet) --- */
+.filter-toggle-button {
+    display: none; /* Hidden by default on desktop */
+    position: fixed; /* Or sticky, depending on desired behavior */
+    bottom: 20px;
+    right: 20px;
+    z-index: 990; /* Below modal, above most content */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.filter-toggle-button:hover {
+    background-color: #0056b3;
+}
+.filter-toggle-button i {
+    margin-right: 0; /* If only icon */
+}
+
+/* --- Off-Canvas Filters Sidebar (Mobile/Tablet) --- */
+.close-filters-button {
+    display: none; /* Hidden by default, shown by JS/CSS when sidebar is open on mobile */
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2rem;
+    line-height: 1;
+    color: #6c757d;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+.close-filters-button:hover {
+    color: #343a40;
+}
+
+/* Responsive adjustments for the listing page container and sidebar */
+@media (max-width: 991px) { /* Tablet and below (Bootstrap's lg breakpoint is 992px) */
+    .filter-toggle-button {
+        display: flex; /* Show the toggle button */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .listing-page-container {
+        flex-direction: column; /* Main content stacks below sidebar potentially */
+        /* Or keep as row if sidebar is absolutely positioned off-canvas */
+    }
+
+    .filters-sidebar {
+        position: fixed; /* Makes it an overlay */
+        top: 0;
+        left: -300px; /* Start off-screen (adjust width as needed) */
+        width: 280px; /* Fixed width for off-canvas */
+        height: 100vh; /* Full viewport height */
+        background-color: #fff;
+        z-index: 1040; /* Above most content, below modals */
+        overflow-y: auto; /* Scrollable if content is too long */
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        transition: left 0.3s ease-in-out; /* Smooth slide-in/out */
+        border-right: 1px solid #ddd; /* Optional border */
+    }
+
+    .filters-sidebar.is-open {
+        left: 0; /* Slide in */
+    }
+
+    .filters-sidebar .close-filters-button {
+        display: block; /* Show close button when sidebar is open on mobile */
+    }
+
+    .listings-main-content {
+        width: 100%; /* Take full width when sidebar is off-canvas */
+    }
+
+    /* Optional: Overlay for the page content when sidebar is open */
+    body.filters-sidebar-open::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1030; /* Below sidebar, above content */
+    }
+}
+
+/* Desktop styles (ensure sidebar is visible and in place) */
+@media (min-width: 992px) {
+    .listing-page-container {
+        display: flex; /* Side-by-side layout */
+        gap: 30px;
+    }
+    .filters-sidebar {
+        flex: 0 0 280px; /* Desktop width */
+        position: static; /* Not fixed or absolute */
+        height: auto;     /* Auto height */
+        left: auto;       /* Reset off-canvas positioning */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Original desktop shadow */
+        border: 1px solid #e9ecef; /* Original desktop border */
+        /* Ensure padding is as per your desktop design */
+    }
+    .filters-sidebar .close-filters-button {
+        display: none; /* Hide close button on desktop */
+    }
+    .filter-toggle-button {
+        display: none; /* Hide toggle button on desktop */
+    }
+}
+/* In public/css/style.css */
+
+/* ... your existing styles ... */
+
+/* --- Styles for "View All Images" Overlay on Thumbnail --- */
+.thumbnail-item.view-all-trigger-thumb {
+    position: relative; /* Ensure it's a positioning context for the overlay */
+    cursor: pointer;
+}
+
+.view-all-images-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark overlay */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.8rem; /* Adjust as needed for small thumbnail */
+    font-weight: 500;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+    border-radius: 8px; /* Match thumbnail's border-radius */
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.thumbnail-item.view-all-trigger-thumb:hover .view-all-images-overlay {
+    opacity: 1; /* Show on hover */
+}
+.view-all-images-overlay span i {
+    display: block;
+    font-size: 1.2rem; /* Larger icon */
+    margin-top: 3px;
+}
+
+
+/* --- Custom Lightbox Styles --- */
+.custom-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Darker overlay for lightbox */
+    z-index: 2000; /* High z-index */
+    display: flex; /* Used by JS to show/hide */
+    flex-direction: column; /* Stack image, caption, thumbnails */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.lightbox-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 3rem;
+    color: #bbb;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+.lightbox-close-btn:hover {
+    color: #fff;
+}
+
+.lightbox-navigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Center vertically */
+    font-size: 3rem;
+    color: #bbb;
+    background-color: rgba(0,0,0,0.3);
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.lightbox-navigation:hover {
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+}
+.lightbox-navigation.prev { left: 20px; }
+.lightbox-navigation.next { right: 20px; }
+
+.lightbox-content {
+    position: relative;
+    max-width: 90vw; /* Max width of the image container */
+    max-height: 75vh; /* Max height of the image container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.lightbox-caption {
+    color: #eee;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    position: absolute;
+    bottom: -30px; /* Position below the image */
+    width: 100%;
+    background-color: rgba(0,0,0,0.5); /* Optional background for caption */
+}
+
+.lightbox-thumbnail-strip {
+    margin-top: 15px; /* Space above thumbnails */
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    max-width: 90vw;
+    overflow-x: auto; /* Allow scrolling if many thumbnails */
+    padding: 5px 0;
+}
+.lightbox-thumbnail-strip img {
+    width: 70px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+.lightbox-thumbnail-strip img:hover {
+    opacity: 1;
+}
+.lightbox-thumbnail-strip img.active-thumb {
+    border-color: #007bff; /* Highlight active thumbnail */
+    opacity: 1;
+}
+/* In public/css/style.css or listing-detail specific CSS */
+/* Updated CSS */
+.small-thumbnail-item-final.view-all-trigger {
+    cursor: pointer;
+    position: relative; /* Ensure this parent is positioned for the absolute overlay */
+}
+
+.view-all-overlay-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for text contrast */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem; /* Adjust as needed */
+    font-weight: bold;
+    text-align: center;
+    opacity: 1; /* <<< MAKE IT ALWAYS VISIBLE */
+    border-radius: 8px; /* Match parent .small-thumbnail-item-final */
+    pointer-events: none; /* Allows clicks to pass through to the underlying image/trigger if needed, but since the div itself is the trigger, this is okay or can be auto. If the img tag has the event listener, this should be none. If the div has the event listener, this can be auto. */
+    /* Remove transition if it's always visible, or keep if you want a subtle effect on page load (less common) */
+    /* transition: opacity 0.3s ease; */
+}
+
+/* The :hover rule is no longer needed if opacity is always 1 */
+/*
+.small-thumbnail-item-final.view-all-trigger:hover .view-all-overlay-text {
+    opacity: 1;
+}
+*/
+
+
+/* contact us page */
+.contact-page-content { max-width: 900px; margin: 0 auto; } /* Center content */
+.about-us-section, .contact-details-section { /* Styles for the white card sections */ }
+.prose ul { list-style-type: disc; margin-left: 1.5em; }
+.prose h4 { font-size: 1.25rem; margin-top: 1.5em; margin-bottom: 0.5em; }
+.contact-detail-item { display: flex; align-items: center; margin-bottom: 0.75rem; color: #4A5568; }
+.contact-detail-item i.fa-fw { width: 20px; text-align: center; margin-right: 0.75rem; color: #007bff; /* Example color */ }
+.social-icons-contact a.social-icon { font-size: 1.5rem; color: #4A5568; margin-right: 1rem; transition: color 0.3s; }
+.social-icons-contact a.social-icon:hover { color: #007bff; }
+
+.contact-form-actual .form-group { margin-bottom: 1.5rem; }
+.contact-form-actual .form-label { display: block; font-weight: 500; font-size: 0.9rem; margin-bottom: 0.5rem; color: #374151; }
+.contact-form-actual .form-input { width: 100%; padding: 0.65rem 0.9rem; border: 1px solid #d1d5db; border-radius: 0.375rem; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.03); font-size: 0.9rem; }
+.contact-form-actual .form-input:focus { border-color: #2563eb; outline: none; box-shadow: 0 0 0 3px rgba(99,102,241,0.2); }
+.contact-form-actual textarea.form-input { min-height: 100px; }
+.contact-form-actual .input-error-message { color: #ef4444; font-size: 0.8rem; margin-top: 0.25rem; }
+.contact-form-actual .btn-primary { /* Ensure this button style exists or use your own */ width: 100%; }
+.message-box { border-left-width: 4px; }
+
+/* Add to your style.css or page-specific/homepage.css */
+.places-near-me-section {
+    /* background-color: #f0f8ff; */ /* Optional distinct background */
+}
+.location-permission-notice {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.location-permission-notice p { margin-bottom: 10px; }
+
+.radius-slider-container {
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+    text-align: center;
+}
+.radius-slider-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.radius-slider-container input[type="range"] { /* Assuming .price-slider class has some base styling */
+    /* Add specific tweaks if needed */
+}
+
+#nearbyPlacesResults .initial-message {
+    grid-column: 1 / -1; /* Make it span if inside a grid */
+}
+/* Spinner styling should already exist from your loading modal */
+/* ==========================================================================
+   BUTTON STYLES (Add to public/css/style.css or components.css)
+   ========================================================================== */
+
+/* Base Button Styling (optional, good for all .btn elements) */
+.btn {
+    display: inline-block; /* Allows margin and padding, acts like a block in text flow */
+    font-weight: 500;     /* Medium weight */
+    line-height: 1.5;
+    color: #212529;       /* Default text color (e.g., for secondary buttons) */
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.65rem 1.25rem; /* Generous padding for modern look */
+    font-size: 0.95rem;      /* Slightly larger than default form elements */
+    border-radius: 0.375rem; /* Soft rounded corners (Bootstrap's .rounded-md equivalent) */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+                border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.btn:focus, .btn.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus ring */
+}
+
+.btn:disabled, .btn.disabled {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+/* --- Primary Button Styling --- */
+.btn-primary {
+    color: #fff;
+    background-color: #007bff; /* Core blue color */
+    border-color: #007bff;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); /* Subtle shadow */
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9; /* Darker blue on hover */
+    border-color: #0062cc;
+    transform: translateY(-1px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5); /* Focus ring for primary */
+}
+
+.btn-primary:active, .btn-primary.active {
+    color: #fff;
+    background-color: #005cbf; /* Even darker blue when active/pressed */
+    border-color: #0056b3;
+    transform: translateY(0px);
+    box-shadow: 0 1px 3px rgba(0, 123, 255, 0.2);
+}
+
+.btn-primary:disabled, .btn-primary.disabled {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    opacity: 0.65; /* Keep some color but make it look disabled */
+}
+
+/* --- Centering the Button --- */
+/* If the button is the ONLY direct child of its container,
+   you can center the container's text. */
+.location-permission-notice, /* The div containing your #enableLocationBtn */
+.radius-slider-container /* The div containing your #findNearbyBtn */ {
+    /* ... your existing styles for these containers ... */
+    text-align: center; /* This will center inline-block elements like buttons */
+}
+
+/* If the button needs more specific centering or if text-align on parent isn't desired: */
+.btn-center-wrapper { /* Create a wrapper div for the button if needed */
+    text-align: center;
+    margin-top: 1rem; /* Example margin */
+    margin-bottom: 1rem;
+}
+/* And then in HTML:
+   <div class="btn-center-wrapper">
+       <button id="enableLocationBtn" class="btn btn-primary">Enable Location & Find Nearby</button>
+   </div>
+*/
+
+/* Ensure button itself isn't forcing full width if it shouldn't */
+#enableLocationBtn, #findNearbyBtn {
+    /* If you want them to be only as wide as their content + padding: */
+    /* width: auto; */
+    /* If they are inside a flex container that centers, this is often enough */
+}
+/* Add to public/css/style.css */
+
+/* ... (your existing styles) ... */
+
+.share-listing-section {
+    /* Similar styling to social-media-links-public if desired */
+}
+.share-listing-section h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.share-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between share buttons if you add more */
+}
+
+.whatsapp-share-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    /* WhatsApp Green Theme */
+    background-color: #25D366;
+    color: white;
+    border: 1px solid #1DAE50; /* Slightly darker green for border */
+}
+
+.whatsapp-share-button:hover {
+    background-color: #1DAE50;
+    color: white;
+    text-decoration: none;
+}
+
+.whatsapp-share-button i.fab.fa-whatsapp {
+    font-size: 1.3em; /* Make WhatsApp icon a bit larger */
+    margin-right: 8px;
+}
+.share-button-text {
+    /* Styles for the text next to the icon, if any */
+}
+
+
+.bo-container div.mt-6>nav[role=navigation],.bo-main-wrapper nav[role=navigation]{display:flex;flex-direction:column;align-items:center;padding:1.5rem 0;margin-top:1.5rem}.bo-container div.mt-6>nav[role=navigation] .hidden.sm\\:flex-1>div:first-child,.bo-main-wrapper nav[role=navigation] .hidden.sm\\:flex-1>div:first-child{width:100%;text-align:center;margin-bottom:.75rem}.bo-container div.mt-6>nav[role=navigation] span.relative.z-0.inline-flex,.bo-main-wrapper nav[role=navigation] span.relative.z-0.inline-flex{display:inline-flex;border-radius:.375rem;box-shadow:0 1px 2px 0 rgba(0,0,0,.05);margin-top:.5rem}@media (min-width:640px){.bo-container div.mt-6>nav[role=navigation],.bo-main-wrapper nav[role=navigation]{flex-direction:row;justify-content:space-between;align-items:center}.bo-container div.mt-6>nav[role=navigation] .hidden.sm\\:flex-1>div:first-child,.bo-main-wrapper nav[role=navigation] .hidden.sm\\:flex-1>div:first-child{width:auto;text-align:left;margin-bottom:0}.bo-container div.mt-6>nav[role=navigation] span.relative.z-0.inline-flex,.bo-main-wrapper nav[role=navigation] span.relative.z-0.inline-flex{margin-top:0}}.bo-container div.mt-6>nav[role=navigation] span.relative.z-0.inline-flex>*,.bo-main-wrapper nav[role=navigation] span.relative.z-0.inline-flex>*{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:.5rem .85rem;min-width:38px;min-height:38px;margin-left:-1px;font-size:.875rem;font-weight:500;line-height:1.25rem;border:1px solid #d1d5db;background-color:#fff;color:#374151;text-decoration:none;transition:.15s ease-in-out}.bo-container div.mt-6>nav[role=navigation] span.relative.z-0.inline-flex>:first-child,.bo-main-wrapper nav[role=navigation] span.relative.z-0.inline-flex>:first-child{border-top-left-radius:.375rem;border-bottom-left-radius:.375rem;margin-left:0}.bo-container div.mt-6>nav[role=navigation] span.relative.z-0.inline-flex>:last-child,.bo-main-wrapper nav[role=navigation] span.relative.z-0.inline-flex>:last-child{border-top-right-radius:.375rem;border-bottom-right-radius:.375rem}.bo-container div.mt-6>nav[role=navigation] span.relative.z-0.inline-flex>a:hover,.bo-main-wrapper nav[role=navigation] span.relative.z-0.inline-flex>a:hover{background-color:#f3f4f6;color:#1f2937;z-index:10}.bo-container div.mt-6>nav[role=navigation] span[aria-current=page]>span,.bo-main-wrapper nav[role=navigation] span[aria-current=page]>span{background-color:#007bff;border-color:#007bff;color:#fff;cursor:default;z-index:20}.bo-container div.mt-6>nav[role=navigation] span[aria-current=page]>span:hover,.bo-main-wrapper nav[role=navigation] span[aria-current=page]>span:hover{background-color:#007bff;color:#fff}.bo-container div.mt-6>nav[role=navigation] span[aria-disabled=true]>span,.bo-main-wrapper nav[role=navigation] span[aria-disabled=true]>span{color:#9ca3af;cursor:default;background-color:#f9fafb;border-color:#d1d5db}.bo-container div.mt-6>nav[role=navigation] a[rel=next]>span.hidden,.bo-container div.mt-6>nav[role=navigation] a[rel=prev]>span.hidden,.bo-main-wrapper nav[role=navigation] a[rel=next]>span.hidden,.bo-main-wrapper nav[role=navigation] a[rel=prev]>span.hidden{display:none}.bo-container div.mt-6>nav[role=navigation] svg,.bo-main-wrapper nav[role=navigation] svg{width:1.25rem;height:1.25rem}.bo-container div.mt-6>nav[role=navigation] .sm\\:hidden,.bo-main-wrapper nav[role=navigation] .sm\\:hidden{display:flex;justify-content:space-between;width:100%;margin-top:1rem}.bo-container div.mt-6>nav[role=navigation] .sm\\:hidden>a,.bo-container div.mt-6>nav[role=navigation] .sm\\:hidden>span,.bo-main-wrapper nav[role=navigation] .sm\\:hidden>a,.bo-main-wrapper nav[role=navigation] .sm\\:hidden>span{position:relative;display:inline-flex;align-items:center;padding:.5rem 1rem;font-size:.875rem;font-weight:500;line-height:1.25rem;border:1px solid #d1d5db;border-radius:.375rem;background-color:#fff;color:#374151;text-decoration:none}.bo-container div.mt-6>nav[role=navigation] .sm\\:hidden>a:hover,.bo-main-wrapper nav[role=navigation] .sm\\:hidden>a:hover{background-color:#f3f4f6}

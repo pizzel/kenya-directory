@@ -1,0 +1,43 @@
+<?php
+namespace App\Filament\Pages\Admin; // Adjust namespace if needed
+
+use Filament\Pages\Page;
+use App\Models\HeroSliderHistory;
+use Carbon\Carbon;
+
+class HeroSliderScheduleOverview extends Page
+{
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+    protected static string $view = 'filament.pages.admin.hero-slider-schedule-overview';
+    protected static ?string $navigationGroup = 'Business Management'; // Or a new group
+    protected static ?string $title = 'Hero Slider Schedule';
+    protected static ?string $navigationLabel = 'Hero Schedule Overview';
+    protected static ?int $navigationSort = 5; // Adjust order
+
+    public $activePlacements;
+    public $upcomingPlacements;
+
+    public function mount(): void
+    {
+        $now = now();
+        // Placements that are currently active
+        $this->activePlacements = HeroSliderHistory::with('business:id,name,slug')
+            ->where('activated_at', '<=', $now)
+            ->where('set_to_expire_at', '>=', $now)
+            ->orderBy('expires_at', 'asc')
+            ->get();
+
+        // Placements scheduled for the future (e.g., next 30 days)
+        $this->upcomingPlacements = HeroSliderHistory::with('business:id,name,slug')
+            ->where('activated_at', '>', $now)
+            ->where('activated_at', '<=', $now->copy()->addDays(30)) // Example: next 30 days
+            ->orderBy('activated_at', 'asc')
+            ->get();
+    }
+
+    // To protect this page:
+    // public static function canAccess(): bool
+    // {
+    //     return auth()->user()->isAdminOrEditor();
+    // }
+}

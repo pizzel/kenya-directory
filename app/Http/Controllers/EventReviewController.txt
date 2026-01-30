@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Event;
+use App\Models\EventReview;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
+class EventReviewController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified', 'isNotBlocked'])->only(['store', 'destroy']);
+    }
+
+    public function store(Request $request, Event $event)
+    {
+        // Optional: Policy check to ensure user can create a review for this event
+        // (e.g., not the event organizer, event is active, etc.)
+        // Gate::authorize('createReview', $event); // If you define this ability in EventReviewPolicy
+
+        $validatedData = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|min:10|max:1000',
+        ]);
+
+        // Use updateOrCreate to find an existing review by this user for this event,
+        // or create a new one if none exists.
+        $eventReview = EventReview::updateOrCreate(
+            [
+                'user_id' => Auth::id(),   // Attribute(s) to find existing record
+                'event_id' => $event->id,  // Attribute(s) to find existing record
+            ],
+            [
+                'rating' => $validatedData['rating'], // Attribute(s) to update or set on create
+                'comment' => $validatedData['comment'],// Attribute(s) to update or set on create
+                // 'is_approved' is not used as per our decision.
+                // Timestamps (created_at, updated_at) will be handled by Eloquent.
+            ]
+        );
+
+        // Update the event's average rating and review count
+        if (method_exists($event, 'updateAverageRatingAndReviewCount')) {
+            $event->updateAverageRatingAndReviewCount();
+        }
+
+        return back()->with('success', 'Thank you for your feedback! Your review has been submitted.');
+    }
+
+    public function destroy(EventReview $eventReview)
+    {
+        // $this->authorize('delete', $eventReview); // Use EventReviewPolicy
+
+        // Manual authorization check (temporary, replace with policy)
+        $user = Auth::user();
+        if (!($user->isAdmin() || $user->isEditor() || $user->id === $eventReview->user_id)) {
+            abort(403, 'Unauthorized to delete this review.');
+        }
+        // END Manual authorization
+
+        $event = $eventReview->event; // Get parent event before deleting the review
+        $eventReview->delete(); // Soft delete if trait is used
+
+        if (method_exists($event, 'updateAverageRatingAndReviewCount')) {
+            $event->updateAverageRatingAndReviewCount();
+        }
+        return back()->with('success', 'Event review removed.');
+    }
+}

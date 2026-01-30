@@ -1,0 +1,124 @@
+/* Sidebar Styles (For Listings Page & Detail Page) */
+
+/* Filters Sidebar (Listings Page: nairobi-listings.html) */
+.filters-sidebar {
+    flex: 0 0 280px; /* Fixed width */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    align-self: flex-start; /* Important for flex layouts */
+    border: 1px solid #e9ecef;
+}
+.filter-widget {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.filter-widget:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.filter-widget h4 {
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+/* Input fields in filter widget are covered by forms.css */
+.price-range-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    color: #555;
+    margin-bottom: 15px;
+}
+ul.filter-list { list-style: none; padding: 0; }
+ul.filter-list li { margin-bottom: 8px; }
+ul.filter-list li a,
+ul.filter-list li label { /* Make labels behave like links for consistency if needed */
+    text-decoration: none;
+    color: #555;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s ease;
+    padding: 3px 0; /* Small vertical padding */
+}
+ul.filter-list li a:hover,
+ul.filter-list li label:hover span:first-of-type { /* Hover effect on text part of label */
+    color: #007bff;
+}
+ul.filter-list li a span:not(.reviews), /* Count badge for category links */
+ul.filter-list li label span.count-badge { /* If you add count badge to labels */
+    background-color: #e9ecef;
+    color: #495057;
+    font-size: 0.8em;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+ul.rating-filter li a i,
+ul.rating-filter li label i { /* Stars in rating filter */
+    color: #ffc107;
+    margin-right: 2px;
+    font-size: 0.9em;
+}
+ul.rating-filter li a span,
+ul.rating-filter li label span { /* Text next to stars */
+    background-color: transparent !important; /* Override default badge style */
+    color: #555;
+    margin-left: 8px;
+    font-size: 0.9em;
+}
+
+
+/* Listing Detail Page Sidebar (Map, Schedule, Related, Wishlist) */
+.listing-detail-sidebar-col { /* This is one of the 3 columns */
+    flex: 1.5; /* Adjust flex proportion as needed */
+    min-width: 0;
+    align-self: flex-start;
+}
+.listing-detail-sidebar-col .sidebar-widget, /* General widget styling */
+.listing-map-col2 .sidebar-widget { /* For map/wishlist if in separate column */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e9ecef;
+}
+.listing-detail-sidebar-col .sidebar-widget:last-child,
+.listing-map-col2 .sidebar-widget:last-child {
+    margin-bottom: 0;
+}
+.listing-detail-sidebar-col .sidebar-widget h4,
+.listing-map-col2 .sidebar-widget h4 {
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    font-weight: 600;
+}
+
+.map-widget .map-placeholder {
+    height: 250px; /* Adjust map height */
+    margin-bottom: 15px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.map-widget .map-placeholder iframe { height: 100%; width: 100%; border: none; }
+
+.schedule-widget table { width: 100%; font-size: 0.9em; border-collapse: collapse; }
+.schedule-widget table td { padding: 8px 5px; border-bottom: 1px dashed #eee; color: #555; }
+.schedule-widget table tr:last-child td { border-bottom: none; }
+.schedule-widget table td:last-child { text-align: right; font-weight: 500; color: #333; }
+.schedule-widget .highlight-time { color: #dc3545; font-weight: bold; font-size: 0.9em; }
+
+.related-listings-widget .related-list { list-style: none; padding: 0; }
+.related-listings-widget .related-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #eee; }
+.related-listings-widget .related-list li:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.related-listings-widget .related-list img { width: 60px; height: 50px; object-fit: cover; border-radius: 6px; }
+.related-listings-widget .related-list a { color: #0056b3; font-weight: 500; font-size: 0.9rem; display: block; margin-bottom: 2px; }
+.related-listings-widget .related-list span { font-size: 0.8em; color: #6c757d; }

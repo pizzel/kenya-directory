@@ -1,0 +1,24 @@
+/* ==========================================================================
+   2. HEADER STYLES (Applies to all pages)
+   ========================================================================== */
+header {
+    background: #fff;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1002; /* Highest z-index */
+    height: 65px;
+    overflow: visible;
+}
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+header .logo img { height: 40px; margin-right: 10px; vertical-align: middle; }
+header .logo span { font-size: 1.6rem; font-weight: bold; color: #2c3e50; vertical-align: middle; }

@@ -1,0 +1,218 @@
+/* ==========================================================================
+   COMPONENTS (public/css/components.css)
+   Buttons, Forms, Cards, Pagination, Sidebar Widgets
+   ========================================================================== */
+
+/* --- Buttons (General + Specifics) --- */
+.btn, button, input[type="submit"], input[type="button"] {
+    display: inline-block;
+    font-weight: 500;
+    color: #fff; /* Default text color for primary buttons */
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: #007bff; /* Primary blue */
+    border: 1px solid #007bff;
+    padding: 0.5rem 1rem; /* Default padding */
+    font-size: 0.95rem; /* Default font size */
+    line-height: 1.5;
+    border-radius: 0.25rem; /* Default border radius */
+    transition: all 0.15s ease-in-out;
+    text-decoration: none; /* Remove underline from button-styled links */
+}
+.btn:hover, button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    color: #fff;
+    text-decoration: none;
+}
+.btn:focus, button:focus, input[type="submit"]:focus, input[type="button"]:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
+}
+
+/* Header Auth Buttons (specifics if not handled by general button styles with classes) */
+header .auth-buttons button,
+header .auth-buttons a.login-btn, /* If using <a> styled as button */
+header .auth-buttons a.signup-btn {
+    text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    padding: 9px 18px; margin-left: 10px;
+    border-radius: 5px; font-size: 0.9em;
+}
+header .auth-buttons .login-btn { background: #fff; color: #007bff; border: 1px solid #007bff; }
+header .auth-buttons .login-btn:hover { background: #f0f0f0; }
+header .auth-buttons .signup-btn { background: #007bff; color: #fff; border: 1px solid #007bff; }
+header .auth-buttons .signup-btn:hover { background: #0056b3; border-color: #0056b3; }
+
+/* Sticky Search Button (Homepage) */
+.sticky-search-section .search-form .search-btn {
+    padding: 9px 25px; /* Ensure this matches input height effectively */
+    border-radius: 20px;
+    font-size: 0.9em;
+    line-height: 1.5; /* Match input line-height */
+    flex-grow: 0; flex-shrink: 0; white-space: nowrap;
+    /* Base button styles (bg, color, border) come from general button rules */
+}
+
+/* Apply Filter Button (Listings Page Sidebar) */
+.apply-filter-btn { width: 100%; padding: 10px; font-weight: 500; font-size: 0.95em; }
+
+/* Take Me Here Button (Listing Detail Page) */
+.take-me-here-btn {
+    display: block; width: 100%; padding: 12px; margin-top: 15px;
+    background-color: #28a745; color: white; border: none; border-radius: 5px;
+    font-size: 0.95rem; font-weight: 500; text-align: center;
+}
+.take-me-here-btn i { margin-right: 8px; }
+.take-me-here-btn:hover { background-color: #218838; color:white; } /* Ensure text remains white */
+
+/* Wishlist Button (Listing Detail Page Sidebar) */
+.wishlist-btn {
+    display: block; width: 100%; padding: 12px 25px;
+    font-size: 0.95rem; font-weight: 500; border-radius: 5px;
+    background-color: #f8f0fc; color: #e83e8c; border: 1px solid #e83e8c;
+    text-align: center;
+}
+.wishlist-btn i { margin-right: 8px; }
+.wishlist-btn:hover { background-color: #e83e8c; color: white; border-color: #e83e8c; }
+.wishlist-btn.added { background-color: #e83e8c; color: white; border-color: #e83e8c; }
+
+/* Footer Contact Form Button */
+.footer-section.contact-form button { padding: 12px 20px; font-weight: 500; }
+
+/* Review Section Post Comment Button */
+.leave-comment-section button[type="submit"] { padding: 10px 20px; font-weight: 500; }
+
+
+/* --- Forms (General + Specifics) --- */
+input[type="text"], input[type="email"], input[type="url"], input[type="tel"],
+input[type="password"], input[type="number"], input[type="search"], input[type="time"],
+select, textarea {
+    padding: 9px 12px; border: 1px solid #ced4da; border-radius: 4px;
+    font-size: 0.95em; line-height: 1.5; width: 100%; box-sizing: border-box;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #fff; color: #495057;
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="tel"]:focus,
+input[type="password"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="time"]:focus,
+select:focus, textarea:focus {
+    border-color: #80bdff; outline: 0; box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+}
+textarea { min-height: 80px; resize: vertical; }
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat; background-position: right .75rem center; background-size: 16px 12px;
+    padding-right: 2.5rem;
+}
+select[multiple] { background-image: none; height: auto; min-height: 100px; }
+input[type="range"].price-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; background: #ddd; outline: none; opacity: .9; transition: opacity .15s ease-in-out; border-radius: 4px; padding: 0; }
+input[type="range"].price-slider:hover { opacity: 1; }
+input[type="range"].price-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; background: #007bff; cursor: pointer; border-radius: 50%; }
+input[type="range"].price-slider::-moz-range-thumb { width: 18px; height: 18px; background: #007bff; cursor: pointer; border-radius: 50%; border: none; }
+input[type="checkbox"], input[type="radio"] { border-radius: 4px; border: 1px solid #ced4da; color: #007bff; margin-right: .5em; vertical-align: middle; width: auto; /* Override width:100% for checkboxes/radios */ }
+input[type="checkbox"]:focus, input[type="radio"]:focus { outline: 0; box-shadow: 0 0 0 .2rem rgba(0,123,255,.25); }
+label { display: block; margin-bottom: .3rem; font-size: .9em; color: #495057; font-weight: 500; }
+/* Sticky Search Form Inputs & Labels */
+.sticky-search-section .search-form input[type="text"] { padding: 9px 18px; border-radius: 20px; font-size: 0.9em; line-height: 1.5; }
+.sticky-search-section .search-form label { margin-bottom: 4px; font-size: 0.75em; padding-left: 15px; }
+/* Footer Contact Form Inputs */
+.footer-section.contact-form input[type="email"], .footer-section.contact-form textarea { border-color: #3e5265; background-color: #34495e; color: #ecf0f1; }
+.footer-section.contact-form input[type="email"]::placeholder, .footer-section.contact-form textarea::placeholder { color: #95a5a6; }
+
+/* --- Cards (Listing Card, Destination Card, Recent Card, Gem Card) --- */
+.listing-card, .recent-card, .gem-card, .destination-card {
+    background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+    overflow: hidden; transition: transform .3s ease,box-shadow .3s ease;
+    display: flex; flex-direction: column; border: 1px solid #e9ecef;
+    text-decoration: none; color: inherit;
+}
+.listing-card:hover, .recent-card:hover, .gem-card:hover, .destination-card:hover {
+    transform: translateY(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Unified Image Container for Cards */
+.card-image-container { /* Use this class for all card image wrappers */
+    position: relative; width: 100%;
+    height: 200px; /* Default card image height */
+    overflow: hidden; background-color: #eee; /* Placeholder bg */
+}
+.card-image-container img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* Specific height for destination card images */
+.destination-card .card-image-container {
+     height: 300px;
+}
+
+/* Status badges (can be used on any card with .card-image-container) */
+.listing-status-badge { position: absolute; top: 10px; left: 10px; background-color: #007bff; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: .7em; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; z-index: 2; }
+.listing-status-badge.open { background-color: #28a745; } .listing-status-badge.closed { background-color: #dc3545; } .listing-status-badge.featured { background-color: #ffc107; color: #212529; } .listing-status-badge.popular { background-color: #17a2b8; }
+
+/* Unified Card Content Area */
+.card-content-area { /* Use this for all card content wrappers */
+    padding: 15px; flex-grow: 1; display: flex; flex-direction: column;
+}
+.card-content-area h3 { font-size: 1.15rem; margin: 0 0 8px; font-weight: 600; line-height: 1.3; color: #333; }
+.card-content-area h3 a { color: inherit; text-decoration: none; } /* If h3 itself is not the link */
+.card-content-area h3 a:hover { color: #007bff; }
+
+.listing-location { /* For business/listing cards */
+    font-size: .85em; color: #6c757d; margin-bottom: 10px;
+    display: flex; align-items: center;
+}
+.listing-location i { margin-right: 6px; color: #007bff; font-size: .9em; }
+
+.listing-rating-price { /* For business/listing cards */
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: .9em; margin-top: auto; padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+}
+.listing-rating-price .rating { color: #ffc107; display: flex; align-items: center; }
+.listing-rating-price .rating i { font-size: .9em; } .listing-rating-price .rating .reviews { color: #6c757d; font-size: .85em; margin-left: 5px; }
+.listing-rating-price .price-indicator { font-weight: 700; color: #28a745; }
+
+/* Destination Card Specific Info Overlay */
+.destination-card .destination-info {
+    position: absolute; bottom: 0; left: 0; width: 100%;
+    background: linear-gradient(to top,rgba(0,0,0,.8) 0%, rgba(0,0,0,.6) 60%, transparent 100%); /* Adjusted for always visible */
+    color: #fff; padding: 15px; font-size: 1.1rem; font-weight: 600;
+    opacity: 1; /* Always visible */
+}
+.destination-card .destination-info span { display: block; font-size: .8rem; font-weight: 400; opacity: .9; margin-top: 4px; }
+
+/* Gem Card Specific Content Styling (if it uses .card-content-area) */
+.gem-card .card-content-area .gem-location { /* Assumes .gem-location is inside .card-content-area */
+    font-style: italic; font-size: 0.85em; color: #777; margin-bottom: 10px;
+}
+.gem-card .card-content-area .gem-description {
+    font-size: .9rem; color: #555; line-height: 1.5; margin-bottom: 15px; flex-grow: 1;
+}
+.gem-card .card-content-area .gem-link {
+    display: inline-block; color: #007bff; font-weight: 500;
+    margin-top: auto; align-self: flex-start; font-size:.9em;
+}
+
+
+/* --- Pagination --- */
+.pagination { display: flex; justify-content: center; align-items: center; margin-top: 40px; padding: 20px 0; }
+.pagination a, .pagination span { color: #007bff; padding: 8px 14px; text-decoration: none; border: 1px solid #dee2e6; margin: 0 3px; border-radius: 4px; transition: all .3s ease; font-size: .9em; }
+.pagination a:hover { background-color: #007bff; color: #fff; border-color: #007bff; }
+.pagination .active a, .pagination .active span { background-color: #007bff; color: #fff; border-color: #007bff; cursor: default; }
+.pagination .disabled span { color: #6c757d; border-color: #dee2e6; cursor: default; background-color: #fff; }
+
+/* --- Sidebar Widgets (General Appearance - more specific content in page-specific or sidebar.css) --- */
+.filters-sidebar, /* From listings page */
+.listing-detail-sidebar-col .sidebar-widget, /* From detail page */
+.listing-map-col2 .sidebar-widget {
+    background-color: #fff; padding: 20px; border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e9ecef;
+}
+/* Common h4 for all sidebar widgets */
+.filters-sidebar .filter-widget h4,
+.listing-detail-sidebar-col .sidebar-widget h4,
+.listing-map-col2 .sidebar-widget h4 {
+    font-size: 1.05rem; margin-bottom: 15px; font-weight: 600;
+    padding-bottom: 10px; border-bottom: 1px solid #f0f0f0;
+}

@@ -1,0 +1,150 @@
+/* Add to your main style.css or a new wishlist.css */
+
+.wishlist-items-container {
+    /* Styles for the overall container of wishlist items */
+}
+
+.wishlist-item-card {
+    display: flex;
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 15px;
+    gap: 15px; /* Space between image, details, and actions */
+    align-items: flex-start; /* Align items to the top */
+}
+
+.wishlist-item-image {
+    flex-shrink: 0; /* Prevent image from shrinking */
+    width: 120px; /* Fixed width for thumbnail */
+    height: 90px;  /* Fixed height for thumbnail */
+}
+.wishlist-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.wishlist-item-details {
+    flex-grow: 1; /* Allow details section to take available space */
+}
+.wishlist-item-details .item-title a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-decoration: none;
+    margin-bottom: 5px;
+    display: block;
+}
+.wishlist-item-details .item-title a:hover {
+    color: #007bff;
+}
+.wishlist-item-details .item-location {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+.wishlist-item-details .item-location i {
+    margin-right: 4px;
+}
+.wishlist-item-details .item-category {
+    font-style: italic;
+}
+.wishlist-item-details .item-status {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+.wishlist-item-details .status-done {
+    color: #16a34a; /* Green */
+    font-weight: 500;
+}
+.wishlist-item-details .status-wished {
+    color: #d97706; /* Amber/Orange */
+    font-weight: 500;
+}
+.wishlist-item-details .item-added-date {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+
+.wishlist-item-actions {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 8px; /* Space between buttons */
+    align-items: flex-end; /* Align buttons to the right */
+    flex-shrink: 0; /* Prevent action buttons from shrinking */
+    min-width: 150px; /* Ensure enough space for buttons */
+}
+
+.wishlist-action-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    min-width: 130px; /* Consistent button width */
+    text-align: center;
+}
+.wishlist-action-btn i {
+    margin-right: 6px;
+}
+
+.wishlist-action-btn.btn-toggle-done {
+    background-color: #28a745; /* Green for "Mark as Done" */
+    color: white;
+    border-color: #28a745;
+}
+.wishlist-action-btn.btn-toggle-done:hover {
+    background-color: #218838;
+}
+.wishlist-action-btn.btn-toggle-done.is-done { /* Style for "Mark as Wished" (when it's already done) */
+    background-color: #ffc107; /* Yellow/Amber */
+    color: #212529;
+    border-color: #ffc107;
+}
+.wishlist-action-btn.btn-toggle-done.is-done:hover {
+    background-color: #e0a800;
+}
+
+.wishlist-action-btn.btn-remove {
+    background-color: #dc3545; /* Red for "Remove" */
+    color: white;
+    border-color: #dc3545;
+}
+.wishlist-action-btn.btn-remove:hover {
+    background-color: #c82333;
+}
+
+/* Message Boxes */
+.message-box {
+    border-left-width: 4px;
+}
+
+/* Responsive for wishlist items if needed */
+@media (max-width: 640px) {
+    .wishlist-item-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .wishlist-item-image {
+        width: 100%;
+        height: 180px; /* Adjust height for stacked layout */
+        margin-bottom: 10px;
+    }
+    .wishlist-item-actions {
+        flex-direction: row; /* Buttons side-by-side on small screens */
+        justify-content: flex-start; /* Align to start */
+        margin-top: 10px;
+    }
+    .wishlist-action-btn {
+        flex-grow: 1; /* Allow buttons to share space */
+    }
+}

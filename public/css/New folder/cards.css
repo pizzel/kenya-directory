@@ -1,0 +1,109 @@
+/* ==========================================================================
+   COMPONENT: CARDS (Used on homepage, listings page, etc.)
+   ========================================================================== */
+
+.listing-card, /* Generic card style, can be reused */
+.recent-card,  /* If homepage uses these specific classes */
+.gem-card,
+.destination-card { /* Destination cards have a slightly different internal layout but similar container */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+    overflow: hidden; /* Important for containing images */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e9ecef;
+    text-decoration: none; /* If the whole card is a link */
+    color: inherit; /* If the whole card is a link */
+}
+.listing-card:hover,
+.recent-card:hover,
+.gem-card:hover,
+.destination-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.listing-card-image, /* Generic image container within a card */
+.recent-card > a > img, /* Adjust selector based on your HTML for recent/gem cards */
+.gem-card > img,
+.destination-card > a > img { /* Or .destination-card img directly */
+    position: relative; /* For status badges if any */
+    width: 100%;
+    height: 200px; /* Default height for card images - ADJUST AS NEEDED */
+    overflow: hidden; /* Ensure image doesn't break out of rounded corners */
+}
+.listing-card-image img,
+.recent-card > a > img img, /* If img is wrapped */
+.gem-card > img img,
+.destination-card > a > img img,
+.recent-card img, /* Simpler if img is direct child */
+.gem-card img,
+.destination-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crucial: scales image to cover, might crop */
+    display: block;
+}
+/* Specific height for destination card images if different */
+.destination-card img {
+     height: 300px;
+}
+
+
+/* Status badges (if used on multiple card types) */
+.listing-status-badge {
+    position: absolute; top: 10px; left: 10px;
+    background-color: #007bff; color: white; padding: 4px 8px;
+    border-radius: 4px; font-size: 0.7em; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 0.5px;
+}
+.listing-status-badge.open { background-color: #28a745; }
+.listing-status-badge.featured { background-color: #ffc107; color: #212529; }
+.listing-status-badge.popular { background-color: #17a2b8; }
+
+
+.listing-card-content, /* Generic content area within card */
+.recent-card .gem-info, /* If gem-card has this structure for content */
+.gem-card .gem-info {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.listing-card-content h3,
+.recent-card h3,
+.gem-card .gem-info h3 {
+    font-size: 1.15rem; margin: 0 0 8px 0; font-weight: 600; line-height: 1.3;
+}
+.listing-card-content h3 a { color: #333; text-decoration: none;}
+.listing-card-content h3 a:hover { color: #007bff; }
+
+.listing-location, /* Common location style */
+.gem-card .gem-location {
+    font-size: 0.85em; color: #6c757d; margin-bottom: 10px;
+    display: flex; align-items: center;
+}
+.listing-location i,
+.gem-card .gem-location i { margin-right: 6px; color: #007bff; font-size: 0.9em; }
+
+.listing-rating-price, /* Common rating/price style */
+.recent-card .listing-rating-price, /* If used here */
+.gem-card .gem-info .listing-rating-price {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.9em; margin-top: auto; padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+}
+.listing-rating-price .rating { color: #ffc107; display: flex; align-items: center; }
+.listing-rating-price .rating i { font-size: 0.9em; }
+.listing-rating-price .rating .reviews { color: #6c757d; font-size: 0.85em; margin-left: 5px; }
+.listing-rating-price .price-indicator { font-weight: bold; color: #28a745; }
+
+/* Specific to destination card info overlay */
+.destination-card .destination-info {
+    position: absolute; bottom: 0; left: 0; width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+    color: #fff; padding: 20px 15px 15px; font-size: 1.3rem; font-weight: bold;
+}
+.destination-card .destination-info span { display: block; font-size: 0.9rem; font-weight: normal; opacity: 0.9; }

@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    /* Pagination Container adjustments */
+    nav[role="navigation"] {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Mobile Specific Overrides (< 640px) */
+    @media (max-width: 639px) {
+
+        /* Force Mobile Wrapper (Previous/Next) to show */
+        nav[role="navigation"]>div:first-child {
+            display: flex !important;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        /* Force Desktop Wrapper (Full Numbers) to hide */
+        nav[role="navigation"]>div:last-child.hidden {
+            display: none !important;
+        }
+
+        /* Ensure the desktop container (which might be the 2nd child) is hidden if it has sm:flex */
+        nav[role="navigation"] .sm\:flex {
+            display: none !important;
+        }
+
+        /* Touch-friendly targets for Previous/Next buttons on mobile */
+        nav[role="navigation"] a,
+        nav[role="navigation"] span {
+            min-height: 48px;
+            /* min-width is risky for text buttons like "Previous", using padding instead */
+            padding-left: 1rem;
+            padding-right: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            /* rounded-md */
+        }
+
+        /* Ensure buttons look like buttons if they are just links */
+        nav[role="navigation"] a {
+            border-width: 1px;
+            border-color: #e5e7eb;
+            /* gray-200 */
+            background-color: white;
+        }
+
+        /* Disabled span styling (e.g. Previous when on page 1) */
+        nav[role="navigation"] span[aria-disabled="true"] {
+            opacity: 0.5;
+            border-width: 1px;
+            border-color: #e5e7eb;
+        }
+    }
+
+    /* Tablet and Desktop (>= 640px) */
+    @media (min-width: 640px) {
+
+        /* Revert to standard Tailwind behavior implicitly, but ensure correctness */
+        nav[role="navigation"]>div:first-child.sm\:hidden {
+            display: none !important;
+        }
+
+        nav[role="navigation"]>div:last-child.hidden {
+            display: flex !important;
+            /* This matches sm:flex behavior */
+        }
+    }
+}
+.outline-none {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    position: sticky;
+}
