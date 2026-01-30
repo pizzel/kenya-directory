@@ -4,11 +4,10 @@ import '../css/app.css';
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { Ziggy } from './ziggy';
 import { route } from 'ziggy-js';
 
 // Globalize route for convenience
-window.route = (name, params, absolute, config = Ziggy) => route(name, params, absolute, config);
+window.route = (name, params, absolute, config) => route(name, params, absolute, config);
 
 createInertiaApp({
     title: (title) => `${title} - Discover Kenya`,
