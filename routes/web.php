@@ -267,8 +267,27 @@ Route::get('/deploy-seo-v2026', function(\Illuminate\Http\Request $request) {
         $results[] = "🔥 FORCE-UPDATED Whistling Morans Description";
     }
 
+    // ---------------------------------------------------------
+    // 5. THE GREAT PURGE (Cache & Duplicates)
+    // ---------------------------------------------------------
+    
+    // Deleting the duplicate GP Karting Ltd (ID 86) which confuses Google
+    $gpDuplicate = \App\Models\Business::where('slug', 'gp-karting-ltd')->first();
+    if ($gpDuplicate) {
+        $gpDuplicate->delete();
+        $results[] = "🗑️ DELETED Duplicate Entity: GP Karting Ltd";
+    }
+
+    // Force clear all Laravel caches to ensure the new content/footer appears
+    try {
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        $results[] = "🧹 CACHE PURGED: Configuration, Routes, and Views cleared.";
+    } catch (\Exception $e) {
+        $results[] = "⚠️ Cache purge failed: " . $e->getMessage();
+    }
+
     return response()->json([
-        'message' => '🚀 Scorched Earth Protocol Executed: Grammar Fixed & Content Purged.',
+        'message' => '🚀 Scorched Earth Protocol Executed: Cache Purged & Duplicates Removed.',
         'count' => count($results),
         'logs' => $results
     ]);

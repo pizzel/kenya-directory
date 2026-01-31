@@ -35,20 +35,25 @@ git push origin main
 
 **Objective:** Align site structure with Google's Semantic Model (Entities & Intent) to rank as a Travel Authority.
 
-### **1. The "Semantic Brain" System**
+### **1. The "Sentiment Architect" System**
 We have implemented a dual-service system to automate your SEO:
 - **`ReviewAnalyzerService.php` (The Brain):** Scans listing descriptions and reviews for expert keywords (*Big Five, Authentic Cuisine, etc.*) and automatically assigns the correct categories.
-- **`SemanticSEOService.php` (The SEO):** Takes those categories and generates professional **JSON-LD Schema** and a unique **"Discover Kenya Verdict"** for every listing.
+- **`Sentiment Architect` (The Content):** Integrated directly into the deployment route. It pulls real Google Reviews and weaves them into **Expert Experience Narratives**, solving the "Information Gain" problem.
+- **`SemanticSEOService.php` (The SEO):** Logic for generating **JSON-LD Schema** and "Explorer Ken's Verdict" tags.
 
 ### **2. How to Trigger Semantic Synchronization**
-Since you are on an FTP-only workflow, you must trigger the "Sync" via your browser after every major push.
-1. Deploy your code via GitHub (or FTP).
-2. Visit this secret URL:
+Since you are on an FTP-only workflow, you must trigger the "Sync" via your browser after major pushes.
+1. Visit this secret URL:
    👉 `https://discoverkenya.co.ke/deploy-seo-v2026?token=pizzel-seo-magic`
-3. **What this does:**
-   - Renames Collections to use "Intent-Driven" titles (e.g., *Nairobi Nightlife Circuit*).
-   - Injects the **300-word Authoritative Intros** into your top collections.
-   - Clears the application cache so your new "Muscular" content shows up immediately.
+2. **What this does (Scorched Earth Protocol):**
+   - **Grammar Fix:** Automatically renames collections with bad grammar (e.g., "Go-Kartings" → "Go-Karting Venues").
+   - **Information Gain:** Injects real Google Sentiment into empty or boilerplate descriptions.
+   - **Entity Focus:** Overwrites specific priority listings (like Whistling Morans) with manual, high-authority expert text.
+   - **Cache Purge:** Clears the application cache so your new "Travel Authority" content shows up immediately.
+
+### **3. Travel Authority Guardrails**
+- **Tourism Filter:** Non-tourism categories (Dentists, Car Washes, Schools) are automatically filtered out from primary search bars and collection generators.
+- **Branding Entities:** The site branding has been updated to **"Discover Kenya Travel Guide"** to signal expertise to Google's Helpful Content classifiers.
 
 ---
 
@@ -56,14 +61,15 @@ Since you are on an FTP-only workflow, you must trigger the "Sync" via your brow
 
 **Objective:** Maintain Mobile LCP < 2.5s and PageSpeed > 90.
 
+### **The "WebP Mascot" Win:**
+Explorer Ken (your Brand Entity) uses the **.webp** format for maximum performance without losing quality.
+
 ### **The "Semantic" Performance Win:**
-By using the **`@json`** PHP helper in your Blade views, we have eliminated JavaScript parsing errors in your JSON-LD. Your structured data is now both "Robotic-Friendly" (Google) and "Browser-Fast".
+By using the **`@json`** PHP helper in your Blade views, we have eliminated JavaScript parsing errors in your structured data.
 
 ---
 
 ## 🔧 PART 4: MANUAL DEPLOYMENT (Fallback)
-
-**Use this ONLY if GitHub Actions is down.**
 
 1. **Build Locally:** Run `npm run build` on your computer.
 2. **Upload Folder:** Upload the contents of your local folder to `/Discover_Kenya/` via FileZilla.
@@ -77,8 +83,8 @@ By using the **`@json`** PHP helper in your Blade views, we have eliminated Java
 **Solution:** Visit the trigger URL:
 `https://discoverkenya.co.ke/deploy-seo-v2026?token=pizzel-seo-magic`
 
-### **Issue: 500 Error or Page Not Loading**
-**Solution:** Check the `storage/logs/laravel.log` via FTP. If the error is Blade-related, ensure `resources/views/listings/show.blade.php` was uploaded completely.
+### **Issue: 500 Error After Update**
+**Solution:** Check `laravel.log`. Common causes include unclosed braces in `web.php` or missing variables in `compact()` calls within controllers.
 
 ---
 *Maintained by Antigravity AI - 2026*
