@@ -229,6 +229,10 @@ Route::get('/deploy-seo-v2026', function(\Illuminate\Http\Request $request) {
         // --- 4. THE VERDICT CONCLUSION ---
         $narrative .= " It remains an authoritative choice for travelers and residents seeking an authentic {$loc} vibe.";
 
+        $biz->update(['about_us' => $narrative]);
+        $results[] = "Sentiment Narrative Created: [{$biz->name}]";
+    }
+
     // ---------------------------------------------------------
     // 3. THE GRAMMAR POLICE (Fixing "Go-Kartings")
     // ---------------------------------------------------------
