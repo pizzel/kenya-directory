@@ -229,30 +229,42 @@ Route::get('/deploy-seo-v2026', function(\Illuminate\Http\Request $request) {
         // --- 4. THE VERDICT CONCLUSION ---
         $narrative .= " It remains an authoritative choice for travelers and residents seeking an authentic {$loc} vibe.";
 
-        $biz->update(['about_us' => $narrative]);
-        $results[] = "Sentiment Narrative Created: [{$biz->name}]";
+    // ---------------------------------------------------------
+    // 3. THE GRAMMAR POLICE (Fixing "Go-Kartings")
+    // ---------------------------------------------------------
+    $badSuffixes = ['Kartings', 'Bikings', 'Paintballs', 'Trekkings', 'Campings', 'Hikings'];
+    $collections = \App\Models\DiscoveryCollection::where(function($q) use ($badSuffixes) {
+        foreach($badSuffixes as $bad) {
+            $q->orWhere('title', 'like', "%{$bad}%");
+        }
+    })->get();
+
+    foreach ($collections as $col) {
+        $oldTitle = $col->title;
+        // Fix: "Go-Kartings" -> "Go-Karting Venues"
+        $newTitle = str_replace(
+            ['Kartings', 'Bikings', 'Paintballs', 'Trekkings', 'Campings', 'Hikings', 'Top 10 Best', 'Top 20 Best'], 
+            ['Karting Venues', 'Biking Trails', 'Paintball Fields', 'Trekking Routes', 'Camping Spots', 'Hiking Trails', '10 Best', '20 Best'], 
+            $oldTitle
+        );
+        
+        $col->update(['title' => $newTitle]);
+        $results[] = "Grammar Fixed: '{$oldTitle}' -> '{$newTitle}'";
     }
 
     // ---------------------------------------------------------
-    // 3. COLLECTION INTROS (Topical Authority Narratives)
+    // 4. FORCE-OVERWRITE WHISTLING MORANS (No Checks, Just Do It)
     // ---------------------------------------------------------
-    $intros = [
-        'top-20-best-luxuries-in-kenya-2026-guide' => "Experience the pinnacle of hospitality in Kenya, where luxury accommodation transcends traditional lodging to become a holistic boutique stay experience...", // (Keep your existing quality intros)
-        'top-10-best-go-kartings-in-kenya-2026-guide' => "Kenya's karting scene has evolved from simple hobby tracks to professional-grade circuits that serve as the heartbeat of regional motorsports. From the high-speed tarmac of Athi River to modern family entertainment hubs in Nairobi's shopping districts, this guide compares the best venues based on track complexity, kart maintenance, and safety briefings. Whether you are looking for professional racing or a fun weekend excursion for the kids, we have curated the definitive list of karting destinations that offer real adrenaline without compromising on quality."
-    ];
-
-    foreach ($intros as $slug => $desc) {
-        $count = \App\Models\DiscoveryCollection::where('slug', $slug)->update(['description' => $desc]);
-        $results[] = "Collection Intro Update [$slug]: " . ($count ? "SUCCESS" : "NO_CHANGE");
+    $wm = \App\Models\Business::where('slug', 'whistling-morans-ltd')->first();
+    if ($wm) {
+        $wm->update([
+            'about_us' => "Whistling Morans in Athi River features one of the widest tracks in Kenya, making it perfect for high-speed overtaking and professional racing events. Unlike smaller mall-based circuits, this track offers a wide, professional-grade tarmac surface that allows for true competitive racing. It is a favorite for corporate team buildings and pro-karters alike because of its challenging curves and well-maintained fleet. The venue also features a swimming pool and restaurant, making it a full-day destination for families escaping Nairobi's hustle."
+        ]);
+        $results[] = "🔥 FORCE-UPDATED Whistling Morans Description";
     }
-
-    // Special Case: Whistling Morans (Manual High-Quality Injection)
-    \App\Models\Business::where('slug', 'whistling-morans-ltd')->update([
-        'about_us' => "Located in Athi River, Whistling Morans is widely considered one of Kenya's premier karting tracks. Unlike smaller mall-based circuits, this track offers a wide, professional-grade tarmac surface that allows for high-speed overtaking and true competitive racing. It is a favorite for corporate team buildings and pro-karters alike because of its challenging curves and well-maintained fleet. The venue also features a swimming pool and restaurant, making it a full-day destination for families escaping Nairobi's hustle."
-    ]);
 
     return response()->json([
-        'message' => '🚀 Semantic SEO Database Synchronized!',
+        'message' => '🚀 Scorched Earth Protocol Executed: Grammar Fixed & Content Purged.',
         'count' => count($results),
         'logs' => $results
     ]);

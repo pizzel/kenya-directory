@@ -83,7 +83,6 @@ class GenerateCollectionCommand extends Command
 			'staycation'       => ['staycation', 'weekend getaway', 'vacation'],
 			'glamping'         => ['glamping', 'luxury tent', 'eco camp'],
 			'rooftop-bar'      => ['rooftop', 'view of the city', 'sky bar', 'upper deck'],
-			'car-wash'         => ['car wash', 'sparkling clean', 'washed my car'],
 			'water-rafting'    => ['rafting', 'white water', 'rapids'],
 			'hiking-trekking'  => ['hike', 'trail', 'climb', 'walk in the forest'],
 			'snorkeling'       => ['snorkeling', 'snorkel', 'coral reef'],
@@ -129,7 +128,6 @@ class GenerateCollectionCommand extends Command
 			'night-club'       => ['club', 'nightclub', 'party'],
 			'bar-lounge'       => ['bar', 'lounge', 'cocktails'],
 			'spa'              => ['spa', 'massage', 'wellness'],
-			'salon-barber'     => ['salon', 'barber', 'haircut'],
 			'gym'              => ['gym', 'fitness', 'workout'],
 			'shopping-mall'    => ['mall', 'shopping centre'],
         ];
@@ -248,7 +246,23 @@ class GenerateCollectionCommand extends Command
         // This label now correctly reflects 'Kenya' if the search was broadened
         $locationLabel = $detectedCounty ? $detectedCounty->name : 'Kenya';
         
-        $title = "Top {$curatedCount} Best " . \Illuminate\Support\Str::plural($finalMatch['name']) . " in {$locationLabel} ({$currentYear} Guide)";
+        // SMART TITLE HUMANIZER 🤖
+        $coreSubject = $finalMatch['name'];
+        $coreSubjectLower = strtolower($coreSubject);
+
+        // 1. Handle Uncountable Nouns (Activities ending in 'ing', etc.)
+        if (Str::endsWith($coreSubjectLower, 'ing') || in_array($coreSubjectLower, ['paintball', 'archery', 'golfing'])) {
+            // "Go-Karting" -> "Go-Karting Venues"
+            $subjectPhrase = "{$coreSubject} Venues"; 
+            if ($coreSubjectLower === 'hiking') $subjectPhrase = "Hiking Trails";
+            if ($coreSubjectLower === 'camping') $subjectPhrase = "Camping Spots";
+        } else {
+            // "Hotel" -> "Hotels" (Standard plural)
+            $subjectPhrase = Str::plural($coreSubject);
+        }
+
+        // 2. Formatting: "10 Best [Subject]" instead of "Top 10 Best [Subject]"
+        $title = "{$curatedCount} Best {$subjectPhrase} in {$locationLabel} ({$currentYear} Guide)";
 
         $this->info("✨ Success! Generating: \"{$title}\"");
 

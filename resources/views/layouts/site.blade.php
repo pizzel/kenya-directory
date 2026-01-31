@@ -409,7 +409,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} KenyaDirectory. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} Discover Kenya Travel Guide. All rights reserved.</p>
             </div>
         </div>
     </footer>
