@@ -2,7 +2,15 @@
 
 @section('title', $collection->title . ' - Discover Kenya')
 
-@section('meta_description', Str::limit(strip_tags($collection->description), 155))
+@section('meta_description', $contextSummary ?? Str::limit(strip_tags($collection->description), 155))
+
+@push('seo')
+    @if(isset($collectionSchema))
+        <script type="application/ld+json">
+@json($collectionSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
+        </script>
+    @endif
+@endpush
 
 @section('canonical')
     <link rel="canonical" href="{{ route('collections.show', $collection->slug) }}" />
@@ -68,14 +76,17 @@
                                         <img src="{{ $business->getImageUrl('card') }}" alt="{{ $business->name }}" style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
 
-                                    <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 20px;">
-                                        {{ Str::limit(strip_tags($business->about_us ?: $business->description), 300) }}
-                                    </p>
+                                    <div style="background: #f8fafc; border-left: 3px solid #10b981; padding: 15px; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6; color: #334155;">
+                                        <strong style="color: #059669; text-transform: uppercase; font-size: 0.75rem; display: block; margin-bottom: 5px;">Discover Kenya Verdict:</strong>
+                                        {{ $business->verdict }}
+                                    </div>
 
                                     <div style="display: flex; gap: 10px;">
-                                        <a href="{{ route('listings.show', $business->slug) }}" style="background: #1e293b; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">View Details & Photos</a>
+                                        <a href="{{ route('listings.show', $business->slug) }}" style="background: #1e293b; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                                            Explore {{ Str::limit($business->name, 20) }} in {{ $business->county->name ?? 'Kenya' }}
+                                        </a>
                                         @if($business->website)
-                                            <a href="{{ $business->website }}" target="_blank" style="background: #f1f5f9; color: #475569; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Official Website</a>
+                                            <a href="{{ $business->website }}" target="_blank" style="background: #f1f5f9; color: #475569; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Official Site</a>
                                         @endif
                                     </div>
                                 </div>
@@ -83,7 +94,22 @@
                         </article>
                     @endforeach
                 </div>
+
+                {{-- TOPICAL CLUSTER (Internal Linking) --}}
+                <div class="topical-cluster-hub" style="margin-top: 80px; padding-top: 40px; border-top: 2px solid #f1f5f9;">
+                    <h3 style="font-size: 1.4rem; font-weight: 800; color: #1e293b; margin-bottom: 20px;">Explore Related Itineraries & Hubs</h3>
+                    <p style="color: #64748b; margin-bottom: 25px;">Continue your journey across Kenya with these curated topical guides and regional hubs.</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        @foreach($otherCollections->take(3) as $hub)
+                            <a href="{{ route('collections.show', $hub->slug) }}" style="background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; text-decoration: none; color: #334155; font-weight: 600; font-size: 0.9rem; transition: all 0.2s;" onmouseover="this.style.borderColor='#3b82f6'; this.style.color='#3b82f6'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.color='#334155'">
+                                Full Guide: {{ $hub->title }} &rarr;
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
             </main>
+
 
             {{-- 3. SIDEBAR (Discovery) --}}
             <aside>

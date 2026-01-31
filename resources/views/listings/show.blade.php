@@ -42,43 +42,11 @@
     $business->categories->each(fn($cat) => $keywords->push($cat->name));
     $business->tags->each(fn($tag) => $keywords->push($tag->name));
     $pageKeywords = $keywords->filter()->unique()->implode(', ');
-
-    // --- Schema Data ---
-    $schemaData = [
-        "@context" => "https://schema.org",
-        "@type" => "LocalBusiness",
-        "name" => $business->name,
-        "image" => $lcpImageUrl ?? asset('images/placeholder-large.jpg'),
-        "description" => Str::limit(strip_tags($business->about_us ?: $business->description), 160),
-        "@id" => route('listings.show', $business->slug),
-        "url" => route('listings.show', $business->slug),
-        "telephone" => $business->phone_number,
-        "address" => [
-            "@type" => "PostalAddress",
-            "streetAddress" => $business->address,
-            "addressLocality" => $locationName,
-            "addressCountry" => "KE"
-        ],
-        "geo" => [
-            "@type" => "GeoCoordinates",
-            "latitude" => $business->latitude ?? 0,
-            "longitude" => $business->longitude ?? 0
-        ],
-        "priceRange" => $business->price_range ?? '$$',
-    ];
-
-    if ($totalCount > 0) {
-        $schemaData['aggregateRating'] = [
-            "@type" => "AggregateRating",
-            "ratingValue" => $ratingFormat,
-            "reviewCount" => $totalCount
-        ];
-    }
 @endphp
 @section('title')
     {{ $business->name }} - {{ $categoryName }} in {{ $locationName }} (Reviews, Photos & Prices {{ $currentYear }})
 @endsection
-@section('meta_description')Looking for {{ $categoryName }} in {{ $locationName }}? {{ $business->name }} is rated {{ $ratingFormat }}/5. Read {{ $totalCount }} authentic reviews, view photos, check prices, and get directions, updated {{ $currentYear }}.@endsection
+@section('meta_description'){{ $contextSummary }} Get reviews, photos, contact details and location updated for {{ $currentYear }}.@endsection
 @section('meta_keywords', $pageKeywords)
 @section('canonical')
     <link rel="canonical" href="{{ route('listings.show', $business->slug) }}" />
@@ -734,10 +702,14 @@
         </section>
     </div>
 @endsection
+@push('seo')
+    @if(isset($businessSchema))
+        <script type="application/ld+json">
+@json($businessSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)
+        </script>
+    @endif
+@endpush
 @push('footer-scripts')
-<script type="application/ld+json">
-    {!! json_encode($schemaData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
-</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const weatherWidgetContainer = document.getElementById('weatherWidgetContainer');

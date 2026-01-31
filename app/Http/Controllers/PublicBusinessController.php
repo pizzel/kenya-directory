@@ -17,9 +17,17 @@ use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use App\Services\SemanticSEOService;
 
 class PublicBusinessController extends Controller
 {
+    protected $seoService;
+
+    public function __construct(SemanticSEOService $seoService)
+    {
+        $this->seoService = $seoService;
+    }
+
     /**
      * Display the specified public business listing.
      *
@@ -116,6 +124,10 @@ class PublicBusinessController extends Controller
         $thumbnail2Url = $imageData['thumbnail_2'];
         $thumbnail3Url = $imageData['thumbnail_3'];
 
+        // 7. Generate Semantic SEO Data
+        $businessSchema = $this->seoService->generateBusinessSchema($business);
+        $contextSummary = $this->seoService->generateContextSummary($business);
+
         // 6. Return view WITHOUT similarListings (loads via AJAX now)
         return view('listings.show', compact(
             'business', 
@@ -126,9 +138,12 @@ class PublicBusinessController extends Controller
             'lcpImageUrlMobile',
             'thumbnail1Url',
             'thumbnail2Url',
-            'thumbnail3Url'
+            'thumbnail3Url',
+            'businessSchema',
+            'contextSummary'
         ));
     }
+
 
     /**
      * AJAX Endpoint: Fetch Similar Listings
