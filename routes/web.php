@@ -177,41 +177,60 @@ Route::get('/deploy-seo-v2026', function(\Illuminate\Http\Request $request) {
     }
 
     // ---------------------------------------------------------
-    // 2. THE BOILERPLATE EXORCIST (Fixing "Zero Information Gain")
+    // 2. THE SENTIMENT ARCHITECT (Killing Boilerplate with Real Data)
     // ---------------------------------------------------------
     $pests = [
         'Karting is the safest, cheapest and, arguably, the best avenue into motorsports',
         'This is a point of interest located in',
         'establishment located in',
-        'is a dentist located in', // Removing medical boilerplate if it exists
+        'is a dentist located in',
     ];
 
-    $infectedBusinesses = \App\Models\Business::where(function($q) use ($pests) {
+    // Get businesses that either have boilerplate OR are missing a unique description
+    $vulnerableBusinesses = \App\Models\Business::where(function($q) use ($pests) {
         foreach($pests as $p) {
             $q->orWhere('about_us', 'like', "%{$p}%");
         }
-    })->get();
+        $q->orWhereNull('about_us')->orWhere('about_us', '');
+    })
+    ->with(['googleReviews', 'categories', 'county', 'facilities'])
+    ->take(150) // Batch process for performance
+    ->get();
 
-    foreach ($infectedBusinesses as $biz) {
+    foreach ($vulnerableBusinesses as $biz) {
         $loc = $biz->county->name ?? 'Kenya';
         $cat = $biz->categories->first()->name ?? 'Destination';
-        $facilities = $biz->facilities->take(3)->pluck('name')->implode(', ');
+        $facilities = $biz->facilities->take(3)->pluck('name')->toArray();
         
-        // Construct a UNIQUE, HUMAN narrative
-        $newAbout = "Located in {$loc}, <strong>{$biz->name}</strong> is a premier {$cat} known for its quality experience and local hospitality.";
-        
-        if ($cat === 'Go-Karting') {
-            $newAbout = "{$biz->name} in {$loc} offers an exhilarating Karting experience. Unlike generic tracks, this venue is known for its well-maintained circuit and competitive atmosphere, making it a top choice for {$cat} enthusiasts in {$loc}.";
+        // --- 1. START WITH THE CORE ENTITY NARRATIVE ---
+        $narrative = "<strong>{$biz->name}</strong> is a highly-rated {$cat} in {$loc}, offering a unique blend of quality service and local charm. ";
+
+        // --- 2. INJECT REAL GOOGLE SENTIMENT (The "Information Gain" secret) ---
+        $reviews = $biz->googleReviews->take(2)->pluck('text')->filter()->toArray();
+        if (!empty($reviews)) {
+            $sentimentSnippet = "";
+            foreach ($reviews as $text) {
+                // Get the first sentence of the review for brevity and flow
+                $firstSentence = explode('.', $text)[0];
+                if (strlen($firstSentence) > 20) {
+                    $sentimentSnippet .= " Visitors have shared that \"<em>" . trim($firstSentence) . "...</em>\" ";
+                }
+            }
+            if ($sentimentSnippet) {
+                $narrative .= "The venue has earned a strong reputation among the community. " . $sentimentSnippet;
+            }
         }
-        
+
+        // --- 3. INJECT AMENITIES NARRATIVE ---
         if (!empty($facilities)) {
-             $newAbout .= " Visitors frequently highlight the availability of <em>{$facilities}</em>, making it a versatile destination for both quick visits and longer excursions.";
+             $narrative .= "For those planning a visit, {$biz->name} provides essential amenities including " . implode(', ', $facilities) . ", which greatly enhances the " . strtolower($cat) . " experience.";
         }
 
-        $newAbout .= " Whether you are a first-time explorer or a regular visitor, {$biz->name} provides a distinctive vibe that captures the essence of {$loc}.";
+        // --- 4. THE VERDICT CONCLUSION ---
+        $narrative .= " It remains an authoritative choice for travelers and residents seeking an authentic {$loc} vibe.";
 
-        $biz->update(['about_us' => $newAbout]);
-        $results[] = "Boilerplate Purged: [{$biz->name}]";
+        $biz->update(['about_us' => $narrative]);
+        $results[] = "Sentiment Narrative Created: [{$biz->name}]";
     }
 
     // ---------------------------------------------------------
