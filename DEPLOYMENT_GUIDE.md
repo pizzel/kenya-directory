@@ -117,6 +117,7 @@ After major pushes, visit the secret URL to trigger AI regeneration and cache pu
 *   **GA Deferral**: Google Analytics loads only after the `window.load` event to prioritize content painting.
 *   **AJAX Similarity**: Similar listings load via AJAX with skeleton loaders after the user scrolls down.
 *   **LFI Algorithm**: Uses **Linear Feedback Itinerary (ID-Ascension)** to ensure "Explorer Ken" leads users on a progressive, non-looping journey through a county.
+*   **Smart Search Cache**: ALL active businesses (~1,352) are cached for autocomplete suggestions, ordered by popularity. Dataset is small enough (~70KB JSON) to cache completely without performance impact.
 
 ---
 
@@ -145,6 +146,8 @@ After major pushes, visit the secret URL to trigger AI regeneration and cache pu
 - ✅ **Functionality Restore**: Fixed non-responsive dropdowns and mobile menu toggles by correctly ordering AlpineJS and Vite script loading in the layout headers.
 - ✅ **Mobile UI**: Fixed dashboard buttons to correctly routing users between Admin and Business Owner panels.
 - ✅ **LFI Algorithm**: Implemented a mathematical **ID-Ascension** rule for "Explorer Ken" tips to eliminate recommendation loops and ensure a progressive journey.
+- ✅ **Search Autocomplete**: Added business name suggestions to the "What" search field. Users can now type business names directly and see autocomplete suggestions.
+- ✅ **Icon Path Fix**: Standardized Font Awesome to `/icons/css/all.min.css` across both local and live environments (renamed from `/fontawesome/`).
 
 ---
 
@@ -169,6 +172,10 @@ Rename-Item "aria_log_control" "aria_log_control.bak" -ErrorAction SilentlyConti
 Remove-Item "mysql.pid" -ErrorAction SilentlyContinue
 ```
 Or run the dedicated repair scripts: `.\fix-mysql.ps1` or `.\nuclear-fix-mysql.ps1`.
+
+### **Issue: Font Awesome Icons Not Showing on Live Server**
+**Symptom:** Icons display locally but not on production.
+**Fix:** Verify Font Awesome is loading from `/icons/css/all.min.css` (not `/fontawesome/`). Both local and live must use the same path. Clear browser cache and run `php artisan optimize:clear` on the server.
 
 ### **Common Commands (Remote fallback):**
 ```bash
