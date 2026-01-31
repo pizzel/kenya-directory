@@ -167,7 +167,7 @@
 
                 if (matches.length > 0) {
                     addHeader('Businesses');
-                    matches.forEach(b => addItem('url', b.n, b.n, 'fas fa-store text-green-500', '/listings/' + b.s));
+                    matches.forEach(b => addItem('url', b.n, b.n, 'fas fa-store text-green-500', '/listing/' + b.s));
                     hasResults = true;
                 }
             }
