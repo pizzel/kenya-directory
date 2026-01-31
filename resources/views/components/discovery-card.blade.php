@@ -1,17 +1,29 @@
 @props(['collection'])
 
-<a href="{{ route('collections.show', ['collection' => $collection->slug]) }}" class="discovery-card group" style="display: block; position: relative; border-radius: 16px; overflow: hidden; height: 280px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
+@php
+    // Handle both Array (optimized) and Object (Eloquent)
+    $isArr = is_array($collection);
+    
+    $slug = $isArr ? $collection['slug'] : $collection->slug;
+    $title = $isArr ? $collection['title'] : $collection->title;
+    $count = $isArr ? $collection['businesses_count'] : $collection->businesses_count;
+    
+    // Image Logic: Array already has it, Object needs to fetch it
+    $imageUrl = asset('images/placeholder-card.jpg');
+    if ($isArr && isset($collection['card_image_url'])) {
+        $imageUrl = $collection['card_image_url'];
+    } elseif (!$isArr) {
+        $cover = $collection->businesses->first();
+        if ($cover) $imageUrl = $cover->getImageUrl('card');
+    }
+@endphp
+
+<a href="{{ route('collections.show', ['collection' => $slug]) }}" class="discovery-card group" style="display: block; position: relative; border-radius: 16px; overflow: hidden; height: 280px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
     
     {{-- Image Container with Zoom Effect --}}
     <div class="discovery-card-image" style="width: 100%; height: 100%; overflow: hidden;">
-        @php
-            // Use the eager-loaded relation from controller (No new query!)
-            $coverBusiness = $collection->businesses->first();
-            $imageUrl = $coverBusiness ? $coverBusiness->getImageUrl('card') : asset('images/placeholder-card.jpg');
-        @endphp
-
         <img src="{{ $imageUrl }}" 
-             alt="{{ $collection->title }}" 
+             alt="{{ $title }}" 
              loading="lazy"
              style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;"
              onmouseover="this.style.transform='scale(1.05)'"
@@ -27,10 +39,10 @@
             Collection
         </span>
         <h3 style="font-size: 1.4rem; font-weight: 800; margin: 0; color:#fff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); line-height: 1.2;">
-            {{ $collection->title }}
+            {{ $title }}
         </h3>
         <p style="margin-top: 5px; font-size: 0.9rem; opacity: 0.9;">
-            {{ $collection->businesses_count }} curated places
+            {{ $count }} curated places
         </p>
     </div>
 </a>

@@ -181,12 +181,17 @@ class HomeController extends Controller
                 ->implode(', ');
         });
 
-        return Inertia::render('Home', [
-            'heroSliderBusinesses' => $heroSliderBusinesses,
-            'discoveryCards'       => $discoveryCards,
-            'popularCounties'      => $popularCounties,
-            'seoKeywords'          => $seoKeywords,
-        ]);
+        return view('home', compact(
+            'heroSliderBusinesses',
+            'discoveryCards',
+            'popularCounties',
+            'seoKeywords',
+            'counties',
+            'searchableCategories',
+            'lcpImageUrl',
+            'lcpImageUrlMobile',
+            'firstHeroBusiness'
+        ));
     }
 
 
