@@ -8,6 +8,7 @@ use App\Models\County;
 use App\Models\Category;
 use App\Models\Facility;
 use App\Services\SemanticSEOService;
+use Illuminate\Support\Str;
 
 class DiscoveryCollectionController extends Controller
 {
