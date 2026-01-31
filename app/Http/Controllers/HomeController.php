@@ -26,8 +26,19 @@ class HomeController extends Controller
             return \App\Models\County::select('id', 'name')->orderBy('name')->get();
         });
         
-        $searchableCategories = Cache::remember('home_search_categories', $cacheDuration, function () {
-            return \App\Models\Category::select('id', 'name')->orderBy('name')->get();
+        $searchableCategories = Cache::remember('home_search_categories_v6', $cacheDuration, function () {
+            // ❌ EXCLUDE Non-Tourism / Local Utility categories to boost "Travel Authority" signal
+            $excludeSlugs = [
+                'car-wash', 'car-repair', 'dentist', 'school', 'secondary-school', 
+                'primary-school', 'business-services', 'real-estate', 'lawyer', 
+                'hospital', 'medical-center', 'pharmacy', 'gas-station', 'garage',
+                'atm', 'bank', 'laundry', 'carpenter', 'electrician'
+            ];
+
+            return \App\Models\Category::whereNotIn('slug', $excludeSlugs)
+                ->select('id', 'name')
+                ->orderBy('name')
+                ->get();
         });
 
         // --- 2. HERO SLIDER (Optimized) ---

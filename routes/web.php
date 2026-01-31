@@ -158,13 +158,17 @@ Route::get('/deploy-seo-v2026', function(\Illuminate\Http\Request $request) {
 
     $results = [];
     
-    // 1. UPDATE TITLES (Fix Keyword Cannibalization)
+    // ---------------------------------------------------------
+    // 1. HUMAN-FIRST TITLE UPDATES (Fixing "Robotic" Formula)
+    // ---------------------------------------------------------
     $titles = [
-        'top-20-best-night-clubs-in-nairobi-2026-guide' => 'Nairobi Nightlife Circuit: 20 Best Clubs for Afrobeats & Cocktails (2026)',
-        'top-20-best-swimming-pools-in-kenya-2026-guide' => 'Kenya Swimming & Aqua Park Guide: 20 Spots for Family Fun & Relaxation',
-        'top-20-best-luxuries-in-kenya-2026-guide' => 'Ultimate Kenya Luxury Guide: 20 Boutique Stays & 5-Star Retreats (2026)',
+        'top-20-best-night-clubs-in-nairobi-2026-guide'     => 'Nairobi Nightlife Circuit: 20 Best Clubs for Afrobeats & Cocktails (2026)',
+        'top-20-best-swimming-pools-in-kenya-2026-guide'    => 'Kenya Swimming & Aqua Park Guide: 20 Spots for Family Fun & Relaxation',
+        'top-20-best-luxuries-in-kenya-2026-guide'          => 'Ultimate Kenya Luxury Guide: 20 Boutique Stays & 5-Star Retreats (2026)',
         'top-20-best-conference-centres-in-kenya-2026-guide' => 'Corporate Events Kenya: 20 Premier Conference Venues & Meeting Halls',
-        'top-20-best-hidden-gems-in-kenya-2026-guide' => 'Undiscovered Kenya: 20 Secret Spots & Hidden Gems for True Explorers'
+        'top-20-best-hidden-gems-in-kenya-2026-guide'       => 'Undiscovered Kenya: 20 Secret Spots & Hidden Gems for True Explorers',
+        'top-18-best-wedding-venues-in-kenya-2026-guide'    => '18 Dreamy Wedding Venues in Kenya: Bush, Beach & Garden Options (2026)',
+        'top-10-best-go-kartings-in-kenya-2026-guide'       => 'Kenya Karting Circuit: The Top 10 Professional & Family Racing Tracks (2026)'
     ];
 
     foreach ($titles as $slug => $title) {
@@ -172,26 +176,65 @@ Route::get('/deploy-seo-v2026', function(\Illuminate\Http\Request $request) {
         $results[] = "Title Update [$slug]: " . ($count ? "SUCCESS" : "NO_CHANGE");
     }
 
-    // 2. UPDATE DESCRIPTIONS (Fix Entity Gaps)
+    // ---------------------------------------------------------
+    // 2. THE BOILERPLATE EXORCIST (Fixing "Zero Information Gain")
+    // ---------------------------------------------------------
+    $pests = [
+        'Karting is the safest, cheapest and, arguably, the best avenue into motorsports',
+        'This is a point of interest located in',
+        'establishment located in',
+        'is a dentist located in', // Removing medical boilerplate if it exists
+    ];
+
+    $infectedBusinesses = \App\Models\Business::where(function($q) use ($pests) {
+        foreach($pests as $p) {
+            $q->orWhere('about_us', 'like', "%{$p}%");
+        }
+    })->get();
+
+    foreach ($infectedBusinesses as $biz) {
+        $loc = $biz->county->name ?? 'Kenya';
+        $cat = $biz->categories->first()->name ?? 'Destination';
+        $facilities = $biz->facilities->take(3)->pluck('name')->implode(', ');
+        
+        // Construct a UNIQUE, HUMAN narrative
+        $newAbout = "Located in {$loc}, <strong>{$biz->name}</strong> is a premier {$cat} known for its quality experience and local hospitality.";
+        
+        if ($cat === 'Go-Karting') {
+            $newAbout = "{$biz->name} in {$loc} offers an exhilarating Karting experience. Unlike generic tracks, this venue is known for its well-maintained circuit and competitive atmosphere, making it a top choice for {$cat} enthusiasts in {$loc}.";
+        }
+        
+        if (!empty($facilities)) {
+             $newAbout .= " Visitors frequently highlight the availability of <em>{$facilities}</em>, making it a versatile destination for both quick visits and longer excursions.";
+        }
+
+        $newAbout .= " Whether you are a first-time explorer or a regular visitor, {$biz->name} provides a distinctive vibe that captures the essence of {$loc}.";
+
+        $biz->update(['about_us' => $newAbout]);
+        $results[] = "Boilerplate Purged: [{$biz->name}]";
+    }
+
+    // ---------------------------------------------------------
+    // 3. COLLECTION INTROS (Topical Authority Narratives)
+    // ---------------------------------------------------------
     $intros = [
-        'top-20-best-luxuries-in-kenya-2026-guide' => "Experience the pinnacle of hospitality in Kenya, where luxury accommodation transcends traditional lodging to become a holistic boutique stay experience. Our 2026 guide to Kenya's most prestigious retreats explores the delicate balance between modern amenities and indigenous architectural styles that anchor each property in its unique geographical context. From the historic elegance of Nairobi's leafy suburbs to the revolutionary luxury tents of the Great Rift Valley, these establishments offer curated wellness programs, world-class culinary journeys, and personalized concierge services. Each stay is designed as a sanctuary for those seeking a deep immersion into the region's diverse ecosystem without sacrificing comfort. Whether you are looking for a fine dining sanctuary or a secluded hideaway for a private excursion, these top-rated luxury spots prioritize guest privacy, high-end finishing, and an authentic connection to local culture through fine art and heritage. We have meticulously evaluated each venue for its commitment to conservation and biodiversity, ensuring that your stay supports the delicate balance of the Kenyan wild. This collection celebrates the 'Best of the Best', focusing on establishments that provide breathtaking panoramic views, exceptional service metrics, and the type of immersive storytelling that turns a simple vacation into a lifelong memory of the African savannah.",
-        
-        'top-20-best-night-clubs-in-nairobi-2026-guide' => "Nairobi's nightlife is a vibrant cluster of energy, authentic sounds, and social biodiversity that represents the modern heartbeat of East Africa. In our 2026 exploration of the city's after-dark scene, we dive deep into the cultural clusters that define the capital's entertainment district. From rooftop bars offering panoramic views of the CBD skyline to high-intensity night clubs featuring world-class DJs, this guide serves as your authoritative map to the city's social icons. We highlight venues that blend high-end ambiance with local flavors, focusing on the quality of sound systems, the expertise of mixology teams, and the safety briefings that ensure a secure environment for all explorers. Whether you are in search of a fine dining lounge for a corporate excursion or a hidden gem for an adrenaline-fueled night of dancing, Nairobi's bars and pubs provide a unique immersive experience. These spots often incorporate craft beverages and traditional appetizers, creating a culinary bridge between urban luxury and local heritage. Our selection emphasizes accessible spots with ample parking available, ensuring that your transition from office to evening is seamless. Discover the high-intent social spots that residents and tourists alike call home, and experience the thrilling rhythm that makes Nairobi a world-renowned destination for hospitality and nightlife.",
-        
-        'top-20-best-swimming-pools-in-kenya-2026-guide' => "As the Kenyan sun reaches its peak, nothing beats the refreshing immersion of the country's most spectacular swimming pools. Our 2026 aquatic guide explores the geographic diversity of Kenyan leisure, from the heated lap pools of the cool highlands to the stunning infinity pools overlooking the pristine beaches of the Indian Ocean. Whether you are planning a family-friendly staycation or a professional training session, these facilities offer more than just water; they provide clean, well-maintained environments anchored in hospitality excellence. We dive into the logistics of each site, highlighting amenities like poolside dining, accessible sunbeds, and professional safety briefings for younger explorers. This collection features a mix of resort pools, public water parks, and hidden gem plunges discovered off the regular tourist circuit. Many of these aquatic hubs are situated within larger nature reserves or luxury estates, providing panoramic views that integrate biodiversity with leisure. For those traveling for business, we have identified pools in the CBD with proximity to transport hubs, making a quick afternoon dip an easy addition to your itinerary. From the Great Rift Valley to the coastal region, experience the therapeutic benefits and the social vibe of Kenya's premium water-based activities, meticulously curated for quality, safety, and scenic value.",
-        
-        'top-20-best-conference-centres-in-kenya-2026-guide' => "In the rapidly evolving business ecosystem of East Africa, the right venue is the anchor for any successful corporate event. Our 2026 directory of the top conference centres in Kenya focuses on the critical logistics that drive professional excellence—accessibility, proximity to the CBD, and state-of-the-art technological amenities. We analyze each meeting hall based on its semantic importance to the regional economy, highlighting venues that offer seamless booking processes, ample parking available for high-capacity events, and reliable transport connections. These venues are not just strings of meeting rooms; they are authoritative landmarks that host international summits, strategic workshops, and high-stakes networking excursions. We provide insight into the onsite hospitality, from executive fine dining lunch options to the quality of the technical support gear provided. Whether your event is a boutique seminar in a leafy suburb or a massive convention at a world-class center, this guide helps you navigate the options based on intent and scale. Each listing includes qualitative data on the ambiance, the efficiency of the check-in process, and the proximity to high-end luxury accommodation for international delegates. By choosing from this curated collection, you ensure your professional event is positioned in a venue that reflects authority, efficiency, and the authentic spirit of Kenyan business hospitality.",
-        
-        'top-20-best-hidden-gems-in-kenya-2026-guide' => "To truly 'Discover Kenya', one must venture beyond the well-trodden safari circuits into the country's most secretive nature reserves and community conservancies. Our 2026 guide to hidden gems explores the semantic depth of the Kenyan landscape, focusing on biodiversity hubs and indigenous ecosystems that remain under the radar of mass tourism. These destinations offer an immersive experience into the flora and fauna of the Great Rift Valley, the coastal forests, and the arid northern frontiers. We highlight the 'Why' behind each location—whether it's an off-the-beaten-path hiking trail with scenic panoramic views or a secluded wildlife sanctuary dedicated to the conservation of rare species. This collection provides the descriptive connective tissue needed to understand the relationship between Kenya's varied topographies and its nomadic cultures. We focus on qualitative factors like the difficulty level of treks, the availability of specialized hiking guides, and the safety measures involved in remote excursions. These hidden gems are the ultimate Bucket List items for explorers seeking authentic, quiet, and meaningful interactions with nature. By documenting these landmarks, we anchor our directory in authoritative geographic knowledge, helping you plan a travel itinerary that captures the true, wild essence of the Kenyan wilderness while supporting local conservation initiatives and sustainable tourism."
+        'top-20-best-luxuries-in-kenya-2026-guide' => "Experience the pinnacle of hospitality in Kenya, where luxury accommodation transcends traditional lodging to become a holistic boutique stay experience...", // (Keep your existing quality intros)
+        'top-10-best-go-kartings-in-kenya-2026-guide' => "Kenya's karting scene has evolved from simple hobby tracks to professional-grade circuits that serve as the heartbeat of regional motorsports. From the high-speed tarmac of Athi River to modern family entertainment hubs in Nairobi's shopping districts, this guide compares the best venues based on track complexity, kart maintenance, and safety briefings. Whether you are looking for professional racing or a fun weekend excursion for the kids, we have curated the definitive list of karting destinations that offer real adrenaline without compromising on quality."
     ];
 
     foreach ($intros as $slug => $desc) {
         $count = \App\Models\DiscoveryCollection::where('slug', $slug)->update(['description' => $desc]);
-        $results[] = "Description Update [$slug]: " . ($count ? "SUCCESS" : "NO_CHANGE");
+        $results[] = "Collection Intro Update [$slug]: " . ($count ? "SUCCESS" : "NO_CHANGE");
     }
+
+    // Special Case: Whistling Morans (Manual High-Quality Injection)
+    \App\Models\Business::where('slug', 'whistling-morans-ltd')->update([
+        'about_us' => "Located in Athi River, Whistling Morans is widely considered one of Kenya's premier karting tracks. Unlike smaller mall-based circuits, this track offers a wide, professional-grade tarmac surface that allows for high-speed overtaking and true competitive racing. It is a favorite for corporate team buildings and pro-karters alike because of its challenging curves and well-maintained fleet. The venue also features a swimming pool and restaurant, making it a full-day destination for families escaping Nairobi's hustle."
+    ]);
 
     return response()->json([
         'message' => '🚀 Semantic SEO Database Synchronized!',
+        'count' => count($results),
         'logs' => $results
     ]);
 });
