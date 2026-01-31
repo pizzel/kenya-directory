@@ -250,23 +250,127 @@
                     @endif
 
                     {{-- EXPLORER KEN'S VERDICT (THE SMARTER SEO BRAIN) --}}
-                    <div class="explorer-verdict-box" style="margin-bottom: 40px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 16px; padding: 25px; border: 1px solid #bfdbfe; position: relative; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
-                        <div style="display: flex; align-items: flex-start; gap: 20px; position: relative; z-index: 1;">
-                            <div class="explorer-avatar-wrapper" style="flex-shrink: 0;">
-                                <img src="{{ asset('images/ken-explorer.webp') }}" alt="Explorer Ken" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #ffffff; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2); object-fit: cover; background: #fff;">
+                    <style>
+                        .explorer-verdict-box {
+                            margin-bottom: 40px;
+                            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+                            border-radius: 16px;
+                            padding: 25px;
+                            border: 1px solid #bfdbfe;
+                            position: relative;
+                            overflow: hidden;
+                            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+                        }
+                        .explorer-verdict-inner {
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 20px;
+                            position: relative;
+                            z-index: 1;
+                        }
+                        .explorer-avatar-wrapper {
+                            flex-shrink: 0;
+                        }
+                        .explorer-avatar-wrapper img {
+                            width: 80px;
+                            height: 80px;
+                            border-radius: 50%;
+                            border: 3px solid #ffffff;
+                            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
+                            object-fit: cover;
+                            background: #fff;
+                        }
+                        .explorer-content {
+                            flex: 1;
+                        }
+                        .explorer-header {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            margin-bottom: 8px;
+                            flex-wrap: wrap;
+                        }
+                        .explorer-badge {
+                            background: #3b82f6;
+                            color: #ffffff;
+                            font-size: 0.7rem;
+                            font-weight: 800;
+                            padding: 3px 8px;
+                            border-radius: 20px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.05em;
+                        }
+                        .explorer-title {
+                            font-size: 1.25rem;
+                            font-weight: 800;
+                            color: #1e3a8a;
+                            margin: 0;
+                        }
+                        .explorer-quote {
+                            font-size: 1.05rem;
+                            line-height: 1.6;
+                            color: #1e40af;
+                            font-style: italic;
+                            font-weight: 500;
+                            margin: 0;
+                        }
+                        .explorer-bg-icon {
+                            position: absolute;
+                            right: 20px;
+                            bottom: 10px;
+                            font-size: 4rem;
+                            color: rgba(59, 130, 246, 0.05);
+                            transform: rotate(10deg);
+                        }
+
+                        /* MOBILE OPTIMIZATION */
+                        @media (max-width: 640px) {
+                            .explorer-verdict-box {
+                                padding: 20px 15px;
+                            }
+                            .explorer-verdict-inner {
+                                flex-direction: column;
+                                align-items: center;
+                                text-align: center;
+                                gap: 15px;
+                            }
+                            .explorer-avatar-wrapper img {
+                                width: 70px;
+                                height: 70px;
+                            }
+                            .explorer-header {
+                                justify-content: center;
+                            }
+                            .explorer-title {
+                                font-size: 1.1rem;
+                            }
+                            .explorer-quote {
+                                font-size: 0.95rem;
+                            }
+                            .explorer-bg-icon {
+                                font-size: 3rem;
+                                right: 10px;
+                                bottom: 5px;
+                            }
+                        }
+                    </style>
+                    <div class="explorer-verdict-box">
+                        <div class="explorer-verdict-inner">
+                            <div class="explorer-avatar-wrapper">
+                                <img src="{{ asset('images/ken-explorer.webp') }}" alt="Explorer Ken">
                             </div>
-                            <div style="flex: 1;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                    <span style="background: #3b82f6; color: #ffffff; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em;">Expert Verdict</span>
-                                    <h3 style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin: 0;">Explorer Ken's Tip</h3>
+                            <div class="explorer-content">
+                                <div class="explorer-header">
+                                    <span class="explorer-badge">Expert Verdict</span>
+                                    <h3 class="explorer-title">Explorer Ken's Tip</h3>
                                 </div>
-                                <p style="font-size: 1.05rem; line-height: 1.6; color: #1e40af; font-style: italic; font-weight: 500; margin: 0;">
+                                <p class="explorer-quote">
                                     "{{ $contextSummary }}"
                                 </p>
                             </div>
                         </div>
                         {{-- Subtle Background Decoration --}}
-                        <i class="fas fa-quote-right" style="position: absolute; right: 20px; bottom: 10px; font-size: 4rem; color: rgba(59, 130, 246, 0.05); transform: rotate(10deg);"></i>
+                        <i class="fas fa-quote-right explorer-bg-icon"></i>
                     </div>
 
                     {{-- 3. Social Media & Share --}}
