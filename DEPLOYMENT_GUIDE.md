@@ -40,7 +40,15 @@ rsync -avz --progress vite.config.js user@host:/path/to/site/
 
 **Objective:** Align site structure with Google's Semantic Model (Entities & Intent) to rank as a Travel Authority.
 
-### **1. AI-Driven SEO Services**
+### **1. Core Strategey: Directory vs. Discovery Authority**
+**The Ranking Problem:** The domain `discoverkenya.co.ke` signals a **Travel Authority**, but content (gyms, car washes) signals a **Local Directory**. Google's "Information Gain" algorithms penalize this mismatch.
+
+**The Fix:**
+*   **Deprioritize**: Hide or de-index low-value "Local Listings" (Gyms, Dentists) to focus 100% on **Tourism & Lifestyle**.
+*   **Enrich Listicles**: Every "Top 10" page must have a **unique 200-word introduction** (Verdict/Editor's Note) to avoid "Zero Information Gain" penalties from aggregating Google Maps data.
+*   **Semantic Titles**: Stop using the formulaic *"Top 10 Best [Category]"*. Switch to Intent-Based titles like *"Naivasha Camping Guide: 10 Spots for Lake Views & Hippos"*.
+
+### **2. AI-Driven SEO Services**
 *   **`ReviewAnalyzerService.php`**: Scans descriptions for entity keywords (Big Five, Luxury, etc.) to assign categories.
 *   **`Sentiment Architect`**: Injects real Google Review sentiment into "Expert Experience Narratives", solving the "Information Gain" problem.
 *   **`SemanticSEOService.php`**: Logic for generating high-quality **JSON-LD Schema** and "Context Summaries".
