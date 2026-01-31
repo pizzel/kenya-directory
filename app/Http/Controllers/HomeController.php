@@ -413,14 +413,13 @@ class HomeController extends Controller
             ]);
         });
 
-        // 5. Businesses (Popular listings prioritized for autocomplete)
-        $businesses = Cache::remember('search_businesses_json_v2', $cacheDuration, function () {
+        // 5. Businesses (ALL active businesses - dataset is small enough to cache completely)
+        $businesses = Cache::remember('search_businesses_json_v3', $cacheDuration, function () {
             return \App\Models\Business::where('status', 'active')
                 ->select('id', 'name', 'slug', 'views_count')
                 ->orderBy('views_count', 'desc') // Most viewed first
                 ->orderBy('name', 'asc')         // Then alphabetical
-                ->take(1000)                     // Increased from 100 to cover more businesses
-                ->get()
+                ->get()                          // No limit - cache ALL businesses
                 ->map(fn($b) => [
                     'id' => $b->id,
                     'n' => $b->name,
