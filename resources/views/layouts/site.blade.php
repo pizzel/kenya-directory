@@ -33,12 +33,6 @@
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-
-    {{-- Preload FontAwesome (CDN version) to fix "Font Display" warning --}}
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- 
         3. ASYNC GOOGLE FONTS 
@@ -181,20 +175,8 @@
         }
     </style>
 
-    {{-- 6. LCP PRELOAD (Mirroring home.blade.php Logic) --}}
-    @if(isset($lcpImageUrl) && $lcpImageUrl)
-        <link rel="preload" as="image" href="{{ $lcpImageUrl }}" 
-              imagesrcset="{{ $lcpImageUrlMobile }} 767w, {{ $lcpImageUrl }} 1280w" 
-              imagesizes="100vw">
-    @endif
-
     <!-- 5. MAIN CSS (Vite) -->
      @vite(['resources/css/app.css'])
-     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Swiper & SimpleLightbox CSS (Required for Blade Homepage) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.0/simple-lightbox.min.css" />
 
      
 </head>
@@ -409,7 +391,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} Discover Kenya Travel Guide. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} KenyaDirectory. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -471,7 +453,15 @@
     });
     </script>
     
-
+    <!-- 
+        5. FONT OPTIMIZATION (Standard & Clean)
+        We preload the CSS and the main font file to ensure they load 
+        fast and in parallel, avoiding "chaining" warnings without using JS hacks.
+    -->
+    <link rel="preload" href="/fontawesome/css/all.min.css" as="style">
+    <link rel="preload" href="/fontawesome/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <link rel="stylesheet" href="/fontawesome/css/all.min.css">
 
     
     
@@ -481,12 +471,7 @@
     
     @vite(['resources/js/app.jsx'])
     
-    <!-- Swiper & SimpleLightbox JS (Required for Blade Homepage) -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.0/simple-lightbox.min.js"></script>
-
     @include('partials.app-scripts')
-    @include('partials._performance-logger')
     @stack('footer-scripts')
 </body>
 </html>
