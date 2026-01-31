@@ -128,20 +128,38 @@ class PublicBusinessController extends Controller
         $businessSchema = $this->seoService->generateBusinessSchema($business);
         $contextSummary = $this->seoService->generateContextSummary($business);
 
-        // 8. Fetch Semantic Pair (Itinerary Suggestion)
-        $semanticPair = Cache::remember("semantic_pair_{$business->id}_v3", 604800, function() use ($business) {
+        // 8. Fetch Semantic Pair (Linear Feedback Itinerary - LFI Algorithm)
+        // Ensures a progressive, non-looping journey by enforcing ID-Ascension within the county.
+        $semanticPair = Cache::remember("semantic_pair_lfi_{$business->id}_v4", 604800, function() use ($business) {
             $catIds = $business->categories->pluck('id')->toArray();
-            return Business::where('county_id', $business->county_id)
-                ->where('id', '!=', $business->id)
+            
+            // Step A: Attempt to find a "Forward" match (ID > Current ID)
+            // This prevents A <-> B loops mathematically.
+            $query = Business::where('county_id', $business->county_id)
+                ->where('id', '>', $business->id)
                 ->where('status', 'active')
                 ->whereDoesntHave('categories', function($q) use ($catIds) {
                     $q->whereIn('categories.id', $catIds);
                 })
-                ->orderBy('views_count', 'desc')
                 ->with(['categories', 'media'])
-                ->take(3)
-                ->get()
-                ->random();
+                ->orderBy('id', 'asc'); // Pick the closest next ID for a tight chain
+
+            $pair = $query->first();
+
+            // Step B: "The Reset" - If we reached the end of the chain in this county, restart from the lowest ID.
+            if (!$pair) {
+                $pair = Business::where('county_id', $business->county_id)
+                    ->where('id', '<', $business->id)
+                    ->where('status', 'active')
+                    ->whereDoesntHave('categories', function($q) use ($catIds) {
+                        $q->whereIn('categories.id', $catIds);
+                    })
+                    ->with(['categories', 'media'])
+                    ->orderBy('id', 'asc')
+                    ->first();
+            }
+
+            return $pair;
         });
 
         // 6. Return view WITHOUT similarListings (loads via AJAX now)

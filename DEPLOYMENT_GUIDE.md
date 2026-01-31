@@ -67,6 +67,7 @@ After major pushes, visit the secret URL to trigger AI regeneration and cache pu
 *   **Async Fonts**: Critical fonts preload; non-critical weights load via `media="print"` to avoid render-blocking.
 *   **GA Deferral**: Google Analytics loads only after the `window.load` event to prioritize content painting.
 *   **AJAX Similarity**: Similar listings load via AJAX with skeleton loaders after the user scrolls down.
+*   **LFI Algorithm**: Uses **Linear Feedback Itinerary (ID-Ascension)** to ensure "Explorer Ken" leads users on a progressive, non-looping journey through a county.
 
 ---
 
@@ -94,6 +95,7 @@ After major pushes, visit the secret URL to trigger AI regeneration and cache pu
 - ✅ **Admin Stabilization**: Documented and resolved the **"Vite manifest missing app.js"** error by successfully decoupling Admin JS logic from the site frontend into a dedicated `admin.js`.
 - ✅ **Functionality Restore**: Fixed non-responsive dropdowns and mobile menu toggles by correctly ordering AlpineJS and Vite script loading in the layout headers.
 - ✅ **Mobile UI**: Fixed dashboard buttons to correctly routing users between Admin and Business Owner panels.
+- ✅ **LFI Algorithm**: Implemented a mathematical **ID-Ascension** rule for "Explorer Ken" tips to eliminate recommendation loops and ensure a progressive journey.
 
 ---
 
