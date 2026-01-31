@@ -253,7 +253,7 @@
                     <div class="explorer-verdict-box" style="margin-bottom: 40px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 16px; padding: 25px; border: 1px solid #bfdbfe; position: relative; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
                         <div style="display: flex; align-items: flex-start; gap: 20px; position: relative; z-index: 1;">
                             <div class="explorer-avatar-wrapper" style="flex-shrink: 0;">
-                                <img src="{{ asset('images/ken-explorer.png') }}" alt="Explorer Ken" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #ffffff; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2); object-fit: cover; background: #fff;">
+                                <img src="{{ asset('images/ken-explorer.webp') }}" alt="Explorer Ken" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #ffffff; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2); object-fit: cover; background: #fff;">
                             </div>
                             <div style="flex: 1;">
                                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
@@ -623,7 +623,7 @@
                 {{-- EXPLORER KEN'S PERFECT PAIRING (ITINERARY HUB) --}}
                 <div class="sidebar-widget" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-top: 4px solid #3b82f6;">
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                        <img src="{{ asset('images/ken-explorer.png') }}" alt="Explorer Ken" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ebf2ff; background: #fff;">
+                        <img src="{{ asset('images/ken-explorer.webp') }}" alt="Explorer Ken" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ebf2ff; background: #fff;">
                         <div>
                             <h3 style="font-size: 0.95rem; font-weight: 800; color: #1e3a8a; margin: 0;">Explorer Ken's Tip</h3>
                             <span style="font-size: 0.7rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Perfect Pairing</span>
