@@ -176,7 +176,7 @@
     </style>
 
     <!-- 5. MAIN CSS (Vite) -->
-     @vite(['resources/css/app.css'])
+     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
      
 </head>
@@ -201,8 +201,8 @@
                     <li><a href="{{ route('listings.index') }}" class="{{ request()->is('listings*') || request()->is('listing*') ? 'active' : '' }}"><i class="fas fa-compass" style="margin-right: 5px;"></i> Explore</a></li>
                     <li><a href="{{ route('collections.index') }}" class="{{ request()->is('collections*') ? 'active' : '' }}"><i class="fas fa-layer-group" style="margin-right: 5px;"></i> Collections</a></li>
                     <li><a href="{{ route('itineraries.index') }}" class="{{ request()->is('itineraries*') ? 'active' : '' }}"><i class="fas fa-route" style="margin-right: 5px;"></i> Journeys</a></li>
-                    <li><a href="{{ route('posts.index') }}" class="{{ request()->is('blog*') ? 'active' : '' }}"><i class="fas fa-blog" style="margin-right: 5px;"></i> Blog</a></li>
-                    <li><a href="{{ route('contact.show') }}" class="{{ request()->routeIs('contact.show') ? 'active' : '' }}"><i class="fas fa-envelope" style="margin-right: 5px;"></i> Contact</a></li>
+                    <li><a href="{{ route('posts.index') }}" class="{{ request()->is('blog*') ? 'active' : '' }}"><i class="fas fa-blog" style="margin-right: 5px;"></i> Travel Blog</a></li>
+                    <li><a href="{{ route('contact.show') }}" class="{{ request()->routeIs('contact.show') ? 'active' : '' }}"><i class="fas fa-envelope" style="margin-right: 5px;"></i> Contact Us</a></li>
                 </ul>
             </nav>
 
@@ -472,7 +472,7 @@
     <!-- Main App JS (Deferred by Vite) -->
 
     
-    @vite(['resources/js/app.js'])
+    {{-- Scripts loaded in head via @vite --}}
     
     @include('partials.app-scripts')
     @stack('footer-scripts')
