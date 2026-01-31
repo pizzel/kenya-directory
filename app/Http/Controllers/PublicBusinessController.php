@@ -128,6 +128,20 @@ class PublicBusinessController extends Controller
         $businessSchema = $this->seoService->generateBusinessSchema($business);
         $contextSummary = $this->seoService->generateContextSummary($business);
 
+        // 8. Fetch Semantic Pair (Itinerary Suggestion)
+        $semanticPair = Cache::remember("semantic_pair_{$business->id}_v2", 604800, function() use ($business) {
+            $catIds = $business->categories->pluck('id')->toArray();
+            return Business::where('county_id', $business->county_id)
+                ->where('id', '!=', $business->id)
+                ->where('status', 'active')
+                ->whereDoesntHave('categories', function($q) use ($catIds) {
+                    $q->whereIn('categories.id', $catIds);
+                })
+                ->orderBy('views_count', 'desc')
+                ->with(['categories', 'media'])
+                ->first();
+        });
+
         // 6. Return view WITHOUT similarListings (loads via AJAX now)
         return view('listings.show', compact(
             'business', 
@@ -140,7 +154,8 @@ class PublicBusinessController extends Controller
             'thumbnail2Url',
             'thumbnail3Url',
             'businessSchema',
-            'contextSummary'
+            'contextSummary',
+            'semanticPair'
         ));
     }
 
