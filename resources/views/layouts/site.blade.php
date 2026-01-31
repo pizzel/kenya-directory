@@ -261,6 +261,7 @@
             <a href="{{ route('home') }}" class="mobile-nav-item">Home</a>
             <a href="{{ route('listings.index') }}" class="mobile-nav-item">Explore</a>
             <a href="{{ route('collections.index') }}" class="mobile-nav-item">Collections</a>
+            <a href="{{ route('itineraries.index') }}" class="mobile-nav-item">Journeys</a>
             <a href="{{ route('posts.index') }}" class="mobile-nav-item">Travel Blog</a>
             <a href="{{ route('contact.show') }}" class="mobile-nav-item">Contact Us</a>
         </div>
@@ -278,8 +279,10 @@
                         <button type="submit" class="mobile-btn secondary" style="border-color: #fecaca; color: #ef4444; font-size: 0.8rem;">Logout</button>
                     </form>
                 </div>
-                @if(Auth::user()->isBusinessOwner() || Auth::user()->isAdmin())
-                    <a href="{{ route('business-owner.dashboard') }}" class="mobile-btn primary" style="margin-top: 10px;">Dashboard</a>
+                @if(Auth::user()->role === 'admin')
+                    <a href="{{ route('admin.dashboard') }}" class="mobile-btn primary" style="margin-top: 10px;">Admin Panel</a>
+                @elseif(Auth::user()->role === 'business_owner')
+                    <a href="{{ route('business-owner.dashboard') }}" class="mobile-btn primary" style="margin-top: 10px;">Business Dashboard</a>
                 @endif
             @else
                 <a href="{{ route('login') }}" class="mobile-btn secondary">Log In</a>
@@ -391,7 +394,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} KenyaDirectory. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} Discover Kenya Travel Guide. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -469,7 +472,7 @@
     <!-- Main App JS (Deferred by Vite) -->
 
     
-    @vite(['resources/js/app.jsx'])
+    @vite(['resources/js/app.js'])
     
     @include('partials.app-scripts')
     @stack('footer-scripts')

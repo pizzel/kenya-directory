@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/admin.css',
                 'resources/js/app.jsx',
+                'resources/js/app.js',
                 'resources/js/admin.js'
             ],
             ssr: 'resources/js/ssr.jsx',
