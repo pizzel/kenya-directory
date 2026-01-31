@@ -89,10 +89,11 @@ After major pushes, visit the secret URL to trigger AI regeneration and cache pu
 - ✅ Fixed Swiper Loop mismatch (3.4s LCP improvement).
 
 ### **Jan 31, 2026: UI Restoration & Stabilization**
-- ✅ **Navigation**: Restored missing "Journeys" link in mobile drawer.
-- ✅ **Branding**: Unified labels to "Travel Blog" and "Contact Us".
-- ✅ **Admin Panel**: Fixed the 500/Manifest errors by creating a clean `admin.js` entry point.
-- ✅ **Mobile UI**: Fixed dashboard links to correctly distinguish between Admin and Business Owners.
+- ✅ **Navigation Fix**: Restored the missing **"Journeys"** link in the mobile drawer.
+- ✅ **Branding Consistency**: Unified labels to **"Travel Blog"** and **"Contact Us"** across all viewports to ensure professional branding.
+- ✅ **Admin Stabilization**: Documented and resolved the **"Vite manifest missing app.js"** error by successfully decoupling Admin JS logic from the site frontend into a dedicated `admin.js`.
+- ✅ **Functionality Restore**: Fixed non-responsive dropdowns and mobile menu toggles by correctly ordering AlpineJS and Vite script loading in the layout headers.
+- ✅ **Mobile UI**: Fixed dashboard buttons to correctly routing users between Admin and Business Owner panels.
 
 ---
 
