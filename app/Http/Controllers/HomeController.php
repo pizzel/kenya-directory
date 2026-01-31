@@ -413,12 +413,13 @@ class HomeController extends Controller
             ]);
         });
 
-        // 5. Businesses (for Itinerary linking)
-        $businesses = Cache::remember('search_businesses_json', $cacheDuration, function () {
+        // 5. Businesses (Popular listings prioritized for autocomplete)
+        $businesses = Cache::remember('search_businesses_json_v2', $cacheDuration, function () {
             return \App\Models\Business::where('status', 'active')
-                ->select('id', 'name', 'slug')
-                ->orderBy('name')
-                ->take(100)
+                ->select('id', 'name', 'slug', 'views_count')
+                ->orderBy('views_count', 'desc') // Most viewed first
+                ->orderBy('name', 'asc')         // Then alphabetical
+                ->take(1000)                     // Increased from 100 to cover more businesses
                 ->get()
                 ->map(fn($b) => [
                     'id' => $b->id,
