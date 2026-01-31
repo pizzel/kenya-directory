@@ -453,12 +453,11 @@
     });
     </script>
     
-    <!-- 
-        5. FONT OPTIMIZATION (Standard & Clean)
-        We preload the CSS and the main font file to ensure they load 
-        fast and in parallel, avoiding "chaining" warnings without using JS hacks.
-    -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Swiper & SimpleLightbox CSS (Required for Blade Homepage) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.0/simple-lightbox.min.css" />
 
     
     
@@ -468,6 +467,10 @@
     
     @vite(['resources/js/app.jsx'])
     
+    <!-- Swiper & SimpleLightbox JS (Required for Blade Homepage) -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.0/simple-lightbox.min.js"></script>
+
     @include('partials.app-scripts')
     @stack('footer-scripts')
 </body>
