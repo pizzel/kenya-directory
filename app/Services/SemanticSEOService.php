@@ -20,7 +20,7 @@ class SemanticSEOService
                 'predicate' => 'offers exhilarating outdoor excursions including',
                 'schema' => 'TouristAttraction'
             ],
-            'safari' => [
+            'game-drive' => [
                 'keywords' => ['Big Five', 'game drives', 'migration', 'conservation', 'bush breakfast', '4x4 vehicles', 'savannah', 'wildlife sanctuary'],
                 'predicate' => 'provides immersive wildlife experiences and conservation-focused game drives in the heart of',
                 'schema' => 'TouristAttraction'
@@ -35,7 +35,7 @@ class SemanticSEOService
                 'predicate' => 'offers premium luxury accommodation and world-class hospitality in',
                 'schema' => 'Hotel'
             ],
-            'nature' => [
+            'conservancy' => [
                 'keywords' => ['biodiversity', 'flora and fauna', 'panoramic views', 'ecosystem', 'wildlife', 'conservation', 'indigenous', 'sanctuary'],
                 'predicate' => 'protects a diverse ecosystem of indigenous flora and fauna with panoramic views of',
                 'schema' => 'TouristAttraction'
@@ -89,10 +89,16 @@ class SemanticSEOService
      */
     public function generateContextSummary(Business $business): string
     {
-        $primaryCategory = $business->categories->first();
-        if (!$primaryCategory) return strip_tags(Str::limit($business->about_us, 160));
+        $clusters = self::getSemanticClusters();
+        
+        // Find the first category that actually has a semantic cluster defined
+        $primaryCategory = $business->categories->first(function($cat) use ($clusters) {
+            return isset($clusters[$cat->slug]);
+        });
 
-        $cluster = self::getSemanticClusters()[$primaryCategory->slug] ?? null;
+        if (!$primaryCategory) return strip_tags($business->about_us ?: $business->description);
+
+        $cluster = $clusters[$primaryCategory->slug];
         $location = $business->county->name ?? 'Kenya';
         
         if ($cluster) {
@@ -108,11 +114,17 @@ class SemanticSEOService
      */
     public function generateBusinessSchema(Business $business): array
     {
-        $primaryCategory = $business->categories->first();
+        $clusters = self::getSemanticClusters();
+        
+        // Find the first category that has a specific schema mapping
+        $primaryCategory = $business->categories->first(function($cat) use ($clusters) {
+            return isset($clusters[$cat->slug]);
+        });
+
         $type = 'LocalBusiness';
         
         if ($primaryCategory) {
-            $type = self::getSemanticClusters()[$primaryCategory->slug]['schema'] ?? 'LocalBusiness';
+            $type = $clusters[$primaryCategory->slug]['schema'] ?? 'LocalBusiness';
         }
 
         $schema = [

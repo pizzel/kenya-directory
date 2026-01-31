@@ -400,14 +400,23 @@ class ReviewAnalyzerService
 					'corporate meeting',
 					'meeting hall',
 					'seminar',
-					'workshop venue'
+					'workshop venue',
+					'state-of-the-art technology', // SEO: Tech signal
+					'high-speed wifi',             // SEO: Logistic signal
+					'breakout rooms',               // SEO: Facility detail
+					'corporate events',             // SEO: Business intent
+					'accessibility'                 // SEO: Semantic detail
 				],
 				'conservancy' => [
 					'conservancy',
 					'nature reserve',
 					'private conservancy',
 					'protected area',
-					'wildlife reserve'
+					'wildlife reserve',
+					'eco-tourism',        // SEO: Sustainability entity
+					'conservation',       // SEO: Ecology signal
+					'biodiversity',       // SEO: Scientific detail
+					'indigenous flora'    // SEO: Nature detail
 				],
 				'cottage' => [
 					'cottage',
@@ -422,8 +431,12 @@ class ReviewAnalyzerService
 					'traditions'
 				],
 				'cycling' => [
-                    'cycling', 'biking', 'sky biking', 'sky-biking', // Added sky biking
-                    'bicycle ride'
+                    'cycling', 'biking', 'sky biking', 'sky-biking', 
+                    'bicycle ride',
+					'adrenaline',       // SEO: Adventure signal
+					'safety briefing',  // SEO: Safety/Expertise signal
+					'harness',          // SEO: Adventure gear
+					'thrilling'         // SEO: Experience signal
                 ],
 				'dhow-cruise' => [
 					'dhow cruise',
@@ -473,7 +486,12 @@ class ReviewAnalyzerService
 					'lions',
 					'safari',
 					'safari drive',
-					'wildlife safari'
+					'wildlife safari',
+					'migration',         // SEO: Migration entity
+					'conservation',      // SEO: Conservation signal
+					'bush breakfast',    // SEO: High-intent safari word
+					'safari sanctuary',  // SEO: Sanctuary entity
+					'4x4 vehicles'       // SEO: Logistics signal
 				],
 				'gaming-arcade' => [
 					'arcade games',
@@ -526,15 +544,17 @@ class ReviewAnalyzerService
 					'hikes',
 					'hiking',
 					'mountain climbing',
-					'climb',
-					'hike',
-					'mountain hike',
 					'nature trail',
 					'peak',
 					'summit',
 					'trail',
 					'trekking',
-					'walk in the forest'
+					'walk in the forest',
+					'trailhead',         // SEO: Geographic anchoring
+					'elevation',         // SEO: Expert detail
+					'difficulty level',  // SEO: User intent
+					'hiking guide',      // SEO: Expertise signal
+					'excursion'          // SEO: Adventure word
 				],
 				'hindu-temple' => [
 					'hindu temple',
@@ -565,7 +585,13 @@ class ReviewAnalyzerService
 					'hotel',
 					'lodging',
 					'rooms',
-					'stay'
+					'stay',
+					'hospitality',       // SEO: Core hospitality entity
+					'boutique stay',     // SEO: High-value hotel type
+					'luxury accommodation', // SEO: High-intent keyword
+					'concierge',         // SEO: Service signal
+					'wellness',          // SEO: Health entity
+					'retreat'            // SEO: Intent signal
 				],
 				'ice-skating' => [
 					'ice rink',
@@ -775,7 +801,12 @@ class ReviewAnalyzerService
 					'eatery',
 					'fine dining',
 					'lunch',
-					'restaurant'
+					'restaurant',
+					'authentic cuisine', // SEO: Quality signal
+					'local flavors',     // SEO: Cultural anchoring
+					'gastronomy',        // SEO: High-level entity
+					'culinary',          // SEO: Entity detail
+					'chef-curated'       // SEO: Expertise signal
 				],
 				'rock-climbing' => [
 					'bouldering',
@@ -1051,7 +1082,9 @@ class ReviewAnalyzerService
 					'secret',
 					'secret spot',
 					'true gem',
-					'underrated'
+					'underrated',
+					'off-the-beaten-path', // SEO: Exclusive travel term
+					'immersive experience' // SEO: Brand experience word
 				],
 				'tourist-attraction' => [
 					'tourist attraction',
