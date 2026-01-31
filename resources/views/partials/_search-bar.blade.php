@@ -156,10 +156,26 @@
             // If filter is empty, show more initial Results
             const isDefaultView = filter.length === 0;
 
+            // Businesses (NEW: Show business name suggestions)
+            if(window.SearchData.businesses) {
+                const matches = [];
+                const limit = isDefaultView ? 8 : 5; 
+                for (const b of window.SearchData.businesses) {
+                    if (b.n.toLowerCase().includes(filter)) matches.push(b);
+                    if (matches.length >= limit) break;
+                }
+
+                if (matches.length > 0) {
+                    addHeader('Businesses');
+                    matches.forEach(b => addItem('url', b.n, b.n, 'fas fa-store text-green-500', '/listings/' + b.s));
+                    hasResults = true;
+                }
+            }
+
             // Activities
             if(window.SearchData.activities) {
                 const matches = [];
-                const limit = isDefaultView ? 15 : 6; 
+                const limit = isDefaultView ? 10 : 5; 
                 for (const a of window.SearchData.activities) {
                     if (a.n.toLowerCase().includes(filter)) matches.push(a);
                     if (matches.length >= limit) break;
