@@ -101,10 +101,10 @@
                                         {{-- LCP Optimization Attributes --}}
                                         @if($index === 0) 
                                             fetchpriority="high"
-                                            
-                                            
+                                            loading="eager"
                                         @else 
                                             fetchpriority="low"
+                                            loading="lazy"
                                         @endif
                                     >
                                 </picture>
