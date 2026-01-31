@@ -36,22 +36,63 @@ rsync -avz --progress vite.config.js user@host:/path/to/site/
 
 ---
 
-## 🧠 PART 2: THE "BRAIN" - SEMANTIC SEO & CONTENT
+## 🧠 PART 2: THE "BRAIN" - SEMANTIC SEO STRATEGY
 
-**Objective:** Align site structure with Google's Semantic Model to rank as a Travel Authority.
+**Objective:** Align site structure with Google's Semantic Model (Entities & Intent) to rank as a Travel Authority.
 
 ### **1. AI-Driven SEO Services**
 *   **`ReviewAnalyzerService.php`**: Scans descriptions for entity keywords (Big Five, Luxury, etc.) to assign categories.
-*   **`Sentiment Architect`**: Injects real Google Review sentiment into "Expert Experience Narratives".
-*   **`SemanticSEOService.php`**: Generates high-quality JSON-LD Schema.
+*   **`Sentiment Architect`**: Injects real Google Review sentiment into "Expert Experience Narratives", solving the "Information Gain" problem.
+*   **`SemanticSEOService.php`**: Logic for generating high-quality **JSON-LD Schema** and "Context Summaries".
 
-### **2. Manual Sync Protocol (Scorched Earth)**
+### **2. The Semantic Framework (Authority Ranking)**
+To rank as an authority, we focus on depth and relational context:
+
+#### **A. Closing the "Entity Gap"**
+Google's Knowledge Graph looks for relationships.
+*   **Semantic Triples:** Instead of just "The Forest zipline," use "The Forest at Kereita offers the longest zipline in East Africa, providing views of the Aberdare Ranges." (Subject-Predicate-Object).
+*   **Geographic LSI:** Anchoring content with terms like *Great Rift Valley, Savannah, UNESCO World Heritage,* and *Coastal Region*.
+
+#### **B. Semantic Vocabulary & Action Clusters**
+We move from "listing-heavy" terms to high-intent semantic clusters:
+*   **Safaris:** Big Five, game drives, conservation, bush breakfast, 4x4 vehicles.
+*   **Hotels:** Hospitality, luxury accommodation, boutique stay, amenities.
+*   **Hiking:** Trailhead, elevation, difficulty level, gear, hiking guide.
+
+| Category | Add these Associated Words |
+| :--- | :--- |
+| **Adventure** | adrenaline, safety briefing, harness, outdoor activities, excursion |
+| **Dining** | authentic cuisine, local flavors, fine dining, nyama choma, ambiance |
+| **Logistics** | transport, proximity to CBD, accessible, parking available, booking |
+| **Nature** | biodiversity, flora and fauna, panoramic views, ecosystem, wildlife |
+
+#### **C. Structural Data (The Language of Google)**
+We use specific Schema.org types to tell Google exactly what an item is:
+*   **Restaurants:** `Place` + `FoodEstablishment`.
+*   **Parks/Waterfalls:** `TouristAttraction` + `Landmark`.
+*   **Guides:** `ItemPage` + `CollectionPage`.
+
+#### **D. Intent Alignment & Internal Linking**
+*   **Informational + Why:** Add a "Why" section to directory lists to provide qualitative data (scenic, thrilling, family-friendly).
+*   **Descriptive Anchors:** Replace "Discover More" with descriptive text like "Explore hiking trails in Nyeri" or "Book luxury villas in Diani."
+
+### **3. Manual Sync Protocol (Scorched Earth)**
 After major pushes, visit the secret URL to trigger AI regeneration and cache purging:
 👉 `https://discoverkenya.co.ke/deploy-seo-v2026?token=pizzel-seo-magic`
 
 ---
 
-## ⚡ PART 3: PERFORMANCE ARCHITECTURE
+## 🎨 PART 3: BRAND ENTITY & MASCOT GUIDELINES
+
+**Objective:** Build a recognizable brand entity to satisfy Google's Helpful Content classifiers.
+
+*   **Explorer Ken:** Our mascot must be visually distinct and consistent.
+*   **Styling:** Ensure Ken is consistently represented (e.g., completely blue) across custom icons and "Discover Kenya" branding.
+*   **Branding Entity:** The site branding has been standardized to **"Discover Kenya Travel Guide"** to signal expertise.
+
+---
+
+## ⚡ PART 4: PERFORMANCE ARCHITECTURE
 
 **Objective:** Maintain Mobile LCP < 2.5s and PageSpeed > 90.
 
@@ -71,7 +112,7 @@ After major pushes, visit the secret URL to trigger AI regeneration and cache pu
 
 ---
 
-## 📝 PART 4: CRITICAL DECISION LOG
+## 📝 PART 5: CRITICAL DECISION LOG
 
 | Date | Decision | Rationale |
 | :--- | :--- | :--- |
@@ -81,7 +122,7 @@ After major pushes, visit the secret URL to trigger AI regeneration and cache pu
 
 ---
 
-## 📈 PART 5: PROJECT PROGRESS LOG
+## 📈 PART 6: PROJECT PROGRESS LOG
 
 ### **Jan 2026: Mobile & Speed Foundation**
 - ✅ Implemented WebP conversion for listing cards (-60% page weight).
@@ -99,7 +140,7 @@ After major pushes, visit the secret URL to trigger AI regeneration and cache pu
 
 ---
 
-## 🔧 PART 6: TROUBLESHOOTING & MAINTENANCE
+## 🔧 PART 7: TROUBLESHOOTING & MAINTENANCE
 
 ### **Issue: Vite Manifest Error (File not found)**
 **Fix:** Run `npm run build` locally and push to GitHub. Ensure the layout file (`site.blade.php` or `admin/layouts/app.blade.php`) points to the correct entry point (`resources/js/app.js` or `resources/js/admin.js`).
