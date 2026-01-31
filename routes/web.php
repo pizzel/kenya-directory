@@ -236,7 +236,7 @@ Route::get('/deploy-seo-v2026', function(\Illuminate\Http\Request $request) {
     // ---------------------------------------------------------
     // 3. THE GRAMMAR POLICE (Fixing "Go-Kartings")
     // ---------------------------------------------------------
-    $badSuffixes = ['Kartings', 'Bikings', 'Paintballs', 'Trekkings', 'Campings', 'Hikings'];
+    $badSuffixes = ['Kartings', 'Bikings', 'Paintballs', 'Trekkings', 'Campings', 'Hikings', 'Friendlies', 'Luxuries'];
     $collections = \App\Models\DiscoveryCollection::where(function($q) use ($badSuffixes) {
         foreach($badSuffixes as $bad) {
             $q->orWhere('title', 'like', "%{$bad}%");
@@ -245,10 +245,10 @@ Route::get('/deploy-seo-v2026', function(\Illuminate\Http\Request $request) {
 
     foreach ($collections as $col) {
         $oldTitle = $col->title;
-        // Fix: "Go-Kartings" -> "Go-Karting Venues"
+        // Fix: "Go-Kartings" -> "Go-Karting Venues", "Luxuries" -> "Luxury Experiences"
         $newTitle = str_replace(
-            ['Kartings', 'Bikings', 'Paintballs', 'Trekkings', 'Campings', 'Hikings', 'Top 10 Best', 'Top 20 Best'], 
-            ['Karting Venues', 'Biking Trails', 'Paintball Fields', 'Trekking Routes', 'Camping Spots', 'Hiking Trails', '10 Best', '20 Best'], 
+            ['Kartings', 'Bikings', 'Paintballs', 'Trekkings', 'Campings', 'Hikings', 'Pocket Friendlies', 'Luxuries', 'Top 10 Best', 'Top 20 Best', 'Top 1 Best'], 
+            ['Karting Venues', 'Biking Trails', 'Paintball Fields', 'Trekking Routes', 'Camping Spots', 'Hiking Trails', 'Budget-Friendly Spots', 'Luxury Experiences', '10 Best', '20 Best', '1 Best'], 
             $oldTitle
         );
         
@@ -280,8 +280,9 @@ Route::get('/deploy-seo-v2026', function(\Illuminate\Http\Request $request) {
 
     // Force clear all Laravel caches to ensure the new content/footer appears
     try {
+        \Illuminate\Support\Facades\Cache::flush();
         \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-        $results[] = "🧹 CACHE PURGED: Configuration, Routes, and Views cleared.";
+        $results[] = "🧹 TOTAL CACHE PURGED: All session/object caches and views cleared.";
     } catch (\Exception $e) {
         $results[] = "⚠️ Cache purge failed: " . $e->getMessage();
     }

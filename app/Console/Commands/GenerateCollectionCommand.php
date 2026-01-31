@@ -250,12 +250,16 @@ class GenerateCollectionCommand extends Command
         $coreSubject = $finalMatch['name'];
         $coreSubjectLower = strtolower($coreSubject);
 
-        // 1. Handle Uncountable Nouns (Activities ending in 'ing', etc.)
+        // 1. Handle Uncountable Nouns & Specific Adjectives
         if (Str::endsWith($coreSubjectLower, 'ing') || in_array($coreSubjectLower, ['paintball', 'archery', 'golfing'])) {
             // "Go-Karting" -> "Go-Karting Venues"
             $subjectPhrase = "{$coreSubject} Venues"; 
             if ($coreSubjectLower === 'hiking') $subjectPhrase = "Hiking Trails";
             if ($coreSubjectLower === 'camping') $subjectPhrase = "Camping Spots";
+        } elseif ($coreSubjectLower === 'pocket-friendly' || $coreSubjectLower === 'affordable') {
+            $subjectPhrase = "Budget-Friendly Spots";
+        } elseif ($coreSubjectLower === 'luxury' || $coreSubjectLower === 'hidden-gem') {
+            $subjectPhrase = ($coreSubjectLower === 'luxury') ? "Luxury Experiences" : "Hidden Gems";
         } else {
             // "Hotel" -> "Hotels" (Standard plural)
             $subjectPhrase = Str::plural($coreSubject);
