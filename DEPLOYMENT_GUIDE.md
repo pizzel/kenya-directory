@@ -368,4 +368,64 @@ Once deployed, mark these as complete:
 
 ---
 
-🎉 **You're ready to deploy! Good luck!**
+## 🔄 Homepage Architecture Switch (Blade vs React)
+
+The homepage is designed to support both **Server-Side Rendered Blade** (for maximum performance/SEO) and **Client-Side React/Inertia** (for modern SPA feel).
+
+### **Current Mode:** BLADE (Optimized for Speed)
+
+To switch between modes, you only need to modify **one file**: `app/Http/Controllers/HomeController.php`.
+
+### **1. Switch to BLADE (Fastest Performance)**
+Use this mode when you need the highest possible PageSpeed score (90-100) and instant LCP.
+
+**File:** `app/Http/Controllers/HomeController.php`
+**Method:** `index()`
+
+```php
+// ... inside index() method ...
+
+// RETURN THIS FOR BLADE:
+return view('home', compact(
+    'heroSliderBusinesses',
+    'discoveryCards',
+    'popularCounties',
+    'seoKeywords',
+    'counties',
+    'searchableCategories',
+    'lcpImageUrl',
+    'lcpImageUrlMobile',
+    'firstHeroBusiness'
+));
+```
+
+**After switching:**
+```bash
+php artisan view:clear
+```
+
+### **2. Switch to REACT (SPA Experience)**
+Use this mode when you want the homepage to feel like a seamless part of the Inertia app (no reload when navigating from other pages).
+
+**File:** `app/Http/Controllers/HomeController.php`
+**Method:** `index()`
+
+```php
+// ... inside index() method ...
+
+// RETURN THIS FOR REACT:
+return Inertia::render('Home', [
+    'heroSliderBusinesses' => $heroSliderBusinesses,
+    'discoveryCards'       => $discoveryCards,
+    'popularCounties'      => $popularCounties,
+    'seoKeywords'          => $seoKeywords,
+]);
+```
+
+**Note:** The React version may have lower initial PageSpeed scores without SSR enabled (`php artisan inertia:start-ssr`).
+
+### **3. Hybrid Component Robustness**
+The shared Blade components (like `discovery-card.blade.php` and `home-counties-loop.blade.php`) have been hardened to support BOTH modes.
+- **Blade Mode:** Expects Eloquent Models.
+- **React Mode:** Expects Arrays (serialized JSON).
+*You do not need to change the views when switching modes.*
