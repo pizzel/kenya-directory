@@ -2,6 +2,7 @@ User-agent: *
 
 # 1. Block Private/System Areas
 Disallow: /admin/
+Disallow: /custom-admin/
 Disallow: /business-owner/
 Disallow: /dashboard
 Disallow: /profile
