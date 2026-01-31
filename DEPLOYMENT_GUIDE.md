@@ -108,6 +108,17 @@ After major pushes, visit the secret URL to trigger AI regeneration and cache pu
 2.  Verify the hero image is served as `.webp`.
 3.  Ensure `?debug=true` is used to see the Performance Logger badge.
 
+### **Issue: XAMPP MySQL Failed to Start (Unexpected Shutdown)**
+**Fix:** Rename corrupted log files by running the following in PowerShell:
+```powershell
+Stop-Process -Name "mysqld" -Force -ErrorAction SilentlyContinue
+cd C:\xampp\mysql\data
+Rename-Item "aria_log.00000001" "aria_log.00000001.bak" -ErrorAction SilentlyContinue
+Rename-Item "aria_log_control" "aria_log_control.bak" -ErrorAction SilentlyContinue
+Remove-Item "mysql.pid" -ErrorAction SilentlyContinue
+```
+Or run the dedicated repair scripts: `.\fix-mysql.ps1` or `.\nuclear-fix-mysql.ps1`.
+
 ### **Common Commands (Remote fallback):**
 ```bash
 php artisan optimize:clear
